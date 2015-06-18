@@ -15,6 +15,8 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.opengl.ImageIOImageData;
 
+import com.mikesantiago.javatextengine.Donger;
+
 
 
 public class WindowManager
@@ -26,7 +28,7 @@ public class WindowManager
 			"Never going anywhere!", "Not quite an RPG!", "MINECRAFT ALPHA 1.0.1_25", "Not Terraria..or Minecraft", "Not a Tower Defense Either",
 			"There will never be building!", "Joey is fat ;)", "SMBXXX!", "If you've seen these all, you have no life!", "Macs > all",
 			"At least we have splash screens..", "Scott's a hipster but Folsom's a mole rat!", "There's %s of these!", "public Enemy(boolean numberOne){ this.numberOne = true }",
-			"\"What the hell is a footcandle?!\"", "MLG Yearbook", "Not sure if obfuscated"
+			"\"What the hell is a footcandle?!\"", "MLG Yearbook", "Not sure if obfuscated", "DADDY!!!!!", Donger.donger
 		};
 	
 	private static Random ran = new Random();

@@ -112,7 +112,7 @@ public class Boot
 			else
 				SimpleGLDrawer.texturePackFolder = "placeholder";
 		}
-		//SimpleGLDrawer.texturePackFolder = "minecraft";
+		SimpleGLDrawer.texturePackFolder = "minecraft";
 		new Boot();
 	}
 }
