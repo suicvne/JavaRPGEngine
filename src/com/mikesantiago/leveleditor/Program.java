@@ -21,8 +21,10 @@ public class Program
 		
 		SetLookAndFeel();
 		
-		MainWindow win = new MainWindow();
-		win.setVisible(true);
+		//MainWindow win = new MainWindow();
+		//win.setVisible(true);
+		MDIParent p = new MDIParent();
+		p.setVisible(true);
 	}
 	
 	private static void SetLookAndFeel()

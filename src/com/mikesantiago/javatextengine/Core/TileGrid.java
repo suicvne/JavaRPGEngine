@@ -101,6 +101,40 @@ public class TileGrid
 		}
 	}
 	
+	public void WriteMapToFile(String fileToWrite)
+	{
+		//Format
+		//0:32:0:32:32
+		//Tile index, x, y, width, height
+		
+		try 
+		{			
+			FileWriter writer = new FileWriter(fileToWrite);
+			
+			System.out.println("writing file to '" + fileToWrite + "'");
+			for(int x = 0; x < map.length; x++)
+			{
+				for(int y = 0; y < map[x].length; y++)
+				{
+					Tile retrievedTile = map[x][y];
+					String formatted = String.format("%s:%s:%s:%s:%s\n", retrievedTile.getType().ordinal(), 
+							retrievedTile.getX(),
+							retrievedTile.getY(),
+							retrievedTile.getWidth(),
+							retrievedTile.getHeight());
+					writer.write(formatted);
+				}
+			}
+			writer.flush();
+			writer.close();
+		} 
+		catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void ReadFromFile()
 	{
 		//So, to get the actual position of the tile on the map, you use
