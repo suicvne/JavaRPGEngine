@@ -91,7 +91,7 @@ public class MainWindow extends JFrame
 				
 				this.setJMenuBar(mainMenuBar);
 				this.add(leftSideToolPanel, BorderLayout.EAST);
-				this.setSize(leftSideToolPanel.getWidth() + this.getWidth(), 480);
+				this.setSize(leftSideToolPanel.getWidth() + this.getWidth(), mainMenuBar.getHeight() + this.getHeight() + 80);
 	}
 	
 	private void OpenFile()
@@ -147,11 +147,13 @@ public class MainWindow extends JFrame
 					grid.Draw();
 				p.Update();
 				
-				String debugTitle = String.format("MX:%s MY:%s; TGX:%s TGY: %s; CurTile: %s", 
+				String debugTitle = String.format("MX:%s MY:%s; TGX:%s TGY: %s; CurTile: %s; %s x %s", 
 						Mouse.getX(), Mouse.getY(),
 						((int)Math.floor(Mouse.getX() / 32)), 
 						((int)Math.floor((WindowManager.SCREEN_HEIGHT - Mouse.getY() - 1) / 32)),
-						p.getCurrentTile()
+						p.getCurrentTile(),
+						GetRealWidth(),
+						GetRealHeight()
 				);
 				SetNewTitle(debugTitle);
 				
@@ -165,9 +167,24 @@ public class MainWindow extends JFrame
 				Display.update();
 				Display.sync(60);
 			}
+			
+			Display.destroy();
+			AbandonShip();
 		}
 	};
 	
+	private void AbandonShip()
+	{
+		this.dispose();
+	}
+	private int GetRealHeight()
+	{
+		return this.getHeight();
+	}
+	private int GetRealWidth()
+	{
+		return this.getWidth();
+	}
 	private void SetNewTitle(String tit)
 	{
 		this.setTitle(tit);
