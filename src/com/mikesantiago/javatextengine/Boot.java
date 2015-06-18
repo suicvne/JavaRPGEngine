@@ -126,6 +126,9 @@ public class Boot
 			{
 				String[] splitArgs = args[0].split(" ");
 				SimpleGLDrawer.texturePackFolder = args[1];
+				if(args.length > 2)
+					if(args[2].contains("-debug"))
+						WindowManager.DEBUG = true;
 			}
 			else
 				SimpleGLDrawer.texturePackFolder = "placeholder";

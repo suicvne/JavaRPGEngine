@@ -60,7 +60,7 @@ public class MainWindow extends JFrame
 				JMenuBar mainMenuBar = new JMenuBar();
 				JMenu fileMenu = new JMenu("File");
 				JMenuItem fileOpenMenu = new JMenuItem("Open");
-				JMenuItem beginRender = new JMenuItem("Start Rendering");
+				JMenuItem beginRender = new JMenuItem("New Map");
 				fileOpenMenu.addActionListener(new ActionListener(){
 					@Override
 					public void actionPerformed(ActionEvent e)
@@ -71,7 +71,8 @@ public class MainWindow extends JFrame
 				beginRender.addActionListener(new ActionListener(){
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						t.start();
+						if(!IsCurrentlyRendering)
+							t.start();
 					}
 				});
 				
