@@ -16,32 +16,36 @@ import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.lwjgl.LWJGLException;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
-import com.mikesantiago.javatextengine.Core.OSDetection;
-import com.mikesantiago.javatextengine.Core.OSDetection.OSType;
-import com.mikesantiago.javatextengine.Core.SimpleGLDrawer;
+import com.mikesantiago.javatextengine.Core.CorePlayer;
+import com.mikesantiago.javatextengine.Core.TileGrid;
+import com.mikesantiago.javatextengine.Core.WindowManager;
 
 public class MainWindow extends JFrame
 {
-	public Canvas cavas = new Canvas();
 	private JPanel leftSideToolPanel = new JPanel();
-	public static OSType CurrentOS = OSDetection.GetCurrentOSName();
+	private TileGrid grid;
+	private String curFile;
+	private boolean pleaseOpen = false;
+	
+	public boolean IsCurrentlyRendering = false;
+	public Canvas cavas = new Canvas();
 	
 	public MainWindow()
 	{
 		SetupComponents();
-		
 	}
 	
 	private void SetupComponents()
@@ -61,14 +65,13 @@ public class MainWindow extends JFrame
 					@Override
 					public void actionPerformed(ActionEvent e)
 					{
-						
+						OpenFile();
 					}
 				});
 				beginRender.addActionListener(new ActionListener(){
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						t.start();
-						
 					}
 				});
 				
@@ -89,75 +92,85 @@ public class MainWindow extends JFrame
 				this.setJMenuBar(mainMenuBar);
 				this.add(leftSideToolPanel, BorderLayout.EAST);
 				this.setSize(leftSideToolPanel.getWidth() + this.getWidth(), 480);
-				
-				
 	}
 	
 	private void OpenFile()
 	{
-		
+		if(!IsCurrentlyRendering)
+			t.start();
+		JFileChooser fc = new JFileChooser();
+        fc.setDialogTitle("Open a Text File");
+        fc.setFileFilter(new FileNameExtensionFilter("Level Files", "jte"));
+        int returnval = fc.showOpenDialog(this);
+        if(returnval == 0)
+        {
+        	curFile = fc.getSelectedFile().getAbsolutePath();
+        	pleaseOpen = true;
+        }
+        
+        
 	}
-	
-	public static void LinkLWJGLLibraries()
-	{
-		try
-		{
-			System.setProperty("java.library.path", "lib/jars");
-		}
-		catch(UnsatisfiedLinkError e)
-		{
-			System.out.println("just a standard error, no need to relink paths");
-		}
-		System.out.println("current OS is " + CurrentOS + ", trying for native libs in\n" + new File("lib/natives/" + CurrentOS).getAbsolutePath());
-		switch(CurrentOS)
-		{
-		//to be fair, i don't even know if this will work
-		//scratch that, it actually seems to work!!
-		case windows:
-			System.out.println("set property org.lwjgl.librarypath to " + new File("lib/natives/windows").getAbsolutePath());
-			System.setProperty("org.lwjgl.librarypath", new File("lib/natives/windows").getAbsolutePath());
-			break;
-		case macosx:
-			System.out.println("set property org.lwjgl.librarypath to " + new File("lib/natives/macosx").getAbsolutePath());
-			System.setProperty("org.lwjgl.librarypath", new File("lib/natives/macosx").getAbsolutePath());
-			break;
-		case linux:
-			System.out.println("set property org.lwjgl.librarypath to " + new File("lib/natives/linux").getAbsolutePath());
-			System.setProperty("org.lwjgl.librarypath", new File("lib/natives/linux").getAbsolutePath());
-			break;
-		case other:
-			JOptionPane.showMessageDialog(null, 
-					"Java Text Engine is not currently supported on your OS: " + System.getProperty("os.name"), 
-					"Operating System Not Supported", 
-					JOptionPane.ERROR_MESSAGE);
-			break;
-		}
-	}
-	
 	
 	Thread t = new Thread("Run Display Thread")
 	{
 		public void run()
 		{
+			IsCurrentlyRendering = true;
 			try
 			{
 				cavas.setSize(WindowManager.SCREEN_WIDTH, WindowManager.SCREEN_HEIGHT);
-		         Display.setParent(cavas);                           
-		         WindowManager.BeginWindow();
+		         Display.setParent(cavas); 
+		         Display.create();
+		         //WindowManager.BeginWindow();
 			}
 			catch(LWJGLException e)
 			{
 				e.printStackTrace();
 			}
 			
+			//Initiates OpenGL 
+			glMatrixMode(GL_PROJECTION);
+			glLoadIdentity();
+			glOrtho(0, WindowManager.SCREEN_WIDTH, WindowManager.SCREEN_HEIGHT, 0, 1, -1); //camera
+			glMatrixMode(GL_MODELVIEW);
+			glEnable(GL_TEXTURE_2D);
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			//
+			
+			grid = new TileGrid();
+			CorePlayer p = new CorePlayer(grid);
+			
 			while(!Display.isCloseRequested())
 			{
-				SimpleGLDrawer.DrawRectangle(40, 40, 32, 32);
+				if(grid != null)
+					grid.Draw();
+				p.Update();
 				
+				String debugTitle = String.format("MX:%s MY:%s; TGX:%s TGY: %s; CurTile: %s", 
+						Mouse.getX(), Mouse.getY(),
+						((int)Math.floor(Mouse.getX() / 32)), 
+						((int)Math.floor((WindowManager.SCREEN_HEIGHT - Mouse.getY() - 1) / 32)),
+						p.getCurrentTile()
+				);
+				SetNewTitle(debugTitle);
+				
+				if(pleaseOpen)
+				{
+					grid = new TileGrid();
+					grid.ReadFromFile(curFile);
+					p = new CorePlayer(grid);
+					pleaseOpen = false;
+				}
 				Display.update();
 				Display.sync(60);
 			}
 		}
 	};
+	
+	private void SetNewTitle(String tit)
+	{
+		this.setTitle(tit);
+	}
 	
 }

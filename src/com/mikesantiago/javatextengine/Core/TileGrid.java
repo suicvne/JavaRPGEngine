@@ -156,4 +156,59 @@ public class TileGrid
 		}
 	}
 	
+	public void ReadFromFile(String toReadFrom)
+	{
+		//So, to get the actual position of the tile on the map, you use
+		//x*32
+		//So in theory, to get the tiled positioning, you would use
+		//x/32
+		try
+		{
+			FileReader reader = new FileReader(toReadFrom);
+			BufferedReader br = new BufferedReader(reader);
+			
+			String curLine = br.readLine();
+			int curLineNumb = 0;
+			
+			System.out.println("reading file from '" + new File(toReadFrom).getAbsolutePath() + "'");
+			
+			while(curLine != null)
+			{
+				//System.out.println("parsing line " + curLineNumb);
+				//1:0.0:0.0:32.0:32.0
+				//it's in floats so we get to have fun w potential decimals
+				String[] parts = curLine.split(":");
+				//x, y, w, h, type
+				Tile temp = new Tile(Float.parseFloat(parts[1]), 
+						Float.parseFloat(parts[2]), 
+						Float.parseFloat(parts[3]), 
+						Float.parseFloat(parts[4]), 
+						TileType.values()[Integer.parseInt(parts[0])]);
+				int tiledX, tiledY;
+				
+				if(temp.getX() != 0)
+					tiledX = (int) (temp.getX() / 32);
+				else
+					tiledX = 0;
+				
+				if(temp.getY() != 0)
+					tiledY = (int) (temp.getY() / 32);
+				else
+					tiledY = 0;
+				
+				map[tiledX][tiledY] = temp;
+				
+				//
+				curLine = br.readLine();
+				curLineNumb++;
+			}
+			br.close();
+			reader.close();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 }
