@@ -3,20 +3,81 @@ package com.mikesantiago.leveleditor;
 import java.io.File;
 
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import com.mikesantiago.javatextengine.Core.OSDetection;
 import com.mikesantiago.javatextengine.Core.OSDetection.OSType;
 
 public class Program 
 {
-
 	public static OSType CurrentOS = OSDetection.GetCurrentOSName();
+	public static String systemLookAndFeel;
+	
 	
 	public static void main(String[] args)
 	{
 		LinkLWJGLLibraries();
+		
+		SetLookAndFeel();
+		
 		MainWindow win = new MainWindow();
 		win.setVisible(true);
+	}
+	
+	private static void SetLookAndFeel()
+	{
+		switch(CurrentOS)
+		{
+		case windows:
+			try
+            {
+                systemLookAndFeel = UIManager.getSystemLookAndFeelClassName();
+            }
+            catch(Exception ex)
+            {
+                systemLookAndFeel = UIManager.getCrossPlatformLookAndFeelClassName();
+            }
+			break;
+		case macosx:
+			try
+            {
+                systemLookAndFeel = UIManager.getSystemLookAndFeelClassName();
+            }
+            catch(Exception ex)
+            {
+                systemLookAndFeel = UIManager.getCrossPlatformLookAndFeelClassName();
+            }
+			break;
+		case linux:
+			try
+            {
+                systemLookAndFeel = "com.sun.java.swing.plaf.gtk.GTKLookAndFeel";
+            }
+            catch(Exception ex)
+            {
+                systemLookAndFeel = UIManager.getCrossPlatformLookAndFeelClassName();
+            }
+			break;
+		case other:
+			JOptionPane.showMessageDialog(null, "Not supported", "Not supported on your current operaing system.", JOptionPane.ERROR_MESSAGE);
+			break;
+		}
+		try {
+			UIManager.setLookAndFeel(systemLookAndFeel);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static void LinkLWJGLLibraries()

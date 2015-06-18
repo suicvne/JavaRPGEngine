@@ -99,7 +99,7 @@ public class MainWindow extends JFrame
 		if(!IsCurrentlyRendering)
 			t.start();
 		JFileChooser fc = new JFileChooser();
-        fc.setDialogTitle("Open a Text File");
+        fc.setDialogTitle("Open Level File");
         fc.setFileFilter(new FileNameExtensionFilter("Level Files", "jte"));
         int returnval = fc.showOpenDialog(this);
         if(returnval == 0)
