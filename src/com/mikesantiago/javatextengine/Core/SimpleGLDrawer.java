@@ -116,7 +116,7 @@ public class SimpleGLDrawer
 		} 
 		catch (Exception e) 
 		{
-			System.out.println("couldn't find texture named " + name + ", loading null texture");
+			//System.out.println("couldn't find texture named " + name + ", loading null texture");
 				InputStream in = ResourceLoader.getResourceAsStream("res/dead-texture.png");
 				try {
 					tex = TextureLoader.getTexture("PNG", in);

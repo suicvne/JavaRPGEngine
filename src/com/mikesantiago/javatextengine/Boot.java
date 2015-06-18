@@ -48,7 +48,7 @@ public class Boot
 		}
 		
 		Enemy e = new Enemy(grid.GetTile(3, 3), 32, 32, 3, 3, 2f, SimpleGLDrawer.QuickLoad("placeholder-enemy"));
-		WaveManager wave = new WaveManager(30, e);
+		WaveManager wave = new WaveManager(30, e, 20);
 		CorePlayer p = new CorePlayer(grid);
 		
 		while(!Display.isCloseRequested())
@@ -65,12 +65,13 @@ public class Boot
 			//update screen, 60fps
 			if(WindowManager.DEBUG)
 			{
-				String debugTitle = String.format("%s enemy(ies); MX:%s MY:%s; TGX:%s TGY: %s", 
+				String debugTitle = String.format("%s enemy(ies); MX:%s MY:%s; TGX:%s TGY: %s; CurTile: %s", 
 						wave.EnemyCount(),
 						Mouse.getX(), Mouse.getY(),
 						((int)Math.floor(Mouse.getX() / 32)), 
-						((int)Math.floor((WindowManager.SCREEN_HEIGHT - Mouse.getY() - 1) / 32))
-						);
+						((int)Math.floor((WindowManager.SCREEN_HEIGHT - Mouse.getY() - 1) / 32)),
+						p.getCurrentTile()
+				);
 				Display.setTitle(debugTitle);
 			}
 			Display.update();
