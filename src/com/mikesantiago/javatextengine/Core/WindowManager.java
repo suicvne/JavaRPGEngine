@@ -22,6 +22,7 @@ import com.mikesantiago.javatextengine.Donger;
 public class WindowManager
 {
 	public static final int SCREEN_WIDTH = 640, SCREEN_HEIGHT = 480;
+	public static boolean DEBUG = false;
 	
 	private static String[] splash = 
 		{
@@ -40,7 +41,8 @@ public class WindowManager
 		try
 		{
 			Display.setDisplayMode(new DisplayMode(640, 480));
-			Display.setTitle("Java RPG Engine - v0.0.0.1 - " + String.format(splash[ran.nextInt(splash.length)], splash.length));
+			if(!DEBUG)
+				Display.setTitle("Java RPG Engine - v0.0.0.1 - " + String.format(splash[ran.nextInt(splash.length)], splash.length));
 			/*DisplayMode displayMode = null;
 	        DisplayMode[] modes = Display.getAvailableDisplayModes();
 

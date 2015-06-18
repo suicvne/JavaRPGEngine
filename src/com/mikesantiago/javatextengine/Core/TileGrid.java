@@ -51,7 +51,7 @@ public class TileGrid
 		{
 			for(int y = 0; y < map[x].length; y++)
 			{
-				int gen = ran.nextInt(3);
+				int gen = ran.nextInt(2);
 				
 				map[x][y] = new Tile(x * 32, y * 32, 32, 32, TileType.values()[gen]);
 			}

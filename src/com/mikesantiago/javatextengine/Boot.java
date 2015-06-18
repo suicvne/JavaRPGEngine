@@ -6,14 +6,18 @@ import java.io.File;
 
 import javax.swing.JOptionPane;
 
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
 import com.mikesantiago.javatextengine.Core.Clock;
+import com.mikesantiago.javatextengine.Core.CorePlayer;
 import com.mikesantiago.javatextengine.Core.Enemy;
 import com.mikesantiago.javatextengine.Core.OSDetection;
+import com.mikesantiago.javatextengine.Core.WindowManager;
 import com.mikesantiago.javatextengine.Core.OSDetection.OSType;
 import com.mikesantiago.javatextengine.Core.SimpleGLDrawer;
 import com.mikesantiago.javatextengine.Core.TileGrid;
+import com.mikesantiago.javatextengine.Core.WaveManager;
 
 /**
  * Handles the main screen booting, etc
@@ -44,18 +48,31 @@ public class Boot
 		}
 		
 		Enemy e = new Enemy(grid.GetTile(3, 3), 32, 32, 3, 3, 2f, SimpleGLDrawer.QuickLoad("placeholder-enemy"));
+		WaveManager wave = new WaveManager(30, e);
+		CorePlayer p = new CorePlayer(grid);
 		
 		while(!Display.isCloseRequested())
 		{
 			//Update here
 			Clock.Update();
-			e.Update();
 			
-			//Draw here
-			//0,0 128,128
+			
+			//Draw here but update waves here??
 			grid.Draw();
-			e.Draw();
+			wave.Update();
+			p.Update();
+			
 			//update screen, 60fps
+			if(WindowManager.DEBUG)
+			{
+				String debugTitle = String.format("%s enemy(ies); MX:%s MY:%s; TGX:%s TGY: %s", 
+						wave.EnemyCount(),
+						Mouse.getX(), Mouse.getY(),
+						((int)Math.floor(Mouse.getX() / 32)), 
+						((int)Math.floor((WindowManager.SCREEN_HEIGHT - Mouse.getY() - 1) / 32))
+						);
+				Display.setTitle(debugTitle);
+			}
 			Display.update();
 			Display.sync(60);
 		}
@@ -111,8 +128,16 @@ public class Boot
 			}
 			else
 				SimpleGLDrawer.texturePackFolder = "placeholder";
+			
+			if(args.length > 0)
+			{
+				if(args[0].contains("-debug"))
+					WindowManager.DEBUG = true;
+				else if(args[1].contains("-debug"))
+					WindowManager.DEBUG = true;
+			}
 		}
-		SimpleGLDrawer.texturePackFolder = "minecraft";
+		//SimpleGLDrawer.texturePackFolder = "minecraft";
 		new Boot();
 	}
 }
