@@ -8,16 +8,15 @@ import javax.swing.JOptionPane;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
+import org.newdawn.slick.opengl.Texture;
 
 import com.mikesantiago.javatextengine.Core.Clock;
 import com.mikesantiago.javatextengine.Core.CorePlayer;
-import com.mikesantiago.javatextengine.Core.Enemy;
 import com.mikesantiago.javatextengine.Core.OSDetection;
-import com.mikesantiago.javatextengine.Core.WindowManager;
 import com.mikesantiago.javatextengine.Core.OSDetection.OSType;
 import com.mikesantiago.javatextengine.Core.SimpleGLDrawer;
 import com.mikesantiago.javatextengine.Core.TileGrid;
-import com.mikesantiago.javatextengine.Core.WaveManager;
+import com.mikesantiago.javatextengine.Core.WindowManager;
 
 /**
  * Handles the main screen booting, etc
@@ -49,16 +48,24 @@ public class Boot
 		
 		//Enemy e = new Enemy(grid.GetTile(3, 3), 32, 32, 3, 3, 50f, SimpleGLDrawer.QuickLoad("placeholder-enemy"), grid);
 		//WaveManager wave = new WaveManager(30, e, 20);
-		CorePlayer p = new CorePlayer(grid);
+		Texture[] pFrames = new Texture[]{
+			SimpleGLDrawer.QuickLoad("player-up"), 
+			SimpleGLDrawer.QuickLoad("player-down"),
+			SimpleGLDrawer.QuickLoad("player-left"),
+			SimpleGLDrawer.QuickLoad("player-right")
+		};
+		CorePlayer p = new CorePlayer(grid, pFrames, (3*32), (3*32));
 		
 		while(!Display.isCloseRequested())
 		{
 			//Update here
 			Clock.Update();
+			p.Update();
 			//e.Update();
 			
 			//Draw here but update waves here??
 			grid.Draw();
+			p.Draw();
 			//e.Draw();
 			
 			//wave.Update();

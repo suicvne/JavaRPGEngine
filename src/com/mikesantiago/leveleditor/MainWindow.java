@@ -140,7 +140,7 @@ public class MainWindow extends JFrame
 			//
 			
 			grid = new TileGrid();
-			CorePlayer p = new CorePlayer(grid);
+			CorePlayerEditor p = new CorePlayerEditor(grid);
 			
 			while(!Display.isCloseRequested())
 			{
@@ -162,7 +162,7 @@ public class MainWindow extends JFrame
 				{
 					grid = new TileGrid();
 					grid.ReadFromFile(curFile);
-					p = new CorePlayer(grid);
+					p = new CorePlayerEditor(grid);
 					pleaseOpen = false;
 				}
 				Display.update();

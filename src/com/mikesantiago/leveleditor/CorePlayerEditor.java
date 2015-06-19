@@ -35,6 +35,13 @@ public class CorePlayerEditor
 				(int)Math.floor((WindowManager.SCREEN_HEIGHT - Mouse.getY() - 1) / 32), 
 				type);
 	}
+	public void SetTile(TileType type, boolean floorTile)
+	{
+		grid.SetTile((int)Math.floor(Mouse.getX() / 32), 
+				(int)Math.floor((WindowManager.SCREEN_HEIGHT - Mouse.getY() - 1) / 32), 
+				type, floorTile);
+	}
+	
 	
 	public TileType getCurrentTile()
 	{
@@ -46,11 +53,26 @@ public class CorePlayerEditor
 		if(Mouse.isButtonDown(0))
 			SetTile(placeableTypes[CurTile]);
 		else if(Mouse.isButtonDown(1))
-			SetTile(TileType.Grass);
+			SetTile(placeableTypes[CurTile], true);
 		
+		int dWheel = Mouse.getDWheel();
+	    if (dWheel < 0) 
+	    {
+	    	if(CurTile <= 0)
+				CurTile = placeableTypes.length - 1;
+			else
+				CurTile--;
+	    } 
+	    else if (dWheel > 0)
+	    {
+	    	if(CurTile >= placeableTypes.length - 1)
+				CurTile = 0;
+			else
+				CurTile++;
+        }
+		/*
 		while(Keyboard.next())
 		{
-			
 			if(Keyboard.getEventKey() == Keyboard.KEY_HOME && Keyboard.getEventKeyState())
 			{
 				if(CurTile >= placeableTypes.length - 1)
@@ -66,6 +88,6 @@ public class CorePlayerEditor
 					CurTile--;
 			}
 		}
-		
+		*/
 	}
 }
