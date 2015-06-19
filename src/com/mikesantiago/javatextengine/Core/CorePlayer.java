@@ -4,19 +4,17 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.opengl.Texture;
 
-public class CorePlayer 
+public class CorePlayer extends Entity
 {
 	private TileGrid grid;
 	private TileType[] placeableTypes;
 	private int CurTile;
-	private float x, y;
 	private boolean floorTiles = false;
-	private Texture[] playerFrames;
-	private PlayerDirection curDirection = PlayerDirection.Up;
 	
-	public CorePlayer(TileGrid grid, Texture[] playerFrames, float x, float y)
+	public CorePlayer(TileGrid grid, float x, float y, Texture[] playerFrames, int ID)
 	{
-		this.grid = grid;
+		super(grid, x, y, playerFrames, ID);
+		
 		this.placeableTypes = new TileType[TileType.values().length];
 		for(int i = 0; i < TileType.values().length; i++)
 		{
@@ -24,10 +22,7 @@ public class CorePlayer
 		}
 		this.CurTile = 0;
 		
-		this.playerFrames = playerFrames;
-		
-		this.x = x;
-		this.y = y;
+		this.setID(-1); //override entity ID to make sure that player is ALWAYS -1. 
 	}
 	
 	public void SetTile()
@@ -52,19 +47,19 @@ public class CorePlayer
 	
 	public void Draw()
 	{
-		switch(curDirection)
+		switch(this.getCurDirection())
 		{
 		case Up:
-			SimpleGLDrawer.DrawRectangle(playerFrames[0], x, y, 32, 32);
+			SimpleGLDrawer.DrawRectangle(this.getEntityFrames()[0], this.getX(), this.getY(), 32, 32);
 			break;
 		case Down:
-			SimpleGLDrawer.DrawRectangle(playerFrames[1], x, y, 32, 32);
+			SimpleGLDrawer.DrawRectangle(this.getEntityFrames()[1], this.getX(), this.getY(), 32, 32);
 			break;
 		case Left:
-			SimpleGLDrawer.DrawRectangle(playerFrames[2], x, y, 32, 32);
+			SimpleGLDrawer.DrawRectangle(this.getEntityFrames()[2], this.getX(), this.getY(), 32, 32);
 			break;
 		case Right:
-			SimpleGLDrawer.DrawRectangle(playerFrames[3], x, y, 32, 32);
+			SimpleGLDrawer.DrawRectangle(this.getEntityFrames()[3], this.getX(), this.getY(), 32, 32);
 			break;
 		}
 	}
@@ -103,38 +98,38 @@ public class CorePlayer
 		{
 			if(Keyboard.getEventKey() == Keyboard.KEY_UP && Keyboard.getEventKeyState())
 			{
-				curDirection = PlayerDirection.Up;
-				Tile above = grid.GetTile((int)Math.floor(this.x / 32), (int)Math.floor((this.y / 32) - 1));
+				this.setCurDirection(EntityDirection.Up);
+				Tile above = grid.GetTile((int)Math.floor(this.getX() / 32), (int)Math.floor((this.getY() / 32) - 1));
 				if(above.getIsFloorTile() || above.getType().canPass)
 				{
-					y = above.getY();
+					this.setY(above.getY());
 				}
 			}
 			else if(Keyboard.getEventKey() == Keyboard.KEY_LEFT && Keyboard.getEventKeyState())
 			{
-				curDirection = PlayerDirection.Left;
-				Tile left = grid.GetTile((int)Math.floor(this.x / 32) - 1, (int)Math.floor((this.y / 32)));
+				this.setCurDirection(EntityDirection.Left);
+				Tile left = grid.GetTile((int)Math.floor(this.getX() / 32) - 1, (int)Math.floor((this.getY() / 32)));
 				if(left.getIsFloorTile() || left.getType().canPass)
 				{
-					x = left.getX();
+					this.setX(left.getX());
 				}
 			}
 			else if(Keyboard.getEventKey() == Keyboard.KEY_DOWN && Keyboard.getEventKeyState())
 			{
-				curDirection = PlayerDirection.Down;
-				Tile down = grid.GetTile((int)Math.floor(this.x / 32), (int)Math.floor((this.y / 32) + 1));
+				this.setCurDirection(EntityDirection.Down);
+				Tile down = grid.GetTile((int)Math.floor(this.getX() / 32), (int)Math.floor((this.getY() / 32) + 1));
 				if(down.getIsFloorTile() || down.getType().canPass)
 				{
-					y = down.getY();
+					this.setY(down.getY());
 				}
 			}
 			else if(Keyboard.getEventKey() == Keyboard.KEY_RIGHT && Keyboard.getEventKeyState())
 			{
-				curDirection = PlayerDirection.Right;
-				Tile right = grid.GetTile((int)Math.floor(this.x / 32) + 1, (int)Math.floor((this.y / 32)));
+				this.setCurDirection(EntityDirection.Right);
+				Tile right = grid.GetTile((int)Math.floor(this.getX() / 32) + 1, (int)Math.floor((this.getY() / 32)));
 				if(right.getIsFloorTile() || right.getType().canPass)
 				{
-					x = right.getX();
+					this.setX(right.getX());
 				}
 			}
 			
@@ -168,11 +163,11 @@ public class CorePlayer
 		this.y = y;
 	}
 
-	public PlayerDirection getCurDirection() {
+	public EntityDirection getCurDirection() {
 		return curDirection;
 	}
 
-	public void setCurDirection(PlayerDirection curDirection) {
+	public void setCurDirection(EntityDirection curDirection) {
 		this.curDirection = curDirection;
 	}
 	

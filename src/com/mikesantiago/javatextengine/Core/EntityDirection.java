@@ -1,6 +1,6 @@
 package com.mikesantiago.javatextengine.Core;
 
-public enum PlayerDirection 
+public enum EntityDirection 
 {
 	Up, Left, Down, Right
 }
