@@ -128,7 +128,7 @@ public class Enemy
 			t = grid.GetTile(nextX, nextY);
 			
 			
-			if(startTile.getType().canPass != t.getType().canPass)
+			if(startTile.getType() != t.getType())
 			{
 				found = true;
 				counter -= 1;
@@ -150,22 +150,22 @@ public class Enemy
 		Tile d = grid.GetTile((int)startTile.getTiledX(), (int)startTile.getTiledY() + 1); //down
 		Tile r = grid.GetTile((int)startTile.getTiledX() + 1, (int)startTile.getTiledY()); //right
 		
-		if(u.getType().canPass)
+		if(startTile.getType() == u.getType() && directions[1] != 1)
 		{
 			dir[0] = 0;
 			dir[1] = -1;
 		}
-		else if(l.getType().canPass)
+		else if(startTile.getType() == l.getType() && directions[0] != 1)
 		{
 			dir[0] = -1;
 			dir[1] = 0;
 		}
-		else if(d.getType().canPass)
+		else if(startTile.getType() == d.getType() && directions[1] != -1)
 		{
 			dir[0] = 0;
 			dir[1] = 1;
 		}
-		else if(r.getType().canPass)
+		else if(startTile.getType() == r.getType() && directions[0] != -1)
 		{
 			dir[0] = 1;
 			dir[1] = 0;
