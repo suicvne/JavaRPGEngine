@@ -42,6 +42,7 @@ public class SimpleGLDrawer
 	{
 		texture.bind();
 		glTranslatef(x, y, 0);
+		glColor4f(1f, 1f, 1f, 1f);//dead white
 		glBegin(GL_QUADS);
 		glTexCoord2f(0, 0); //Top left
 		glVertex2f(0, 0);
@@ -67,27 +68,34 @@ public class SimpleGLDrawer
 	{	
 		texture.bind();
 		glTranslatef(x, y, 0);
+		glColor4f(.5f, .5f, .5f, .5f);
 		
-		glBegin(GL_QUADS);		
-		glTexCoord2f(0, 0); //Top left
-		glVertex2f(0, 0);
-		//glColor4f(0.5f, 0.5f, 0.5f, 0.5f);
+		glBegin(GL_QUADS);
+		{
+			glTexCoord2f(0, 0); //Top left
+			glVertex2f(0, 0);
 		
-		glTexCoord2f(1, 0); //Top right
-		glVertex2f(width, 0);
+			glTexCoord2f(1, 0); //Top right
+			glVertex2f(width, 0);
 		
-		glTexCoord2f(1, 1); //Bottom left
-		glVertex2f(width, height);
+			glTexCoord2f(1, 1); //Bottom left
+			glVertex2f(width, height);
 		
-		glTexCoord2f(0, 1); //Bottom right
-		glVertex2f(0, height);
+			glTexCoord2f(0, 1); //Bottom right
+			glVertex2f(0, height);
+		}
 		//
+		glEnd();
+		
+		glBegin(GL_QUADS);
 		glDisable(GL_TEXTURE_2D);
-		glClearColor(0.0f, 1.0f, 0.0f, 0.125f);
-	    glClearDepth(1);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glColor4f(0.5f, 0.5f, 0.5f, 0.5f);
+		glColor4f(.5f, .5f, .5f, .5f); //a slightly darker shade
+		glVertex2f(0, 0); //top left
+		glVertex2f(1, 0); //top right
+		glVertex2f(0, 1); //bottom left
+		glVertex2f(1, 1); //bottom right
 		glEnable(GL_TEXTURE_2D);
+		glEnd();
 		//
 		glEnd();
 		glLoadIdentity();
