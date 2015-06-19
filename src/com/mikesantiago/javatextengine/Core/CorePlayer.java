@@ -99,28 +99,49 @@ public class CorePlayer
 		
 		Keyboard.enableRepeatEvents(true);
 		
-		if(Keyboard.isKeyDown(Keyboard.KEY_UP))
+		while(Keyboard.next())
 		{
-			curDirection = PlayerDirection.Up;
-			this.y -= 1;
+			if(Keyboard.getEventKey() == Keyboard.KEY_UP && Keyboard.getEventKeyState())
+			{
+				curDirection = PlayerDirection.Up;
+				Tile above = grid.GetTile((int)Math.floor(this.x / 32), (int)Math.floor((this.y / 32) - 1));
+				if(above.getIsFloorTile() || above.getType().canPass)
+				{
+					y = above.getY();
+				}
+			}
+			else if(Keyboard.getEventKey() == Keyboard.KEY_LEFT && Keyboard.getEventKeyState())
+			{
+				curDirection = PlayerDirection.Left;
+				Tile left = grid.GetTile((int)Math.floor(this.x / 32) - 1, (int)Math.floor((this.y / 32)));
+				if(left.getIsFloorTile() || left.getType().canPass)
+				{
+					x = left.getX();
+				}
+			}
+			else if(Keyboard.getEventKey() == Keyboard.KEY_DOWN && Keyboard.getEventKeyState())
+			{
+				curDirection = PlayerDirection.Down;
+				Tile down = grid.GetTile((int)Math.floor(this.x / 32), (int)Math.floor((this.y / 32) + 1));
+				if(down.getIsFloorTile() || down.getType().canPass)
+				{
+					y = down.getY();
+				}
+			}
+			else if(Keyboard.getEventKey() == Keyboard.KEY_RIGHT && Keyboard.getEventKeyState())
+			{
+				curDirection = PlayerDirection.Right;
+				Tile right = grid.GetTile((int)Math.floor(this.x / 32) + 1, (int)Math.floor((this.y / 32)));
+				if(right.getIsFloorTile() || right.getType().canPass)
+				{
+					x = right.getX();
+				}
+			}
+			
 		}
-		else if(Keyboard.isKeyDown(Keyboard.KEY_DOWN))
-		{
-			curDirection = PlayerDirection.Down;
-			this.y += 1;
-		}
-		else if(Keyboard.isKeyDown(Keyboard.KEY_LEFT))
-		{
-			curDirection = PlayerDirection.Left;
-			this.x -= 1;
-		}
-		else if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT))
-		{
-			curDirection = PlayerDirection.Right;
-			this.x += 1;
-		}
-		
 	}
+	
+	
 	
 	public void checkMouseWheel() {
 		    int dWheel = Mouse.getDWheel();
