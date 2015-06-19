@@ -8,6 +8,7 @@ public class CorePlayer
 	private TileGrid grid;
 	private TileType[] placeableTypes;
 	private int CurTile;
+	private boolean floorTiles = false;
 	
 	public CorePlayer(TileGrid grid)
 	{
@@ -32,6 +33,13 @@ public class CorePlayer
 				(int)Math.floor((WindowManager.SCREEN_HEIGHT - Mouse.getY() - 1) / 32), 
 				type);
 	}
+	public void SetTile(TileType type, boolean isFloor)
+	{
+		grid.SetTile((int)Math.floor(Mouse.getX() / 32), 
+				(int)Math.floor((WindowManager.SCREEN_HEIGHT - Mouse.getY() - 1) / 32), 
+				type,
+				isFloor);
+	}
 	
 	public TileType getCurrentTile()
 	{
@@ -42,8 +50,8 @@ public class CorePlayer
 	{
 		if(Mouse.isButtonDown(0))
 			SetTile(placeableTypes[CurTile]);
-		else if(Mouse.isButtonDown(1))
-			SetTile(TileType.Grass);
+		else if(Mouse.isButtonDown(1)) //sets a non-floor (foreground)
+			SetTile(placeableTypes[CurTile], true); //set a floor instead
 		
 		while(Keyboard.next())
 		{

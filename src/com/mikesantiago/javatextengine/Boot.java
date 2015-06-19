@@ -47,7 +47,7 @@ public class Boot
 			grid.ReadFromFile();
 		}
 		
-		Enemy e = new Enemy(grid.GetTile(3, 3), 32, 32, 3, 3, 50f, SimpleGLDrawer.QuickLoad("placeholder-enemy"), grid);
+		//Enemy e = new Enemy(grid.GetTile(3, 3), 32, 32, 3, 3, 50f, SimpleGLDrawer.QuickLoad("placeholder-enemy"), grid);
 		//WaveManager wave = new WaveManager(30, e, 20);
 		CorePlayer p = new CorePlayer(grid);
 		
@@ -55,11 +55,11 @@ public class Boot
 		{
 			//Update here
 			Clock.Update();
-			e.Update();
+			//e.Update();
 			
 			//Draw here but update waves here??
 			grid.Draw();
-			e.Draw();
+			//e.Draw();
 			
 			//wave.Update();
 			p.Update();

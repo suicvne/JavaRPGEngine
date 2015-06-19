@@ -8,8 +8,9 @@ public class Tile
 	private TileType type;
 	private Texture texture;
 	private int tiledX, tiledY;
+	private boolean isFloorTile = false;
 	
-	public Tile(float x, float y, float width, float height, TileType type)
+	public Tile(float x, float y, float width, float height, TileType type, boolean isFloorTile)
 	{
 		this.x = x;
 		this.y = y;
@@ -19,12 +20,21 @@ public class Tile
 		this.height = height;
 		this.type = type;
 		this.texture = SimpleGLDrawer.QuickLoad(type.textureName);
+		this.isFloorTile = isFloorTile;
 	}
 
 	/**Getters and setters
 	 * 
 	 */
 	//
+	public boolean getIsFloorTile()
+	{
+		return isFloorTile;
+	}
+	public void setIsFloorTile(boolean setFloor)
+	{
+		isFloorTile = setFloor;
+	}
 	public float getX() {
 		return x;
 	}

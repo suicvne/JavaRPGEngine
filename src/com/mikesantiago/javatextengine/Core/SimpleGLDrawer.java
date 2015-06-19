@@ -1,15 +1,7 @@
 package com.mikesantiago.javatextengine.Core;
 
-import static org.lwjgl.opengl.GL11.GL_LINES;
-import static org.lwjgl.opengl.GL11.GL_QUADS;
-import static org.lwjgl.opengl.GL11.glBegin;
-import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glLoadIdentity;
-import static org.lwjgl.opengl.GL11.glTexCoord2f;
-import static org.lwjgl.opengl.GL11.glTranslatef;
-import static org.lwjgl.opengl.GL11.glVertex2f;
+import static org.lwjgl.opengl.GL11.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -63,21 +55,56 @@ public class SimpleGLDrawer
 		glLoadIdentity();
 	}
 	
-	public static void DrawTile(Tile tile)
-	{
-		tile.getTexture().bind();
-		glTranslatef(tile.getX(), tile.getY(), 0);
-		glBegin(GL_QUADS);
+	/**
+	 * Useful for darker tiles, like "background" (floor) tiles
+	 * @param texture
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 */
+	public static void DrawRectangleDarkened(Texture texture, float x, float y, float width, float height)
+	{	
+		texture.bind();
+		glTranslatef(x, y, 0);
+		
+		glBegin(GL_QUADS);		
 		glTexCoord2f(0, 0); //Top left
 		glVertex2f(0, 0);
+		//glColor4f(0.5f, 0.5f, 0.5f, 0.5f);
+		
 		glTexCoord2f(1, 0); //Top right
-		glVertex2f(tile.getWidth(), 0);
+		glVertex2f(width, 0);
+		
 		glTexCoord2f(1, 1); //Bottom left
-		glVertex2f(tile.getWidth(), tile.getHeight());
+		glVertex2f(width, height);
+		
 		glTexCoord2f(0, 1); //Bottom right
-		glVertex2f(0, tile.getHeight());
+		glVertex2f(0, height);
+		//
+		glDisable(GL_TEXTURE_2D);
+		glClearColor(0.0f, 1.0f, 0.0f, 0.125f);
+	    glClearDepth(1);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glColor4f(0.5f, 0.5f, 0.5f, 0.5f);
+		glEnable(GL_TEXTURE_2D);
+		//
 		glEnd();
 		glLoadIdentity();
+	}
+	
+	public static void DrawTile(Tile tile)
+	{
+		DrawRectangle(tile.getTexture(), tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
+	}
+	
+	public static void DrawFloorTile(Tile tile)
+	{
+		DrawRectangleDarkened(tile.getTexture(),
+				tile.getX(),
+				tile.getY(),
+				tile.getWidth(),
+				tile.getHeight());
 	}
 	
 	public static void DrawLine(Point startPoint, Point endPoint)

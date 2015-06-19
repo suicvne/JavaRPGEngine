@@ -18,7 +18,7 @@ public class TileGrid
 		{
 			for(int y = 0; y < map[x].length; y++)
 			{
-				map[x][y] = new Tile(x * 32, y *32, 32, 32, TileType.Stone);
+				map[x][y] = new Tile(x * 32, y *32, 32, 32, TileType.Stone, false);
 			}
 		}
 	}
@@ -29,14 +29,24 @@ public class TileGrid
 		{
 			for(int y = 0; y < map[x].length; y++)
 			{
-				SimpleGLDrawer.DrawTile(map[x][y]);
+				if(map[x][y].getIsFloorTile())
+				{
+					SimpleGLDrawer.DrawFloorTile(map[x][y]);
+				}
+				else
+					SimpleGLDrawer.DrawTile(map[x][y]);
 			}
 		}
 	}
 	
 	public void SetTile(int x, int y, TileType replaceWith)
 	{
-		map[x][y] = new Tile(x * 32, y * 32, 32, 32, replaceWith);
+		map[x][y] = new Tile(x * 32, y * 32, 32, 32, replaceWith, false);
+	}
+	
+	public void SetTile(int x, int y, TileType replaceWith, boolean isFloorTile)
+	{
+		map[x][y] = new Tile(x * 32, y * 32, 32, 32, replaceWith, isFloorTile);
 	}
 	
 	public Tile GetTile(int tiledX, int tiledY)
@@ -53,7 +63,7 @@ public class TileGrid
 			{
 				int gen = ran.nextInt(2);
 				
-				map[x][y] = new Tile(x * 32, y * 32, 32, 32, TileType.values()[gen]);
+				map[x][y] = new Tile(x * 32, y * 32, 32, 32, TileType.values()[gen], false);
 			}
 		}
 	}
@@ -83,11 +93,13 @@ public class TileGrid
 				for(int y = 0; y < map[x].length; y++)
 				{
 					Tile retrievedTile = map[x][y];
-					String formatted = String.format("%s:%s:%s:%s:%s\n", retrievedTile.getType().ordinal(), 
+					int isFloor = (retrievedTile.getIsFloorTile()) ? 1 : 0;
+					String formatted = String.format("%s:%s:%s:%s:%s:%s\n", retrievedTile.getType().ordinal(), 
 							retrievedTile.getX(),
 							retrievedTile.getY(),
 							retrievedTile.getWidth(),
-							retrievedTile.getHeight());
+							retrievedTile.getHeight(),
+							isFloor);
 					writer.write(formatted);
 				}
 			}
@@ -117,11 +129,13 @@ public class TileGrid
 				for(int y = 0; y < map[x].length; y++)
 				{
 					Tile retrievedTile = map[x][y];
-					String formatted = String.format("%s:%s:%s:%s:%s\n", retrievedTile.getType().ordinal(), 
+					int isFloor = (retrievedTile.getIsFloorTile()) ? 1 : 0;
+					String formatted = String.format("%s:%s:%s:%s:%s:%s\n", retrievedTile.getType().ordinal(), 
 							retrievedTile.getX(),
 							retrievedTile.getY(),
 							retrievedTile.getWidth(),
-							retrievedTile.getHeight());
+							retrievedTile.getHeight(),
+							isFloor);
 					writer.write(formatted);
 				}
 			}
@@ -158,11 +172,32 @@ public class TileGrid
 				//it's in floats so we get to have fun w potential decimals
 				String[] parts = curLine.split(":");
 				//x, y, w, h, type
-				Tile temp = new Tile(Float.parseFloat(parts[1]), 
-						Float.parseFloat(parts[2]), 
-						Float.parseFloat(parts[3]), 
-						Float.parseFloat(parts[4]), 
-						TileType.values()[Integer.parseInt(parts[0])]);
+				
+				Tile temp;
+				if(parts.length == 5)
+				{
+					temp = new Tile(Float.parseFloat(parts[1]), 
+							Float.parseFloat(parts[2]), 
+							Float.parseFloat(parts[3]), 
+							Float.parseFloat(parts[4]), 
+							TileType.values()[Integer.parseInt(parts[0])], false);
+				}
+				else
+				{
+					boolean isFloor;
+					int isFloorInt = Integer.parseInt(parts[5]);
+					if(isFloorInt == 0)
+						isFloor = false;
+					else
+						isFloor = true;
+					
+					temp = new Tile(Float.parseFloat(parts[1]), 
+							Float.parseFloat(parts[2]), 
+							Float.parseFloat(parts[3]), 
+							Float.parseFloat(parts[4]), 
+							TileType.values()[Integer.parseInt(parts[0])], isFloor);
+				}
+				
 				int tiledX, tiledY;
 				
 				if(temp.getX() != 0)
@@ -213,11 +248,30 @@ public class TileGrid
 				//it's in floats so we get to have fun w potential decimals
 				String[] parts = curLine.split(":");
 				//x, y, w, h, type
-				Tile temp = new Tile(Float.parseFloat(parts[1]), 
-						Float.parseFloat(parts[2]), 
-						Float.parseFloat(parts[3]), 
-						Float.parseFloat(parts[4]), 
-						TileType.values()[Integer.parseInt(parts[0])]);
+				Tile temp;
+				if(parts.length == 5)
+				{
+					temp = new Tile(Float.parseFloat(parts[1]), 
+							Float.parseFloat(parts[2]), 
+							Float.parseFloat(parts[3]), 
+							Float.parseFloat(parts[4]), 
+							TileType.values()[Integer.parseInt(parts[0])], false);
+				}
+				else
+				{
+					boolean isFloor;
+					int isFloorInt = Integer.parseInt(parts[5]);
+					if(isFloorInt == 0)
+						isFloor = false;
+					else
+						isFloor = true;
+					
+					temp = new Tile(Float.parseFloat(parts[1]), 
+							Float.parseFloat(parts[2]), 
+							Float.parseFloat(parts[3]), 
+							Float.parseFloat(parts[4]), 
+							TileType.values()[Integer.parseInt(parts[0])], isFloor);
+				}
 				int tiledX, tiledY;
 				
 				if(temp.getX() != 0)
