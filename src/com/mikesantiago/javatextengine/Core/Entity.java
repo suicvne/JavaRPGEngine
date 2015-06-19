@@ -16,7 +16,17 @@ public class Entity
 		this.grid = grid;
 		this.x = x;
 		this.y = y;
-		this.entityFrames = frames;
+		if(frames == null)
+		{
+			Texture[] noFrames = new Texture[]{
+					SimpleGLDrawer.QuickLoad("dead-texture"), 
+					SimpleGLDrawer.QuickLoad("dead-texture"),
+					SimpleGLDrawer.QuickLoad("dead-texture"),
+					SimpleGLDrawer.QuickLoad("dead-texture")	
+			};
+		}
+		else
+			this.entityFrames = frames;
 		this.ID = ID;
 	}
 	

@@ -88,14 +88,14 @@ public class TileGrid
 		{
 			
 			File saveDir = new File("save");
-			File saveFile = new File("save/test.jte");
+			File saveFile = new File("save/entities.jte");
 			
 			if(saveDir.exists() != true)
 				saveDir.mkdir();
 			if(saveFile.exists() != true)
 				saveFile.createNewFile();
 			
-			FileWriter writer = new FileWriter("save/test.jte");
+			FileWriter writer = new FileWriter("save/entities.jte");
 			
 			System.out.println("writing file to '" + saveFile.getAbsolutePath() + "'");
 			for(int x = 0; x < map.length; x++)
@@ -167,13 +167,13 @@ public class TileGrid
 		//x/32
 		try
 		{
-			FileReader reader = new FileReader("save/test.jte");
+			FileReader reader = new FileReader("save/tiles.jte");
 			BufferedReader br = new BufferedReader(reader);
 			
 			String curLine = br.readLine();
 			int curLineNumb = 0;
 			
-			System.out.println("reading file from '" + new File("save/test.jte").getAbsolutePath() + "'");
+			System.out.println("reading file from '" + new File("save/tiles.jte").getAbsolutePath() + "'");
 			
 			while(curLine != null)
 			{
@@ -192,7 +192,7 @@ public class TileGrid
 							Float.parseFloat(parts[4]), 
 							TileType.values()[Integer.parseInt(parts[0])], false);
 				}
-				else
+				else if(parts.length == 6)
 				{
 					boolean isFloor;
 					int isFloorInt = Integer.parseInt(parts[5]);
@@ -207,6 +207,8 @@ public class TileGrid
 							Float.parseFloat(parts[4]), 
 							TileType.values()[Integer.parseInt(parts[0])], isFloor);
 				}
+				else
+					temp = new Tile(0, 0, 32, 32, TileType.Air, false);
 				
 				int tiledX, tiledY;
 				

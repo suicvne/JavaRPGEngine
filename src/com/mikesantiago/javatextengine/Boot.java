@@ -12,6 +12,7 @@ import org.newdawn.slick.opengl.Texture;
 
 import com.mikesantiago.javatextengine.Core.Clock;
 import com.mikesantiago.javatextengine.Core.CorePlayer;
+import com.mikesantiago.javatextengine.Core.EntityGrid;
 import com.mikesantiago.javatextengine.Core.OSDetection;
 import com.mikesantiago.javatextengine.Core.OSDetection.OSType;
 import com.mikesantiago.javatextengine.Core.SimpleGLDrawer;
@@ -34,10 +35,13 @@ public class Boot
 		BeginWindow();
 		
 		
-		File tempSave = new File("save/test.jte");
-		TileGrid grid = new TileGrid();
+		File tempTilesSave = new File("save/tiles.jte");
+		File tempEntitiesSave = new File("save/entities.jte");
 		
-		if(tempSave.exists() == false)
+		TileGrid grid = new TileGrid();
+		EntityGrid eGrid = new EntityGrid(grid);
+		
+		if(tempTilesSave.exists() == false)
 		{
 			grid.GenerateRandomMap();
 		}
@@ -45,31 +49,27 @@ public class Boot
 		{
 			grid.ReadFromFile();
 		}
+		if(tempEntitiesSave.exists())
+		{
+			eGrid.ReadFromFile();
+		}
+		else
+			eGrid.AddEntity(new CorePlayer(grid, (3*32), (3*32), null, -1), 3, 3);
 		
-		//Enemy e = new Enemy(grid.GetTile(3, 3), 32, 32, 3, 3, 50f, SimpleGLDrawer.QuickLoad("placeholder-enemy"), grid);
-		//WaveManager wave = new WaveManager(30, e, 20);
-		Texture[] pFrames = new Texture[]{
-			SimpleGLDrawer.QuickLoad("player-up"), 
-			SimpleGLDrawer.QuickLoad("player-down"),
-			SimpleGLDrawer.QuickLoad("player-left"),
-			SimpleGLDrawer.QuickLoad("player-right")
-		};
-		CorePlayer p = new CorePlayer(grid, (3*32), (3*32), pFrames, -1);
+		CorePlayer p = new CorePlayer(grid, eGrid.ReturnPlayerStub().getX(), eGrid.ReturnPlayerStub().getY(), null, -1);
+		
 		
 		while(!Display.isCloseRequested())
 		{
 			//Update here
 			Clock.Update();
+			eGrid.Update();
 			p.Update();
-			//e.Update();
 			
 			//Draw here but update waves here??
 			grid.Draw();
+			eGrid.Draw();
 			p.Draw();
-			//e.Draw();
-			
-			//wave.Update();
-			p.Update();
 			
 			//update screen, 60fps
 			if(WindowManager.DEBUG)
@@ -88,6 +88,7 @@ public class Boot
 		}
 		
 		grid.WriteMapToFile();
+		eGrid.WriteToFile();
 	}
 	
 	/**

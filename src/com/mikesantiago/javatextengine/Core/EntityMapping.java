@@ -2,5 +2,14 @@ package com.mikesantiago.javatextengine.Core;
 
 public class EntityMapping
 {
-	//TODO: Write an entity map double array to contain entities spawning at their proper x/y coordinates
+	public static Entity GetEntityFromID(int ID, float x, float y, TileGrid grid)
+	{
+		switch(ID)
+		{
+		case -1:
+			return new CorePlayer(grid, x, y, null, ID);
+		}
+		
+		return null;
+	}
 }

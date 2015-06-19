@@ -22,6 +22,13 @@ public class CorePlayer extends Entity
 		this.CurTile = 0;
 		
 		this.setID(-1); //override entity ID to make sure that player is ALWAYS -1. 
+		
+		this.setEntityFrames(new Texture[]{
+				SimpleGLDrawer.QuickLoad("player-up"), 
+				SimpleGLDrawer.QuickLoad("player-down"),
+				SimpleGLDrawer.QuickLoad("player-left"),
+				SimpleGLDrawer.QuickLoad("player-right")
+		}); //Overriding frames
 	}
 	
 	public void SetTile(TileType type)

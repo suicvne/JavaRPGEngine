@@ -146,8 +146,16 @@ public class SimpleGLDrawer
 		Texture tex = null;
 		try 
 		{
-			InputStream in = ResourceLoader.getResourceAsStream("res/" + texturePackFolder + "/" + name + ".png");
-			tex = TextureLoader.getTexture("PNG", in);
+			if(name.equals("dead-texture"))
+			{
+				InputStream in = ResourceLoader.getResourceAsStream("res/dead-texture.png");
+				tex = TextureLoader.getTexture("PNG", in);
+			}
+			else
+			{
+				InputStream in = ResourceLoader.getResourceAsStream("res/" + texturePackFolder + "/" + name + ".png");
+				tex = TextureLoader.getTexture("PNG", in);
+			}
 		} 
 		catch (Exception e) 
 		{
