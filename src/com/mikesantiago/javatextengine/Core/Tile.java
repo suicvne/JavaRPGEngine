@@ -7,11 +7,14 @@ public class Tile
 	private float x, y, width, height;
 	private TileType type;
 	private Texture texture;
+	private int tiledX, tiledY;
 	
 	public Tile(float x, float y, float width, float height, TileType type)
 	{
 		this.x = x;
 		this.y = y;
+		this.tiledX = (int)x / 32;
+		this.tiledY = (int)y / 32;
 		this.width = width;
 		this.height = height;
 		this.type = type;
@@ -25,7 +28,17 @@ public class Tile
 	public float getX() {
 		return x;
 	}
-
+	
+	public int getTiledX()
+	{
+		return tiledX;
+	}
+	
+	public int getTiledY()
+	{
+		return tiledY;
+	}
+	
 	public void setX(float x) {
 		this.x = x;
 	}

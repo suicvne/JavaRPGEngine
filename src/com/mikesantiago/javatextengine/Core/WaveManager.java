@@ -61,7 +61,8 @@ public class WaveManager
 				enemyType.getCurrentHealth(), 
 				enemyType.getMaximumHealth(), 
 				enemyType.getSpeed(), 
-				enemyType.getTexture()));
+				enemyType.getTexture(),
+				enemyType.getGrid()));
 		
 	}
 }

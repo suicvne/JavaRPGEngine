@@ -39,9 +39,9 @@ public class TileGrid
 		map[x][y] = new Tile(x * 32, y * 32, 32, 32, replaceWith);
 	}
 	
-	public Tile GetTile(int x, int y)
+	public Tile GetTile(int tiledX, int tiledY)
 	{
-		return map[x][y];
+		return map[tiledX][tiledY];
 	}
 	
 	public void GenerateRandomMap()
