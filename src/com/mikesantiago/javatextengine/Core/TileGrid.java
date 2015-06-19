@@ -23,6 +23,16 @@ public class TileGrid
 		}
 	}
 	
+	public int getMaxX()
+	{
+		return map.length;
+	}
+	
+	public int getMaxY()
+	{
+		return map[1].length;
+	}
+	
 	public void Draw()
 	{
 		for(int x = 0; x < map.length; x++)

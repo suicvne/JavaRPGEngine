@@ -54,7 +54,7 @@ public class Boot
 			SimpleGLDrawer.QuickLoad("player-left"),
 			SimpleGLDrawer.QuickLoad("player-right")
 		};
-		CorePlayer p = new CorePlayer(grid, pFrames, (3*32), (3*32));
+		CorePlayer p = new CorePlayer(grid, (3*32), (3*32), pFrames, -1);
 		
 		while(!Display.isCloseRequested())
 		{

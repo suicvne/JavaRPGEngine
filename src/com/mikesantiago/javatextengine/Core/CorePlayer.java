@@ -6,7 +6,6 @@ import org.newdawn.slick.opengl.Texture;
 
 public class CorePlayer extends Entity
 {
-	private TileGrid grid;
 	private TileType[] placeableTypes;
 	private int CurTile;
 	private boolean floorTiles = false;
@@ -25,26 +24,21 @@ public class CorePlayer extends Entity
 		this.setID(-1); //override entity ID to make sure that player is ALWAYS -1. 
 	}
 	
-	public void SetTile()
-	{
-		grid.SetTile((int)Math.floor(Mouse.getX() / 32), 
-				(int)Math.floor((WindowManager.SCREEN_HEIGHT - Mouse.getY() - 1) / 32), 
-				TileType.Water);
-	}
 	public void SetTile(TileType type)
 	{
-		grid.SetTile((int)Math.floor(Mouse.getX() / 32), 
+		this.getGrid().SetTile((int)Math.floor(Mouse.getX() / 32), 
 				(int)Math.floor((WindowManager.SCREEN_HEIGHT - Mouse.getY() - 1) / 32), 
 				type);
 	}
 	public void SetTile(TileType type, boolean isFloor)
 	{
-		grid.SetTile((int)Math.floor(Mouse.getX() / 32), 
+		this.getGrid().SetTile((int)Math.floor(Mouse.getX() / 32), 
 				(int)Math.floor((WindowManager.SCREEN_HEIGHT - Mouse.getY() - 1) / 32), 
 				type,
 				isFloor);
 	}
 	
+	//@Override
 	public void Draw()
 	{
 		switch(this.getCurDirection())
@@ -69,6 +63,7 @@ public class CorePlayer extends Entity
 		return TileType.values()[CurTile];
 	}
 	
+	//@Override
 	public void Update()
 	{
 		if(Mouse.isButtonDown(0))
@@ -99,44 +94,75 @@ public class CorePlayer extends Entity
 			if(Keyboard.getEventKey() == Keyboard.KEY_UP && Keyboard.getEventKeyState())
 			{
 				this.setCurDirection(EntityDirection.Up);
-				Tile above = grid.GetTile((int)Math.floor(this.getX() / 32), (int)Math.floor((this.getY() / 32) - 1));
-				if(above.getIsFloorTile() || above.getType().canPass)
+				
+				int nextX = (int)Math.floor(this.getX() / 32);
+				int nextY = (int)Math.floor((this.getY() / 32) - 1);
+				
+				if(nextY != -1)
 				{
-					this.setY(above.getY());
+					Tile above = this.getGrid().GetTile(nextX, nextY);
+				
+					if(above.getIsFloorTile() || above.getType().canPass)
+					{
+						this.setY(above.getY());
+					}
 				}
 			}
 			else if(Keyboard.getEventKey() == Keyboard.KEY_LEFT && Keyboard.getEventKeyState())
 			{
 				this.setCurDirection(EntityDirection.Left);
-				Tile left = grid.GetTile((int)Math.floor(this.getX() / 32) - 1, (int)Math.floor((this.getY() / 32)));
-				if(left.getIsFloorTile() || left.getType().canPass)
+				
+				int nextX = (int)Math.floor((this.getX() / 32) - 1);
+				int nextY = (int)Math.floor((this.getY() / 32));
+				
+				if(nextX != -1)
 				{
-					this.setX(left.getX());
+					Tile left = this.getGrid().GetTile(nextX, nextY);
+					if(left.getIsFloorTile() || left.getType().canPass)
+					{
+						this.setX(left.getX());
+					}
 				}
 			}
 			else if(Keyboard.getEventKey() == Keyboard.KEY_DOWN && Keyboard.getEventKeyState())
 			{
 				this.setCurDirection(EntityDirection.Down);
-				Tile down = grid.GetTile((int)Math.floor(this.getX() / 32), (int)Math.floor((this.getY() / 32) + 1));
-				if(down.getIsFloorTile() || down.getType().canPass)
+				
+				int nextX = (int)Math.floor((this.getX() / 32));
+				int nextY = (int)Math.floor((this.getY() / 32) + 1);
+				
+				if(nextY >= this.getGrid().getMaxY())
+				{/*no movement*/	}
+				else
 				{
-					this.setY(down.getY());
+					Tile down = this.getGrid().GetTile(nextX, nextY);
+					if(down.getIsFloorTile() || down.getType().canPass)
+					{
+						this.setY(down.getY());
+					}
 				}
 			}
 			else if(Keyboard.getEventKey() == Keyboard.KEY_RIGHT && Keyboard.getEventKeyState())
 			{
 				this.setCurDirection(EntityDirection.Right);
-				Tile right = grid.GetTile((int)Math.floor(this.getX() / 32) + 1, (int)Math.floor((this.getY() / 32)));
-				if(right.getIsFloorTile() || right.getType().canPass)
+				
+				int nextX = (int)Math.floor((this.getX() / 32) + 1);
+				int nextY = (int)Math.floor((this.getY() / 32));
+				
+				if(nextX >= this.getGrid().getMaxX())
+				{}
+				else
 				{
-					this.setX(right.getX());
+					Tile right = this.getGrid().GetTile(nextX, nextY);
+					if(right.getIsFloorTile() || right.getType().canPass)
+					{
+						this.setX(right.getX());
+					}
 				}
 			}
 			
 		}
 	}
-	
-	
 	
 	public void checkMouseWheel() {
 		    int dWheel = Mouse.getDWheel();
@@ -146,30 +172,5 @@ public class CorePlayer extends Entity
 		        System.out.println("UP");
 	        }
 	}
-	
-	public float getX() {
-		return x;
-	}
-
-	public void setX(float x) {
-		this.x = x;
-	}
-
-	public float getY() {
-		return y;
-	}
-
-	public void setY(float y) {
-		this.y = y;
-	}
-
-	public EntityDirection getCurDirection() {
-		return curDirection;
-	}
-
-	public void setCurDirection(EntityDirection curDirection) {
-		this.curDirection = curDirection;
-	}
-	
 	
 }
