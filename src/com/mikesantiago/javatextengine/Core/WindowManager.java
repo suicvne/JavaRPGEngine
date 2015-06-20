@@ -1,6 +1,16 @@
 package com.mikesantiago.javatextengine.Core;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_BLEND;
+import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
+import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_PROJECTION;
+import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.glBlendFunc;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glLoadIdentity;
+import static org.lwjgl.opengl.GL11.glMatrixMode;
+import static org.lwjgl.opengl.GL11.glOrtho;
 
 import java.io.File;
 import java.io.IOException;
@@ -86,5 +96,15 @@ public class WindowManager
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		try {
+			Display.setIcon(new ByteBuffer[] {
+			        new ImageIOImageData().imageToByteBuffer(ImageIO.read(new File("res/placeholder/placeholder-icon.png")), false, false, null)
+			        });
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("icon not found!!!");
+		}
+		
 	}
 }

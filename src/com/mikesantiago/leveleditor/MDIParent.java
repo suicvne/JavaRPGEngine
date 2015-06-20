@@ -3,6 +3,7 @@ package com.mikesantiago.leveleditor;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -82,6 +83,8 @@ public class MDIParent extends JFrame
 		onlyPreviewWindow.setLocation(new Point(centerWidth, centerHeight));
 		onlyPreviewWindow.setVisible(true);
 		//onlyPreviewWindow.StartRender();
+		
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage(("res/placeholder/placeholder-icon.png")));
 	}
 	
 	private void SaveFile()

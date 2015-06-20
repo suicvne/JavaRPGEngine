@@ -89,6 +89,9 @@ public class Boot
 		
 		grid.WriteMapToFile();
 		eGrid.WriteToFile();
+		
+		System.out.println("\n\nend game\n");
+		Display.destroy();
 	}
 	
 	/**
