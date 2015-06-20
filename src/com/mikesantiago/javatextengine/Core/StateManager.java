@@ -39,6 +39,16 @@ public class StateManager
 		}
 	}
 	
+	public static void SetGameState(GameState newState)
+	{
+		curGameState = newState;
+	}
+	
+	public static GameState ReturnCurrentGameState()
+	{
+		return curGameState;
+	}
+	
 	public static void WriteMapsToFile()
 	{
 		game.WriteMapToFile();

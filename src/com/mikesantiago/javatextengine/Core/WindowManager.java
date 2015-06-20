@@ -66,6 +66,7 @@ public class WindowManager
 	               }
 	         }
 			Display.setDisplayModeAndFullscreen(displayMode);*/ //Disabled because it's broken on Linux, I use Linux :P
+			Display.setVSyncEnabled(true);
 			Display.create();
 			
 		}
