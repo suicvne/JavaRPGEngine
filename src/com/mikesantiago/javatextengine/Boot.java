@@ -8,15 +8,13 @@ import javax.swing.JOptionPane;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.opengl.Texture;
 
 import com.mikesantiago.javatextengine.Core.Clock;
-import com.mikesantiago.javatextengine.Core.CorePlayer;
-import com.mikesantiago.javatextengine.Core.EntityGrid;
 import com.mikesantiago.javatextengine.Core.OSDetection;
 import com.mikesantiago.javatextengine.Core.OSDetection.OSType;
 import com.mikesantiago.javatextengine.Core.SimpleGLDrawer;
-import com.mikesantiago.javatextengine.Core.TileGrid;
+import com.mikesantiago.javatextengine.Core.StateManager;
+import com.mikesantiago.javatextengine.Core.StateManager.GameState;
 import com.mikesantiago.javatextengine.Core.WindowManager;
 
 /**
@@ -34,52 +32,24 @@ public class Boot
 	{
 		BeginWindow();
 		
-		
-		File tempTilesSave = new File("save/tiles.jte");
-		File tempEntitiesSave = new File("save/entities.jte");
-		
-		TileGrid grid = new TileGrid();
-		EntityGrid eGrid = new EntityGrid(grid);
-		
-		if(tempTilesSave.exists() == false)
-		{
-			grid.GenerateRandomMap();
-		}
-		else
-		{
-			grid.ReadFromFile();
-		}
-		if(tempEntitiesSave.exists())
-		{
-			eGrid.ReadFromFile();
-		}
-		else
-			eGrid.AddEntity(new CorePlayer(grid, (3*32), (3*32), null, -1), 3, 3);
-		
-		CorePlayer p = new CorePlayer(grid, eGrid.ReturnPlayerStub().getX(), eGrid.ReturnPlayerStub().getY(), null, -1);
-		
+		//Game game = new Game();
 		
 		while(!Display.isCloseRequested())
 		{
 			//Update here
 			Clock.Update();
-			eGrid.Update();
-			p.Update();
 			
-			//Draw here but update waves here??
-			grid.Draw();
-			eGrid.Draw();
-			p.Draw();
+			StateManager.Update();
 			
 			//update screen, 60fps
 			if(WindowManager.DEBUG)
 			{
-				String debugTitle = String.format("%s enemy(ies); MX:%s MY:%s; TGX:%s TGY: %s; CurTile: %s", 
+				String debugTitle = String.format("%s enemy(ies); MX:%s MY:%s; TGX:%s TGY: %s", 
 						1,
 						Mouse.getX(), Mouse.getY(),
 						((int)Math.floor(Mouse.getX() / 32)), 
-						((int)Math.floor((WindowManager.SCREEN_HEIGHT - Mouse.getY() - 1) / 32)),
-						p.getCurrentTile()
+						((int)Math.floor((WindowManager.SCREEN_HEIGHT - Mouse.getY() - 1) / 32))
+						/*StateManager.GetCorePlayer().getCurrentTile()*/
 				);
 				Display.setTitle(debugTitle);
 			}
@@ -87,8 +57,8 @@ public class Boot
 			Display.sync(60);
 		}
 		
-		grid.WriteMapToFile();
-		eGrid.WriteToFile();
+		if(StateManager.curGameState == GameState.GAME)
+			StateManager.WriteMapsToFile();
 		
 		System.out.println("\n\nend game\n");
 		Display.destroy();

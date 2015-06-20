@@ -2,9 +2,9 @@ package com.mikesantiago.javatextengine.Core;
 
 public enum TileType {
 	
-	Grass("placeholder-grass", true), Stone("placeholder-stone", false),
-	Water("placeholder-water", true), SpecialTile("placeholder-icon", false),
-	Air("placeholder-blank", true);
+	Grass("tile-grass", true), Stone("tile-stone", false),
+	Water("tile-water", true), SpecialTile("placeholder-icon", false),
+	Air("tile-air", true);
 	
 	
 	String textureName;

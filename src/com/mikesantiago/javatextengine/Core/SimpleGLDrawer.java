@@ -2,12 +2,15 @@ package com.mikesantiago.javatextengine.Core;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.io.IOException;
 import java.io.InputStream;
 
 import javax.swing.JOptionPane;
 
 import org.lwjgl.opengl.Display;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
@@ -16,6 +19,7 @@ public class SimpleGLDrawer
 {
 	
 	public static String texturePackFolder = "placeholder";
+	private static Font mainGameFont = new Font("Comic Sans MS", Font.PLAIN, 24);
 	
 	public SimpleGLDrawer()
 	{
@@ -54,6 +58,13 @@ public class SimpleGLDrawer
 		glVertex2f(0, height);
 		glEnd();
 		glLoadIdentity();
+	}
+	
+	public static void DrawText(String text, float x, float y, int size, org.newdawn.slick.Color awtColor)
+	{
+		//org.newdawn.slick.Color.white.bind();
+		TrueTypeFont draw = new TrueTypeFont(mainGameFont, false);
+		draw.drawString(x, y, text, awtColor);
 	}
 	
 	/**

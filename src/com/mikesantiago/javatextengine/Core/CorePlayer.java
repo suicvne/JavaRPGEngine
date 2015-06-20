@@ -24,11 +24,11 @@ public class CorePlayer extends Entity
 		this.setID(-1); //override entity ID to make sure that player is ALWAYS -1. 
 		
 		this.setEntityFrames(new Texture[]{
-				SimpleGLDrawer.QuickLoad("player-up"), 
-				SimpleGLDrawer.QuickLoad("player-down"),
-				SimpleGLDrawer.QuickLoad("player-left"),
-				SimpleGLDrawer.QuickLoad("player-right")
-		}); //Overriding frames
+				SimpleGLDrawer.QuickLoad("player/player-up-0"), 
+				SimpleGLDrawer.QuickLoad("player/player-down-0"),
+				SimpleGLDrawer.QuickLoad("player/player-left-0"),
+				SimpleGLDrawer.QuickLoad("player/player-right-0")
+		}); //Overriding frames, probably going to take out the texture constructor
 	}
 	
 	public void SetTile(TileType type)
