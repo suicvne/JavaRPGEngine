@@ -83,8 +83,8 @@ public class MainProgram
 	{
 		try
 		{
-			System.out.println("setting java.library.path to " + new File("lib/jars").getAbsolutePath());
-			System.setProperty("java.library.path", new File("lib/jars").getAbsolutePath());
+			System.out.println("setting java.library.path to " + new File("lib/natives/" + CurrentOS).getAbsolutePath());
+			System.setProperty("java.library.path", new File("lib/natives/" + CurrentOS).getAbsolutePath());
 		}
 		catch(UnsatisfiedLinkError e)
 		{

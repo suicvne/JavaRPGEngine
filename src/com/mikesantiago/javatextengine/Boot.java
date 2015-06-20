@@ -17,6 +17,7 @@ import com.mikesantiago.javatextengine.Core.SimpleGLDrawer;
 import com.mikesantiago.javatextengine.Core.StateManager;
 import com.mikesantiago.javatextengine.Core.StateManager.GameState;
 import com.mikesantiago.javatextengine.Core.WindowManager;
+import com.mikesantiago.launcher.MainProgram;
 
 /**
  * Handles the main screen booting, etc
@@ -116,38 +117,7 @@ public class Boot
 	 */
 	public static void main(String[] args)
 	{
-		try
-		{
-			System.setProperty("java.library.path", "lib/jars");
-		}
-		catch(UnsatisfiedLinkError e)
-		{
-			System.out.println("just a standard error, no need to relink paths");
-		}
-		System.out.println("current OS is " + CurrentOS + ", trying for native libs in\n" + new File("lib/natives/" + CurrentOS).getAbsolutePath());
-		switch(CurrentOS)
-		{
-		//to be fair, i don't even know if this will work
-		//scratch that, it actually seems to work!!
-		case windows:
-			System.out.println("set property org.lwjgl.librarypath to " + new File("lib/natives/windows").getAbsolutePath());
-			System.setProperty("org.lwjgl.librarypath", new File("lib/natives/windows").getAbsolutePath());
-			break;
-		case macosx:
-			System.out.println("set property org.lwjgl.librarypath to " + new File("lib/natives/macosx").getAbsolutePath());
-			System.setProperty("org.lwjgl.librarypath", new File("lib/natives/macosx").getAbsolutePath());
-			break;
-		case linux:
-			System.out.println("set property org.lwjgl.librarypath to " + new File("lib/natives/linux").getAbsolutePath());
-			System.setProperty("org.lwjgl.librarypath", new File("lib/natives/linux").getAbsolutePath());
-			break;
-		case other:
-			JOptionPane.showMessageDialog(null, 
-					"Java Text Engine is not currently supported on your OS: " + System.getProperty("os.name"), 
-					"Operating System Not Supported", 
-					JOptionPane.ERROR_MESSAGE);
-			break;
-		}
+		MainProgram.LinkLWJGLLibs();
 		
 		if(args.length > 0)
 		{

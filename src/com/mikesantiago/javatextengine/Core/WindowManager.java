@@ -21,11 +21,14 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import org.lwjgl.LWJGLException;
+import org.lwjgl.input.Controller;
+import org.lwjgl.input.Controllers;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.opengl.ImageIOImageData;
 
 import com.mikesantiago.javatextengine.Donger;
+import com.mikesantiago.launcher.MainProgram;
 
 
 
@@ -33,6 +36,8 @@ public class WindowManager
 {
 	public static final int SCREEN_WIDTH = 640, SCREEN_HEIGHT = 480;
 	public static boolean DEBUG = false;
+	public static Controller controller;
+	
 	
 	private static String[] splash = 
 		{
@@ -47,7 +52,6 @@ public class WindowManager
 	public static void BeginWindow()
 	{
 		ran.setSeed(System.currentTimeMillis());
-		
 		try
 		{
 			Display.setDisplayMode(new DisplayMode(640, 480));
