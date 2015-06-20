@@ -56,6 +56,9 @@ public class StateManager
 	
 	public static CorePlayer GetCorePlayer()
 	{
-		return game.GetPlayer();
+		if(game != null)
+			return game.GetPlayer();
+		else
+			return null;
 	}
 }

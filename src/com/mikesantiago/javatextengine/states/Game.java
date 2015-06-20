@@ -12,7 +12,7 @@ public class Game
 {
 	private TileGrid grid;
 	private EntityGrid eGrid;
-	private CorePlayer p;
+	private CorePlayer p = new CorePlayer(grid, 0, 0, null, -1);
 	
 	public Game(TileGrid grid, EntityGrid eGrid)
 	{

@@ -32,6 +32,7 @@ public class Boot
 	
 	long lastFrame;
 	int fps;
+	int curFps;
 	long lastFps;
 	
 	public Boot()
@@ -52,15 +53,21 @@ public class Boot
 			//update screen, 60fps
 			if(WindowManager.DEBUG)
 			{
-				/*String debugTitle = String.format("%s enemy(ies); MX:%s MY:%s; TGX:%s TGY: %s; %s FPS", 
-						1,
-						Mouse.getX(), Mouse.getY(),
-						((int)Math.floor(Mouse.getX() / 32)), 
-						((int)Math.floor((WindowManager.SCREEN_HEIGHT - Mouse.getY() - 1) / 32)),
-						fps
-						/*StateManager.GetCorePlayer().getCurrentTile()
-				);
-				Display.setTitle(debugTitle);*/
+				if(StateManager.GetCorePlayer() != null)
+				{	
+					String debugTitle = String.format("%s enemy(ies); MX:%s MY:%s; TGX:%s TGY: %s; CurTile: %s; %s FPS", 
+							1,
+							Mouse.getX(), Mouse.getY(),
+							((int)Math.floor(Mouse.getX() / 32)), 
+							((int)Math.floor((WindowManager.SCREEN_HEIGHT - Mouse.getY() - 1) / 32)), 
+							StateManager.GetCorePlayer().getCurrentTile(),
+							curFps
+							/*StateManager.GetCorePlayer().getCurrentTile()*/
+						);
+					Display.setTitle(debugTitle);
+				}
+				else
+					Display.setTitle("Loading...");
 			}
 			
 			
@@ -104,7 +111,8 @@ public class Boot
      */
     public void updateFPS() {
         if (getTime() - lastFps > 1000) {
-            Display.setTitle("FPS: " + fps);
+            //Display.setTitle("FPS: " + fps);
+            curFps = fps;
             fps = 0;
             lastFps += 1000;
         }
