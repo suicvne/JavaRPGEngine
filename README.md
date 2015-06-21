@@ -40,6 +40,7 @@ So this is a largely incomplete list of "what has to be done".
 - Credit everyone
 - Xbox Gamepad Support
   - not a promise, but definitely would LOVE to see it implemented.
+- --PSP Port!--
 
 # Disclaimer
 
