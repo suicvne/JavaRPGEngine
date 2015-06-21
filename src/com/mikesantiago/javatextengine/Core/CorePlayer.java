@@ -98,6 +98,11 @@ public class CorePlayer extends Entity
 		
 		while(Keyboard.next())
 		{
+			if(Keyboard.getEventKey() == Keyboard.KEY_F11 && Keyboard.getEventKeyState())
+			{
+				WindowManager.TryForFullscreen();
+			}
+			
 			if(Keyboard.getEventKey() == Keyboard.KEY_UP && Keyboard.getEventKeyState())
 			{
 				this.setCurDirection(EntityDirection.Up);

@@ -35,7 +35,8 @@ import com.mikesantiago.launcher.MainProgram;
 public class WindowManager
 {
 	public static final int SCREEN_WIDTH = 640, SCREEN_HEIGHT = 480;
-	public static boolean DEBUG = false;
+	public static boolean DEBUG, FULLSCREEN = false;
+	
 	public static Controller controller;
 	
 	
@@ -44,7 +45,8 @@ public class WindowManager
 			"Never going anywhere!", "Not quite an RPG!", "MINECRAFT ALPHA 1.0.1_25", "Not Terraria..or Minecraft", "Not a Tower Defense Either",
 			"There will never be building!", "Joey is fat ;)", "SMBXXX!", "If you've seen these all, you have no life!", "Macs > all",
 			"At least we have splash screens..", "Scott's a hipster but Folsom's a mole rat!", "There's %s of these!", "public Enemy(boolean numberOne){ this.numberOne = true }",
-			"\"What the hell is a footcandle?!\"", "MLG Yearbook", "Not sure if obfuscated", "DADDY!!!!!", Donger.donger, "Tiles by aclyn jen!"
+			"\"What the hell is a footcandle?!\"", "MLG Yearbook", "Not sure if obfuscated", "DADDY!!!!!", Donger.donger, "Tiles by aclyn jen!",
+			"(all they have is just bam nam pado dodi banano nino no)"
 		};
 	
 	private static Random ran = new Random();
@@ -57,19 +59,6 @@ public class WindowManager
 			Display.setDisplayMode(new DisplayMode(640, 480));
 			if(!DEBUG)
 				Display.setTitle("Java RPG Engine - v0.0.0.1 - " + String.format(splash[ran.nextInt(splash.length)], splash.length));
-			/*DisplayMode displayMode = null;
-	        DisplayMode[] modes = Display.getAvailableDisplayModes();
-
-	         for (int i = 0; i < modes.length; i++)
-	         {
-	             if (modes[i].getWidth() == SCREEN_WIDTH
-	             && modes[i].getHeight() == SCREEN_HEIGHT
-	             && modes[i].isFullscreenCapable())
-	               {
-	                    displayMode = modes[i];
-	               }
-	         }
-			Display.setDisplayModeAndFullscreen(displayMode);*/ //Disabled because it's broken on Linux, I use Linux :P
 			Display.setVSyncEnabled(true);
 			Display.create();
 			
@@ -110,6 +99,39 @@ public class WindowManager
 			// TODO Auto-generated catch block
 			System.out.println("icon not found!!!");
 		}
-		
+	}
+	
+	public static void TryForFullscreen()
+	{
+		if(!FULLSCREEN)
+		{
+		try {
+			DisplayMode displayMode = null;
+			DisplayMode[] modes = Display.getAvailableDisplayModes();
+
+			 for (int i = 0; i < modes.length; i++)
+			 {
+			     if (modes[i].getWidth() == 640
+			     && modes[i].getHeight() == 480
+			     && modes[i].isFullscreenCapable())
+			       {
+			    	 displayMode = modes[i];
+			       }
+			 	}
+			 Display.setDisplayModeAndFullscreen(displayMode);
+			 FULLSCREEN = true;
+			} catch (LWJGLException e) {
+				e.printStackTrace();
+			}
+		}
+		else
+		{
+			try {
+				 Display.setFullscreen(false);
+				FULLSCREEN = false;
+			} catch (LWJGLException e) {
+				e.printStackTrace();
+			}			
+		}
 	}
 }
