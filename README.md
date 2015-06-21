@@ -27,7 +27,7 @@ So this is a largely incomplete list of "what has to be done".
 - Correctly implementing the player saves/inventories from Luigifan/C-RPG (classes are written, they just need to implemented PROPERLY
 - Entity events (for example, death events, collision events, "chatting" events, etc)
 - Drawing text on screen, for fuck's sake why can't I get this write without it lagging the game? Ffs
-- Finding a proper direction :right:
+- Finding a proper direction :point_right:
 - Editor needs to be...finished to say the least.
 - I need to fix whatever causes LWJGL programs to not run outside of console
   - This isn't a HUGE concern though, the OS X app will run the jar through a console command the Linux .desktop will do largely the same. Plus, most people will probably run by Jar on command line anyway. Besides, I can make a lazy C# wrapper for the jar anyway.
