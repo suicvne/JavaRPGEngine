@@ -8,7 +8,6 @@ Running the game should be as simple as setting up the configurations, as these 
 
 The following are the current Run Configurations I use.
 
-![To run the Launcher](http://i.gyazo.com/dd4939ba25d1945202e2dc6fdf12aead.png)
 
 ![To run the Editor](http://i.gyazo.com/bc7354af23b7c77d8bb34d5556d0efc2.png)
 
@@ -26,7 +25,7 @@ So this is a largely incomplete list of "what has to be done".
   - Player is not an entity, player is player.
 - Correctly implementing the player saves/inventories from Luigifan/C-RPG (classes are written, they just need to implemented PROPERLY
 - Entity events (for example, death events, collision events, "chatting" events, etc)
-- Drawing text on screen, for fuck's sake why can't I get this write without it lagging the game? Ffs
+- Drawing text on screen, for god's sake why can't I get this write without it lagging the game? Ffs
 - Finding a proper direction :point_right:
 - Editor needs to be...finished to say the least.
 - I need to fix whatever causes LWJGL programs to not run outside of console
