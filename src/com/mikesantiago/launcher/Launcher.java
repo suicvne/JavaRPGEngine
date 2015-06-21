@@ -77,12 +77,12 @@ public class Launcher extends JFrame
 	
 	private void runEngine(boolean debug)
 	{
-		//this.setVisible(false);
+		this.setVisible(false);
 		WindowManager.DEBUG = debug;
 		System.out.println("running engine; debug mode: " + debug);
 		try
 		{
-		new Boot();
+			new Boot();
 		}
 		catch(Exception ex)
 		{
@@ -92,7 +92,7 @@ public class Launcher extends JFrame
 	
 	private void runEditor()
 	{
-		//this.setVisible(false);
+		this.setVisible(false);
 		MDIParent editor = new MDIParent();
 		System.out.println("running editor");
 		editor.setVisible(true);

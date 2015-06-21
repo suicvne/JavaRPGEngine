@@ -88,14 +88,14 @@ public class TileGrid
 		{
 			
 			File saveDir = new File("save");
-			File saveFile = new File("save/entities.jte");
+			File saveFile = new File("save/tiles.jte");
 			
 			if(saveDir.exists() != true)
 				saveDir.mkdir();
 			if(saveFile.exists() != true)
 				saveFile.createNewFile();
 			
-			FileWriter writer = new FileWriter("save/entities.jte");
+			FileWriter writer = new FileWriter("save/tiles.jte");
 			
 			System.out.println("writing file to '" + saveFile.getAbsolutePath() + "'");
 			for(int x = 0; x < map.length; x++)
