@@ -55,16 +55,16 @@ public class Boot
 			{
 				if(StateManager.GetCorePlayer() != null)
 				{	
-					/*String debugTitle = String.format("%s enemy(ies); MX:%s MY:%s; TGX:%s TGY: %s; CurTile: %s; %s FPS", 
+					String debugTitle = String.format("%s enemy(ies); MX:%s MY:%s; TGX:%s TGY: %s; CurTile: %s; %s FPS", 
 							1,
 							Mouse.getX(), Mouse.getY(),
 							((int)Math.floor(Mouse.getX() / 32)), 
 							((int)Math.floor((WindowManager.SCREEN_HEIGHT - Mouse.getY() - 1) / 32)), 
 							StateManager.GetCorePlayer().getCurrentTile(),
 							curFps
-						);*/
-					SimpleGLDrawer.DrawText("FPS: " + curFps, 0, 0);
-					Display.setTitle("Debuggin!");
+							/*StateManager.GetCorePlayer().getCurrentTile()*/
+						);
+					Display.setTitle(debugTitle);
 				}
 				else
 					Display.setTitle("Loading...");

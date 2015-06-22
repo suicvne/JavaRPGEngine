@@ -1,47 +1,29 @@
 package com.mikesantiago.javatextengine.Core;
 
-import static org.lwjgl.opengl.GL11.GL_LINES;
-import static org.lwjgl.opengl.GL11.GL_QUADS;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.glBegin;
-import static org.lwjgl.opengl.GL11.glColor4f;
-import static org.lwjgl.opengl.GL11.glDisable;
-import static org.lwjgl.opengl.GL11.glEnable;
-import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glLoadIdentity;
-import static org.lwjgl.opengl.GL11.glTexCoord2f;
-import static org.lwjgl.opengl.GL11.glTranslatef;
-import static org.lwjgl.opengl.GL11.glVertex2f;
+import static org.lwjgl.opengl.GL11.*;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.FloatBuffer;
-import java.text.DecimalFormat;
 
 import javax.swing.JOptionPane;
 
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.UnicodeFont;
-import org.newdawn.slick.font.effects.ColorEffect;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
 public class SimpleGLDrawer
 {
-	private static UnicodeFont font;
-	private static DecimalFormat formatter = new DecimalFormat("#.##");
-	private static FloatBuffer perspectiveProjectMatrix = BufferTools.reserveData(16);
-	private static FloatBuffer orthographicProjectMatrix = BufferTools.reserveData(16);
-	
-	private static boolean fontsSetup = false;
 	
 	public static String texturePackFolder = "placeholder";
 	private static Font mainGameFont = new Font("Comic Sans MS", Font.PLAIN, 24);
 	
-	private SimpleGLDrawer(){}
+	public SimpleGLDrawer()
+	{
+	}
 	
 	/**
 	 * A simple method to draw an OpenGL Square on the screen
@@ -78,17 +60,13 @@ public class SimpleGLDrawer
 		glLoadIdentity();
 	}
 	
-	private static void setupFonts()
+	public static void DrawText(String text, float x, float y, int size, org.newdawn.slick.Color awtColor)
 	{
-		
+		//org.newdawn.slick.Color.white.bind();
+				TrueTypeFont draw = new TrueTypeFont(mainGameFont, false);
+				draw.drawString(x, y, text, awtColor);
 	}
 	
-	public static void DrawText(String text, float x, float y)
-	{
-		if(!fontsSetup)
-			setupFonts();
-		font.drawString(x, y, text);
-	}
 	
 	/**
 	 * Useful for darker tiles, like "background" (floor) tiles
@@ -173,11 +151,6 @@ public class SimpleGLDrawer
 						JOptionPane.ERROR_MESSAGE);
 		}
 		return tex;
-	}
-	
-	public static void DrawText()
-	{
-		
 	}
 	
 	public static Texture QuickLoad(String name)
