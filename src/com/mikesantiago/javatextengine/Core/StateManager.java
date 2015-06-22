@@ -35,6 +35,9 @@ public class StateManager
 		case EDITOR: //probably going to remove
 			break;
 		case CREDITS:
+			if(credits == null)
+				credits = new Credits();
+			credits.Update();
 			break;
 		}
 	}

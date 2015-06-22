@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.AngelCodeFont;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
@@ -30,7 +31,12 @@ public class SimpleGLDrawer
 {
 	
 	public static String texturePackFolder = "placeholder";
-	private static Font mainGameFont = new Font("Comic Sans MS", Font.PLAIN, 24);
+	private static AngelCodeFont fontSmall;
+	private static AngelCodeFont fontLarge;
+	private static boolean fontsInitialised = false;
+	
+	public static final int SMALL_SIZE = 16;
+	public static final int LARGE_SIZE = 32;
 	
 	public SimpleGLDrawer()
 	{
@@ -71,13 +77,36 @@ public class SimpleGLDrawer
 		glLoadIdentity();
 	}
 	
-	public static void DrawText(String text, float x, float y, int size, org.newdawn.slick.Color awtColor)
+	public static enum FONTSIZE
 	{
-		try {
-			AngelCodeFont fnt = new AngelCodeFont("res/ingame-font.fnt", new org.newdawn.slick.Image("res/ingame-font.png"));
-			fnt.drawString(x, y, text, awtColor);
-		} catch (SlickException e) {
-			e.printStackTrace();
+		SMALL, LARGE
+	}
+	
+	public static void DrawText(String text, float x, float y, FONTSIZE size, org.newdawn.slick.Color slickColor)
+	{
+		if(!fontsInitialised)
+		{
+			try 
+			{
+				fontSmall = new AngelCodeFont("res/ingame-font-small.fnt", new Image("res/ingame-font-small.png"));
+				fontLarge = new AngelCodeFont("res/ingame-font-large.fnt", new Image("res/ingame-font-large.png"));
+				fontsInitialised = true;
+			} 
+			catch (SlickException e) 
+			{
+				JOptionPane.showMessageDialog(null, e.getMessage() + "\n\n" + e.getStackTrace(), "Error While Loading Fonts", JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+				Display.destroy();
+			}
+		}
+		
+		if(size == FONTSIZE.SMALL)
+		{
+			fontSmall.drawString(x, y, text, slickColor);
+		}
+		else if(size == FONTSIZE.LARGE)
+		{
+			fontLarge.drawString(x, y, text, slickColor);
 		}
 	}
 	

@@ -1,11 +1,11 @@
 package com.mikesantiago.javatextengine.states;
 
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import com.mikesantiago.javatextengine.Core.SimpleGLDrawer;
+import com.mikesantiago.javatextengine.Core.SimpleGLDrawer.FONTSIZE;
 import com.mikesantiago.javatextengine.Core.StateManager;
 import com.mikesantiago.javatextengine.Core.StateManager.GameState;
 import com.mikesantiago.javatextengine.Core.WindowManager;
@@ -36,9 +36,19 @@ public class MainMenu
 			{
 				StateManager.SetGameState(GameState.GAME);
 			}
+			else if(Keyboard.getEventKey() == Keyboard.KEY_C && Keyboard.getEventKeyState())
+				StateManager.SetGameState(GameState.CREDITS);
 		}
 		
-		SimpleGLDrawer.DrawText("Press space bar to start demo.", 0, WindowManager.SCREEN_HEIGHT - 16, 16, Color.yellow);
-		//SimpleGLDrawer.DrawText("Hello world", 0, 0, 24, Color.cyan);
+		SimpleGLDrawer.DrawText("Press space bar to start demo", 
+				0, 
+				WindowManager.SCREEN_HEIGHT - (32 * 2), 
+				FONTSIZE.LARGE, 
+				Color.yellow);
+		SimpleGLDrawer.DrawText("Press C for Credits", 
+				0, 
+				WindowManager.SCREEN_HEIGHT - SimpleGLDrawer.SMALL_SIZE, 
+				FONTSIZE.SMALL, 
+				Color.white);
 	}
 }

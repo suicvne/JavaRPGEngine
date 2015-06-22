@@ -16,6 +16,7 @@ import com.mikesantiago.javatextengine.Core.OSDetection;
 import com.mikesantiago.javatextengine.Core.OSDetection.OSType;
 import com.mikesantiago.javatextengine.Core.SimpleGLDrawer;
 import com.mikesantiago.javatextengine.Core.StateManager;
+import com.mikesantiago.javatextengine.Core.SimpleGLDrawer.FONTSIZE;
 import com.mikesantiago.javatextengine.Core.StateManager.GameState;
 import com.mikesantiago.javatextengine.Core.WindowManager;
 import com.mikesantiago.launcher.MainProgram;
@@ -63,7 +64,7 @@ public class Boot
 							((int)Math.floor((WindowManager.SCREEN_HEIGHT - Mouse.getY() - 1) / 32))
 						);
 					
-					SimpleGLDrawer.DrawText(debugTitle, 0, 0, 16, Color.white);
+					SimpleGLDrawer.DrawText(debugTitle, 0, 0, FONTSIZE.SMALL, Color.white);
 				}
 			}
 			
