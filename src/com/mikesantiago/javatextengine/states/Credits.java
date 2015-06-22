@@ -43,12 +43,13 @@ public class Credits
 				WindowManager.SCREEN_HEIGHT - SimpleGLDrawer.LARGE_SIZE, 
 				FONTSIZE.SMALL, Color.white);
 		
+		/*
 		while(Keyboard.next())
 		{
 			if(Keyboard.getEventKey() == Keyboard.KEY_ESCAPE && Keyboard.getEventKeyState())
 			{
 				StateManager.SetGameState(GameState.MAINMENU);
 			}
-		}
+		}*/
 	}
 }

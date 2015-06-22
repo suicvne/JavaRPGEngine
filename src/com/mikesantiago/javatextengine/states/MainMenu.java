@@ -4,6 +4,7 @@ import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
+import com.mikesantiago.javatextengine.Core.Input;
 import com.mikesantiago.javatextengine.Core.SimpleGLDrawer;
 import com.mikesantiago.javatextengine.Core.SimpleGLDrawer.FONTSIZE;
 import com.mikesantiago.javatextengine.Core.StateManager;
@@ -30,6 +31,7 @@ public class MainMenu
 			}
 		}
 		
+		/*
 		while(Keyboard.next())
 		{
 			if(Keyboard.getEventKey() == Keyboard.KEY_SPACE && Keyboard.getEventKeyState())
@@ -38,17 +40,33 @@ public class MainMenu
 			}
 			else if(Keyboard.getEventKey() == Keyboard.KEY_C && Keyboard.getEventKeyState())
 				StateManager.SetGameState(GameState.CREDITS);
+		}*/
+		if(Input.isControllerEnabled())
+		{
+			SimpleGLDrawer.DrawText("Press start to start demo", 
+					0, 
+					WindowManager.SCREEN_HEIGHT - (32 * 2), 
+					FONTSIZE.LARGE, 
+					Color.yellow);
+				SimpleGLDrawer.DrawText("Press Y for Credits", 
+					0, 
+					WindowManager.SCREEN_HEIGHT - SimpleGLDrawer.SMALL_SIZE, 
+					FONTSIZE.SMALL, 
+					Color.white);
+				SimpleGLDrawer.DrawText("WARNING: Controller support is super buggy.", 0, 0, FONTSIZE.SMALL, Color.white);
 		}
-		
-		SimpleGLDrawer.DrawText("Press space bar to start demo", 
+		else
+		{
+			SimpleGLDrawer.DrawText("Press space bar to start demo", 
 				0, 
 				WindowManager.SCREEN_HEIGHT - (32 * 2), 
 				FONTSIZE.LARGE, 
 				Color.yellow);
-		SimpleGLDrawer.DrawText("Press C for Credits", 
+			SimpleGLDrawer.DrawText("Press C for Credits", 
 				0, 
 				WindowManager.SCREEN_HEIGHT - SimpleGLDrawer.SMALL_SIZE, 
 				FONTSIZE.SMALL, 
 				Color.white);
+		}
 	}
 }

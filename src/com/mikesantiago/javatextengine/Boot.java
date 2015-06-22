@@ -2,21 +2,18 @@ package com.mikesantiago.javatextengine;
 
 import static com.mikesantiago.javatextengine.Core.WindowManager.BeginWindow;
 
-import java.io.File;
-
-import javax.swing.JOptionPane;
-
 import org.lwjgl.Sys;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
 import com.mikesantiago.javatextengine.Core.Clock;
+import com.mikesantiago.javatextengine.Core.Input;
 import com.mikesantiago.javatextengine.Core.OSDetection;
 import com.mikesantiago.javatextengine.Core.OSDetection.OSType;
 import com.mikesantiago.javatextengine.Core.SimpleGLDrawer;
-import com.mikesantiago.javatextengine.Core.StateManager;
 import com.mikesantiago.javatextengine.Core.SimpleGLDrawer.FONTSIZE;
+import com.mikesantiago.javatextengine.Core.StateManager;
 import com.mikesantiago.javatextengine.Core.StateManager.GameState;
 import com.mikesantiago.javatextengine.Core.WindowManager;
 import com.mikesantiago.launcher.MainProgram;
@@ -32,6 +29,8 @@ public class Boot
 	public static final int SCREEN_WIDTH = 640;
 	public static final int SCREEN_HEIGHT = 480;
 	
+	public Input inputHandler = new Input();
+	
 	long lastFrame;
 	int fps;
 	int curFps;
@@ -41,6 +40,9 @@ public class Boot
 	{
 		BeginWindow();
 		
+		int res = inputHandler.InitializeControllers();
+		System.out.println("controller initializer returned " + res);
+		
 		//Game game = new Game();
 		
 		getDelta();
@@ -49,6 +51,8 @@ public class Boot
 		{
 			//Update here
 			Clock.Update();
+			
+			inputHandler.Update();
 			
 			StateManager.Update();
 			updateFPS();

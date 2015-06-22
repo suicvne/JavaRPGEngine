@@ -70,110 +70,113 @@ public class CorePlayer extends Entity
 		return TileType.values()[CurTile];
 	}
 	
-	//@Override
-	public void Update()
+	public void MovePlayer(EntityDirection dir)
 	{
-		if(Mouse.isButtonDown(0))
-			SetTile(placeableTypes[CurTile]);
-		else if(Mouse.isButtonDown(1)) //sets a non-floor (foreground)
-			SetTile(placeableTypes[CurTile], true); //set a floor instead
+		int nextX, nextY;
 		
-		int dWheel = Mouse.getDWheel();
-	    if (dWheel < 0) 
-	    {
-	    	if(CurTile <= 0)
-				CurTile = placeableTypes.length - 1;
+		switch(dir)
+		{
+		case Up:
+			this.setCurDirection(EntityDirection.Up);
+			
+			nextX = (int)Math.floor(this.getX() / 32);
+			nextY = (int)Math.floor((this.getY() / 32) - 1);
+			
+			if(nextY != -1)
+			{
+				Tile above = this.getGrid().GetTile(nextX, nextY);
+			
+				if(above.getIsFloorTile() || above.getType().canPass)
+				{
+					this.setY(above.getY());
+				}
+			}
+			break;
+		case Down:
+			this.setCurDirection(EntityDirection.Down);
+			
+			nextX = (int)Math.floor((this.getX() / 32));
+			nextY = (int)Math.floor((this.getY() / 32) + 1);
+			
+			if(nextY >= this.getGrid().getMaxY())
+			{/*no movement*/	}
 			else
-				CurTile--;
-	    } 
-	    else if (dWheel > 0)
-	    {
-	    	if(CurTile >= placeableTypes.length - 1)
+			{
+				Tile down = this.getGrid().GetTile(nextX, nextY);
+				if(down.getIsFloorTile() || down.getType().canPass)
+				{
+					this.setY(down.getY());
+				}
+			}
+			break;
+		case Left:
+			this.setCurDirection(EntityDirection.Left);
+			
+			nextX = (int)Math.floor((this.getX() / 32) - 1);
+			nextY = (int)Math.floor((this.getY() / 32));
+			
+			if(nextX != -1)
+			{
+				Tile left = this.getGrid().GetTile(nextX, nextY);
+				if(left.getIsFloorTile() || left.getType().canPass)
+				{
+					this.setX(left.getX());
+				}
+			}
+			break;
+		case Right:
+			this.setCurDirection(EntityDirection.Right);
+			
+			nextX = (int)Math.floor((this.getX() / 32) + 1);
+			nextY = (int)Math.floor((this.getY() / 32));
+			
+			if(nextX >= this.getGrid().getMaxX())
+			{}
+			else
+			{
+				Tile right = this.getGrid().GetTile(nextX, nextY);
+				if(right.getIsFloorTile() || right.getType().canPass)
+				{
+					this.setX(right.getX());
+				}
+			}
+			break;
+		}
+	}
+	
+	//1 forward, -1 is backward
+	public void AdvanceTileIndex(int dir)
+	{
+		if(dir == 1)
+		{
+			if(CurTile >= placeableTypes.length - 1)
 				CurTile = 0;
 			else
 				CurTile++;
-        }
-		
-		Keyboard.enableRepeatEvents(true);
-		
-		while(Keyboard.next())
-		{
-			if(Keyboard.getEventKey() == Keyboard.KEY_F11 && Keyboard.getEventKeyState())
-			{
-				WindowManager.TryForFullscreen();
-			}
-			
-			if(Keyboard.getEventKey() == Keyboard.KEY_UP && Keyboard.getEventKeyState())
-			{
-				this.setCurDirection(EntityDirection.Up);
-				
-				int nextX = (int)Math.floor(this.getX() / 32);
-				int nextY = (int)Math.floor((this.getY() / 32) - 1);
-				
-				if(nextY != -1)
-				{
-					Tile above = this.getGrid().GetTile(nextX, nextY);
-				
-					if(above.getIsFloorTile() || above.getType().canPass)
-					{
-						this.setY(above.getY());
-					}
-				}
-			}
-			else if(Keyboard.getEventKey() == Keyboard.KEY_LEFT && Keyboard.getEventKeyState())
-			{
-				this.setCurDirection(EntityDirection.Left);
-				
-				int nextX = (int)Math.floor((this.getX() / 32) - 1);
-				int nextY = (int)Math.floor((this.getY() / 32));
-				
-				if(nextX != -1)
-				{
-					Tile left = this.getGrid().GetTile(nextX, nextY);
-					if(left.getIsFloorTile() || left.getType().canPass)
-					{
-						this.setX(left.getX());
-					}
-				}
-			}
-			else if(Keyboard.getEventKey() == Keyboard.KEY_DOWN && Keyboard.getEventKeyState())
-			{
-				this.setCurDirection(EntityDirection.Down);
-				
-				int nextX = (int)Math.floor((this.getX() / 32));
-				int nextY = (int)Math.floor((this.getY() / 32) + 1);
-				
-				if(nextY >= this.getGrid().getMaxY())
-				{/*no movement*/	}
-				else
-				{
-					Tile down = this.getGrid().GetTile(nextX, nextY);
-					if(down.getIsFloorTile() || down.getType().canPass)
-					{
-						this.setY(down.getY());
-					}
-				}
-			}
-			else if(Keyboard.getEventKey() == Keyboard.KEY_RIGHT && Keyboard.getEventKeyState())
-			{
-				this.setCurDirection(EntityDirection.Right);
-				
-				int nextX = (int)Math.floor((this.getX() / 32) + 1);
-				int nextY = (int)Math.floor((this.getY() / 32));
-				
-				if(nextX >= this.getGrid().getMaxX())
-				{}
-				else
-				{
-					Tile right = this.getGrid().GetTile(nextX, nextY);
-					if(right.getIsFloorTile() || right.getType().canPass)
-					{
-						this.setX(right.getX());
-					}
-				}
-			}
-			
 		}
+		else if(dir == -1)
+		{
+			if(CurTile <= 0)
+				CurTile = placeableTypes.length - 1;
+			else
+				CurTile--;
+		}
+	}
+	
+	public void PlaceTile()
+	{
+		SetTile(placeableTypes[CurTile]);
+	}
+	
+	public void PlaceBackgroundTile()
+	{
+		SetTile(placeableTypes[CurTile], true);
+	}
+	
+	//@Override
+	public void Update()
+	{
+		
 	}
 	
 	public void checkMouseWheel() {
