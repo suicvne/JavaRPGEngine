@@ -25,7 +25,8 @@ So this is a largely incomplete list of "what has to be done".
   - Player is not an entity, player is player.
 - Correctly implementing the player saves/inventories from Luigifan/C-RPG (classes are written, they just need to implemented PROPERLY
 - Entity events (for example, death events, collision events, "chatting" events, etc)
-- Drawing text on screen, for god's sake why can't I get this write without it lagging the game? Ffs
+- ~~Drawing text on screen, for god's sake why can't I get this write without it lagging the game? Ffs~~ 
+  - [Fixed](https://github.com/Luigifan/JavaRPGEngine/commit/f7f8e19615c2da61f423b9ba15d18cb16a4db9a8)
 - Finding a proper direction :point_right:
 - Editor needs to be...finished to say the least.
 - I need to fix whatever causes LWJGL programs to not run outside of console
