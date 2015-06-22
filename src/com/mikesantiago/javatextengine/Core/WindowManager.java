@@ -57,8 +57,7 @@ public class WindowManager
 		try
 		{
 			Display.setDisplayMode(new DisplayMode(640, 480));
-			if(!DEBUG)
-				Display.setTitle("Java RPG Engine - v0.0.0.1 - " + String.format(splash[ran.nextInt(splash.length)], splash.length));
+			Display.setTitle("Java RPG Engine - v0.0.0.1 - " + String.format(splash[ran.nextInt(splash.length)], splash.length));
 			Display.setVSyncEnabled(true);
 			Display.create();
 			
