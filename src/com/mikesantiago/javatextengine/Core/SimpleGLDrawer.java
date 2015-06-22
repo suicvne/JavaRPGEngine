@@ -1,8 +1,18 @@
 package com.mikesantiago.javatextengine.Core;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_LINES;
+import static org.lwjgl.opengl.GL11.GL_QUADS;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.glBegin;
+import static org.lwjgl.opengl.GL11.glColor4f;
+import static org.lwjgl.opengl.GL11.glDisable;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glEnd;
+import static org.lwjgl.opengl.GL11.glLoadIdentity;
+import static org.lwjgl.opengl.GL11.glTexCoord2f;
+import static org.lwjgl.opengl.GL11.glTranslatef;
+import static org.lwjgl.opengl.GL11.glVertex2f;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,7 +20,8 @@ import java.io.InputStream;
 import javax.swing.JOptionPane;
 
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.AngelCodeFont;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
@@ -62,9 +73,11 @@ public class SimpleGLDrawer
 	
 	public static void DrawText(String text, float x, float y, int size, org.newdawn.slick.Color awtColor)
 	{
-		//org.newdawn.slick.Color.white.bind();
-				TrueTypeFont draw = new TrueTypeFont(mainGameFont, false);
-				draw.drawString(x, y, text, awtColor);
+		try {
+			AngelCodeFont fnt = new AngelCodeFont("res/ingame-font.fnt", new org.newdawn.slick.Image("res/ingame-font.png"));
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
