@@ -1,6 +1,8 @@
 package com.mikesantiago.launcher;
 
 import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Field;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -84,7 +86,24 @@ public class MainProgram
 		try
 		{
 			System.out.println("setting java.library.path to " + new File("lib/natives/" + CurrentOS).getAbsolutePath());
-			System.setProperty("java.library.path", new File("lib/natives/" + CurrentOS).getAbsolutePath());
+			System.setProperty("java.library.path", new File("lib/natives/" + CurrentOS + "/").getAbsolutePath());
+			try {
+				final Field sysPathsField = ClassLoader.class.getDeclaredField("sys_paths");
+				sysPathsField.setAccessible(true);
+				sysPathsField.set(null, null);
+			} catch (NoSuchFieldException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		catch(UnsatisfiedLinkError e)
 		{

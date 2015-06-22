@@ -37,7 +37,7 @@ public class Boot
 	long lastFps;
 	
 	public Boot()
-	{
+	{		
 		BeginWindow();
 		
 		int res = inputHandler.InitializeControllers();
