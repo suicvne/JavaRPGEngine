@@ -75,6 +75,7 @@ public class SimpleGLDrawer
 	{
 		try {
 			AngelCodeFont fnt = new AngelCodeFont("res/ingame-font.fnt", new org.newdawn.slick.Image("res/ingame-font.png"));
+			fnt.drawString(x, y, text, awtColor);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

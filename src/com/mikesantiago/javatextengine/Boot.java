@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
+import org.newdawn.slick.Color;
 
 import com.mikesantiago.javatextengine.Core.Clock;
 import com.mikesantiago.javatextengine.Core.OSDetection;
@@ -65,6 +66,7 @@ public class Boot
 							/*StateManager.GetCorePlayer().getCurrentTile()*/
 						);
 					Display.setTitle(debugTitle);
+					SimpleGLDrawer.DrawText("FPS: " + curFps, 0, 0, 16, Color.white);
 				}
 				else
 					Display.setTitle("Loading...");
