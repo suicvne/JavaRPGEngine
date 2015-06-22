@@ -80,19 +80,6 @@ public class SimpleGLDrawer
 	
 	private static void setupFonts()
 	{
-		java.awt.Font awtFont = new java.awt.Font("Times New Roman", java.awt.Font.BOLD, 18);
-		font = new UnicodeFont(awtFont);
-		font.getEffects().add(new ColorEffect(java.awt.Color.white));
-		font.addAsciiGlyphs();
-		try
-		{
-			font.loadGlyphs();
-			fontsSetup = true;
-		}
-		catch(SlickException ex)
-		{
-			ex.printStackTrace();
-		}
 		
 	}
 	
