@@ -8,6 +8,7 @@ import org.newdawn.slick.opengl.Texture;
 import com.mikesantiago.javatextengine.Core.SimpleGLDrawer;
 import com.mikesantiago.javatextengine.Core.StateManager;
 import com.mikesantiago.javatextengine.Core.StateManager.GameState;
+import com.mikesantiago.javatextengine.Core.WindowManager;
 
 public class MainMenu 
 {
@@ -37,6 +38,7 @@ public class MainMenu
 			}
 		}
 		
+		SimpleGLDrawer.DrawText("Press space bar to start demo.", 0, WindowManager.SCREEN_HEIGHT - 16, 16, Color.yellow);
 		//SimpleGLDrawer.DrawText("Hello world", 0, 0, 24, Color.cyan);
 	}
 }
