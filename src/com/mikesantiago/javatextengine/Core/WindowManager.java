@@ -22,13 +22,12 @@ import javax.swing.JOptionPane;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Controller;
-import org.lwjgl.input.Controllers;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.opengl.ImageIOImageData;
 
 import com.mikesantiago.javatextengine.Donger;
-import com.mikesantiago.launcher.MainProgram;
+import com.mikesantiago.javatextengine.Core.OSDetection.OSType;
 
 
 
@@ -38,7 +37,7 @@ public class WindowManager
 	public static boolean DEBUG, FULLSCREEN = false;
 	
 	public static Controller controller;
-	
+	public static OSType CurrentOS = OSDetection.GetCurrentOSName();
 	
 	private static String[] splash = 
 		{
@@ -59,6 +58,9 @@ public class WindowManager
 			Display.setDisplayMode(new DisplayMode(640, 480));
 			if(!DEBUG)
 				Display.setTitle("Java RPG Engine - v0.0.0.1 - " + String.format(splash[ran.nextInt(splash.length)], splash.length));
+			else
+				Display.setTitle("");
+			//Display.setVSyncEnabled(true);
 			Display.setVSyncEnabled(true);
 			Display.create();
 			
@@ -111,27 +113,28 @@ public class WindowManager
 
 			 for (int i = 0; i < modes.length; i++)
 			 {
-			     if (modes[i].getWidth() == 640
-			     && modes[i].getHeight() == 480
+			     if (modes[i].getWidth() == SCREEN_WIDTH
+			     && modes[i].getHeight() == SCREEN_HEIGHT
 			     && modes[i].isFullscreenCapable())
 			       {
-			    	 displayMode = modes[i];
+			            displayMode = modes[i];
 			       }
-			 	}
+			 }
 			 Display.setDisplayModeAndFullscreen(displayMode);
 			 FULLSCREEN = true;
 			} catch (LWJGLException e) {
+		
 				e.printStackTrace();
 			}
 		}
 		else
 		{
 			try {
-				 Display.setFullscreen(false);
+				Display.setFullscreen(false);
 				FULLSCREEN = false;
 			} catch (LWJGLException e) {
 				e.printStackTrace();
-			}			
+			}
 		}
 	}
 }
