@@ -1,6 +1,7 @@
 package com.mikesantiago.javatextengine.states;
 
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
@@ -9,10 +10,12 @@ import com.mikesantiago.javatextengine.Core.SimpleGLDrawer.FONTSIZE;
 import com.mikesantiago.javatextengine.Core.StateManager.GameState;
 import com.mikesantiago.javatextengine.Core.StateManager;
 import com.mikesantiago.javatextengine.Core.WindowManager;
+import com.mikesantiago.javatextengine.UI.Button;
 
 public class Credits 
 {
 	private static Texture bg;
+	private Button back = new Button("back", "Back", WindowManager.SCREEN_WIDTH - (4*32), WindowManager.SCREEN_HEIGHT - 32, 4*32, 1*32);
 	
 	public Credits(){bg = SimpleGLDrawer.QuickLoad("tile-air");}
 	
@@ -42,6 +45,11 @@ public class Credits
 				0, 
 				WindowManager.SCREEN_HEIGHT - SimpleGLDrawer.LARGE_SIZE, 
 				FONTSIZE.SMALL, Color.white);
+		
+		back.Draw();
+		
+		if(Mouse.isButtonDown(0) && back.isMouseInside())
+			StateManager.SetGameState(GameState.MAINMENU);
 		
 		/*
 		while(Keyboard.next())

@@ -1,17 +1,6 @@
 package com.mikesantiago.javatextengine.Core;
 
-import static org.lwjgl.opengl.GL11.GL_LINES;
-import static org.lwjgl.opengl.GL11.GL_QUADS;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.glBegin;
-import static org.lwjgl.opengl.GL11.glColor4f;
-import static org.lwjgl.opengl.GL11.glDisable;
-import static org.lwjgl.opengl.GL11.glEnable;
-import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glLoadIdentity;
-import static org.lwjgl.opengl.GL11.glTexCoord2f;
-import static org.lwjgl.opengl.GL11.glTranslatef;
-import static org.lwjgl.opengl.GL11.glVertex2f;
+import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.Font;
 import java.io.IOException;
@@ -30,7 +19,7 @@ import org.newdawn.slick.util.ResourceLoader;
 public class SimpleGLDrawer
 {
 	
-	public static String texturePackFolder = "placeholder";
+	public static String texturePackFolder = "default";
 	private static AngelCodeFont fontSmall;
 	private static AngelCodeFont fontLarge;
 	private static boolean fontsInitialised = false;
@@ -63,6 +52,25 @@ public class SimpleGLDrawer
 	{
 		texture.bind();
 		glTranslatef(x, y, 0);
+		glColor4f(1f, 1f, 1f, 1f);//dead white
+		glBegin(GL_QUADS);
+		glTexCoord2f(0, 0); //Top left
+		glVertex2f(0, 0);
+		glTexCoord2f(1, 0); //Top right
+		glVertex2f(width, 0);
+		glTexCoord2f(1, 1); //Bottom left
+		glVertex2f(width, height);
+		glTexCoord2f(0, 1); //Bottom right
+		glVertex2f(0, height);
+		glEnd();
+		glLoadIdentity();
+	}
+	
+	public static void DrawRectangleRepeating(Texture texture, float x, float y, float width, float height)
+	{
+		texture.bind();
+		glTranslatef(x, y, 0);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glColor4f(1f, 1f, 1f, 1f);//dead white
 		glBegin(GL_QUADS);
 		glTexCoord2f(0, 0); //Top left
@@ -110,6 +118,66 @@ public class SimpleGLDrawer
 		}
 	}
 	
+	
+	public static int GetFontWidth(FONTSIZE size, String stringToCheck)
+	{
+		if(!fontsInitialised)
+		{
+			try 
+			{
+				fontSmall = new AngelCodeFont("res/ingame-font-small.fnt", new Image("res/ingame-font-small.png"));
+				fontLarge = new AngelCodeFont("res/ingame-font-large.fnt", new Image("res/ingame-font-large.png"));
+				fontsInitialised = true;
+			} 
+			catch (SlickException e) 
+			{
+				JOptionPane.showMessageDialog(null, e.getMessage() + "\n\n" + e.getStackTrace(), "Error While Loading Fonts", JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+				Display.destroy();
+			}
+		}
+		
+		if(size == FONTSIZE.SMALL)
+		{
+			return fontSmall.getWidth(stringToCheck);
+		}
+		else if(size == FONTSIZE.LARGE)
+		{
+			return fontLarge.getWidth(stringToCheck);
+		}
+		else
+			return 0;
+	}
+	
+	public static int GetFontHeight(FONTSIZE size, String stringToCheck)
+	{
+		if(!fontsInitialised)
+		{
+			try 
+			{
+				fontSmall = new AngelCodeFont("res/ingame-font-small.fnt", new Image("res/ingame-font-small.png"));
+				fontLarge = new AngelCodeFont("res/ingame-font-large.fnt", new Image("res/ingame-font-large.png"));
+				fontsInitialised = true;
+			} 
+			catch (SlickException e) 
+			{
+				JOptionPane.showMessageDialog(null, e.getMessage() + "\n\n" + e.getStackTrace(), "Error While Loading Fonts", JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+				Display.destroy();
+			}
+		}
+		
+		if(size == FONTSIZE.SMALL)
+		{
+			return fontSmall.getHeight(stringToCheck);
+		}
+		else if(size == FONTSIZE.LARGE)
+		{
+			return fontLarge.getHeight(stringToCheck);
+		}
+		else
+			return 0;
+	}
 	
 	/**
 	 * Useful for darker tiles, like "background" (floor) tiles

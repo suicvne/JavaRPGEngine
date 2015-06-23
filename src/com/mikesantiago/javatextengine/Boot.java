@@ -151,6 +151,7 @@ public class Boot
 			}
 		}
 		//SimpleGLDrawer.texturePackFolder = "minecraft";
+		SimpleGLDrawer.texturePackFolder = "default";
 		new Boot();
 	}
 }

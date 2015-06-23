@@ -82,17 +82,7 @@ public class WindowManager
 		//
 		try {
 			Display.setIcon(new ByteBuffer[] {
-			       new ImageIOImageData().imageToByteBuffer(ImageIO.read(new File("res/" + SimpleGLDrawer.texturePackFolder + "/placeholder-icon.png")), false, false, null),
-			       new ImageIOImageData().imageToByteBuffer(ImageIO.read(new File("res/" + SimpleGLDrawer.texturePackFolder + "/placeholder-icon.png")), false, false, null)
-			       });
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			Display.setIcon(new ByteBuffer[] {
-			        new ImageIOImageData().imageToByteBuffer(ImageIO.read(new File("res/placeholder/placeholder-icon.png")), false, false, null)
+			        new ImageIOImageData().imageToByteBuffer(ImageIO.read(new File("res/default/placeholder-icon.png")), false, false, null)
 			        });
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
