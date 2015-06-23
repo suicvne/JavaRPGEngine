@@ -140,7 +140,7 @@ public class Boot
 						WindowManager.DEBUG = true;
 			}
 			else
-				SimpleGLDrawer.texturePackFolder = "placeholder";
+				SimpleGLDrawer.texturePackFolder = "default";
 			
 			if(args.length > 0)
 			{
@@ -151,7 +151,6 @@ public class Boot
 			}
 		}
 		//SimpleGLDrawer.texturePackFolder = "minecraft";
-		SimpleGLDrawer.texturePackFolder = "default";
 		new Boot();
 	}
 }

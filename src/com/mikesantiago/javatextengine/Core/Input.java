@@ -82,6 +82,14 @@ public class Input
 		{
 			WindowManager.TryForFullscreen();
 		}
+		else if(Keyboard.getEventKey() == Keyboard.KEY_F3 && Keyboard.getEventKeyState())
+		{
+			boolean debug = WindowManager.DEBUG;
+			if(debug)
+				WindowManager.DEBUG = false;
+			else
+				WindowManager.DEBUG = true;
+		}
 		switch(StateManager.ReturnCurrentGameState())
 		{
 		case MAINMENU:

@@ -19,6 +19,7 @@ import static org.lwjgl.opengl.GL11.glVertex2f;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -43,9 +44,12 @@ public class SimpleGLDrawer
 	private static AngelCodeFont fontSmall;
 	private static AngelCodeFont fontLarge;
 	private static boolean fontsInitialised = false;
+	private static BufferedImage texturesSpriteSheet;
 	
 	public static final int SMALL_SIZE = 16;
 	public static final int LARGE_SIZE = 32;
+	
+	
 	
 	public SimpleGLDrawer()
 	{
@@ -288,17 +292,32 @@ public class SimpleGLDrawer
 	
 	public static Texture LoadFromTextureSheet(TileType type)
 	{
+		if(texturesSpriteSheet == null)
+		{
+			try
+			{
+				texturesSpriteSheet = ImageIO.read(ResourceLoader.getResourceAsStream("res/" + texturePackFolder + "/textures.png"));
+			}
+			catch(IOException e)
+			{
+				Display.destroy();
+				JOptionPane.showMessageDialog(null, 
+						"Error while trying to load textures sheet from: " + new File("res/" + texturePackFolder + "/textures.png").getAbsolutePath() + "\n" + e.getMessage(),
+						"Loading Error",
+						JOptionPane.ERROR_MESSAGE);
+				System.exit(-1);
+			}
+		}
+		
 		Texture tex = null;
 		InputStream in;
 		try {
 			TextureLocation loc = TextureLocation.values()[type.ordinal()];
-			BufferedImage b = ImageIO.read(ResourceLoader.getResourceAsStream("res/default/textures.png")).getSubimage(
-					(int)loc.absLocation.getX(), 
+			ByteArrayOutputStream os = new ByteArrayOutputStream();
+			ImageIO.write(texturesSpriteSheet.getSubimage((int)loc.absLocation.getX(), 
 					(int)loc.absLocation.getY(), 
 					32, 
-					32);
-			ByteArrayOutputStream os = new ByteArrayOutputStream();
-			ImageIO.write(b, "png", os);
+					32), "png", os);
 			in = new ByteArrayInputStream(os.toByteArray());
 			tex = TextureLoader.getTexture("PNG", in);
 		} catch (IOException e) {
@@ -307,6 +326,10 @@ public class SimpleGLDrawer
 		return tex;
 	}
 	
+	/**
+	 * Used for loading loose textures, such as (as of now) player and (permanently) button sides
+	 * For loading of a single texture, use SimpleGLDrawer.LoadFromTextureSheet(TileType) and pass the TileType of the tile you want.
+	 */
 	public static Texture QuickLoad(String name)
 	{
 		Texture tex = null;

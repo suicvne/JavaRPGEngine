@@ -30,9 +30,9 @@ public class Button
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		leftSide = SimpleGLDrawer.QuickLoad("/ui/button-leftside");
-		center = SimpleGLDrawer.QuickLoad("/ui/button-center");
-		rightSide = SimpleGLDrawer.QuickLoad("/ui/button-rightside");
+		leftSide = SimpleGLDrawer.QuickLoad("ui/button-leftside");
+		center = SimpleGLDrawer.QuickLoad("ui/button-center");
+		rightSide = SimpleGLDrawer.QuickLoad("ui/button-rightside");
 	}
 	
 	public void Draw()
