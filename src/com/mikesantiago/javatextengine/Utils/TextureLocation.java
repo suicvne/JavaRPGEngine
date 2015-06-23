@@ -1,4 +1,5 @@
-package com.mikesantiago.javatextengine.Core;
+package com.mikesantiago.javatextengine.Utils;
+
 
 
 public enum TextureLocation
@@ -7,8 +8,8 @@ public enum TextureLocation
 	Water(new GridLocation(2,0)), Dirt(new GridLocation(3,0)),
 	Air(new GridLocation(4,0));
 	
-	GridLocation location;
-	AbsoluteLocation absLocation;
+	public GridLocation location;
+	public AbsoluteLocation absLocation;
 	
 	TextureLocation(GridLocation loc)
 	{

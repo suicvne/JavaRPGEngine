@@ -40,6 +40,8 @@ public class Game
 	{
 		loading = true;
 		
+		System.out.println("Loading map..please be patien. BufferedImages are slow ;)");
+		
 		File tempTilesSave = new File("save/tiles.jte");
 		File tempEntitiesSave = new File("save/entities.jte");
 		

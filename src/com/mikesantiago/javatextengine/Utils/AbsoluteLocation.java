@@ -1,4 +1,4 @@
-package com.mikesantiago.javatextengine.Core;
+package com.mikesantiago.javatextengine.Utils;
 
 public class AbsoluteLocation 
 {

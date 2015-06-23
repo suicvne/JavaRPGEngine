@@ -33,6 +33,9 @@ import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
+import com.mikesantiago.javatextengine.Utils.AbsoluteLocation;
+import com.mikesantiago.javatextengine.Utils.TextureLocation;
+
 public class SimpleGLDrawer
 {
 	
@@ -256,7 +259,7 @@ public class SimpleGLDrawer
 				tile.getHeight());
 	}
 	
-	public static void DrawLine(Point startPoint, Point endPoint)
+	public static void DrawLine(AbsoluteLocation startPoint, AbsoluteLocation endPoint)
 	{
 		glBegin(GL_LINES);
 		glVertex2f(startPoint.getX(), startPoint.getY());
