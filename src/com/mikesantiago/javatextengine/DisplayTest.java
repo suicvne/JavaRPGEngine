@@ -1,14 +1,12 @@
 package com.mikesantiago.javatextengine;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.io.File;
+
+import javax.swing.JOptionPane;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
-import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.TrueTypeFont;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -18,13 +16,9 @@ import com.mikesantiago.javatextengine.Core.OSDetection.OSType;
 public class DisplayTest
 {
 	static OSType CurrentOS = OSDetection.GetCurrentOSName();
-	private static TrueTypeFont comicSansMS;
-	private static boolean AntiAliasFonts = true;
 	
 	public static void main(String[] args)
 	{
-		//For testing lol
-		//System.setProperty("os.name", "macosx");
 		System.setProperty("java.library.path", "lib/jars");
 		System.out.println("current OS is " + CurrentOS + ", trying for native libs in\n" + new File("lib/natives/" + CurrentOS).getAbsolutePath());
 		switch(CurrentOS)
@@ -41,6 +35,10 @@ public class DisplayTest
 		case linux:
 			System.out.println("set property org.lwjgl.librarypath to " + new File("lib/natives/linux").getAbsolutePath());
 			System.setProperty("org.lwjgl.librarypath", new File("lib/natives/linux").getAbsolutePath());
+			break;
+		default:
+			JOptionPane.showMessageDialog(null, "Sorry! OS not supported: " + CurrentOS, "Error", JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
 			break;
 		}
 		
@@ -60,10 +58,6 @@ public class DisplayTest
 		glLoadIdentity(); // Resets any previous projection matrices
 		glOrtho(0, 640, 480, 0, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
-		
-		Font awtFont = new Font("Comic Sans MS", Font.BOLD, 24);
-		comicSansMS = new TrueTypeFont(awtFont, true);
-		
 		
 		while(!Display.isCloseRequested())
 		{

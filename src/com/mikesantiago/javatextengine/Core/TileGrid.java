@@ -171,7 +171,6 @@ public class TileGrid
 			BufferedReader br = new BufferedReader(reader);
 			
 			String curLine = br.readLine();
-			int curLineNumb = 0;
 			
 			System.out.println("reading file from '" + new File("save/tiles.jte").getAbsolutePath() + "'");
 			
@@ -226,7 +225,6 @@ public class TileGrid
 				
 				//
 				curLine = br.readLine();
-				curLineNumb++;
 			}
 			br.close();
 			reader.close();
@@ -249,7 +247,6 @@ public class TileGrid
 			BufferedReader br = new BufferedReader(reader);
 			
 			String curLine = br.readLine();
-			int curLineNumb = 0;
 			
 			System.out.println("reading file from '" + new File(toReadFrom).getAbsolutePath() + "'");
 			
@@ -300,7 +297,6 @@ public class TileGrid
 				
 				//
 				curLine = br.readLine();
-				curLineNumb++;
 			}
 			br.close();
 			reader.close();

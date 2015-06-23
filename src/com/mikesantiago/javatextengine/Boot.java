@@ -83,6 +83,7 @@ public class Boot
 		
 		System.out.println("\n\nend game\n");
 		Display.destroy();
+		System.exit(0); //ensures we completely exit
 	}
 	
 	/** 
@@ -133,7 +134,6 @@ public class Boot
 		{
 			if(args[0].contains("-texturePack"))
 			{
-				String[] splitArgs = args[0].split(" ");
 				SimpleGLDrawer.texturePackFolder = args[1];
 				if(args.length > 2)
 					if(args[2].contains("-debug"))

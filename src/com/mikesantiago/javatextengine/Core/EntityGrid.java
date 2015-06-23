@@ -6,8 +6,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import org.newdawn.slick.opengl.Texture;
-
 public class EntityGrid 
 {
 	private Entity[][] map;
@@ -138,7 +136,6 @@ public class EntityGrid
 					BufferedReader br = new BufferedReader(reader);
 					
 					String curLine = br.readLine();
-					int curLineNumb = 0;
 					
 					System.out.println("reading file from '" + new File("save/entities.jte").getAbsolutePath() + "'");
 					
@@ -174,7 +171,6 @@ public class EntityGrid
 						
 						//
 						curLine = br.readLine();
-						curLineNumb++;
 					}
 					br.close();
 					reader.close();

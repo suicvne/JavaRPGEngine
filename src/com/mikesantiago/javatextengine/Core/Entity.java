@@ -24,6 +24,7 @@ public class Entity
 					SimpleGLDrawer.QuickLoad("dead-texture"),
 					SimpleGLDrawer.QuickLoad("dead-texture")	
 			};
+			this.entityFrames = noFrames;
 		}
 		else
 			this.entityFrames = frames;

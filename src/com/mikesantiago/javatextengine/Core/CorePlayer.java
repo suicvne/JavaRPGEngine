@@ -1,6 +1,5 @@
 package com.mikesantiago.javatextengine.Core;
 
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.opengl.Texture;
 
@@ -8,7 +7,6 @@ public class CorePlayer extends Entity
 {
 	private TileType[] placeableTypes;
 	private int CurTile;
-	private boolean floorTiles = false;
 	
 	public CorePlayer(TileGrid grid, float x, float y, Texture[] playerFrames, int ID)
 	{

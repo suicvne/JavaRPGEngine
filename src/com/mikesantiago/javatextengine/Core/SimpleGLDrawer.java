@@ -285,24 +285,6 @@ public class SimpleGLDrawer
 		return tex;
 	}
 	
-	/**
-	 * This method is here for internal reference only, it does absolutely nothing of use and should NOT be used.
-	 * @param name
-	 */
-	private static void LoadFromSpriteSheet(String name)
-	{
-		Texture tex = null;
-		InputStream in;
-		try {
-			BufferedImage b = ImageIO.read(ResourceLoader.getResourceAsStream("res/dead-texture.png"));
-			ByteArrayOutputStream os = new ByteArrayOutputStream();
-			ImageIO.write(b, "png", os);
-			in = new ByteArrayInputStream(os.toByteArray());
-			tex = TextureLoader.getTexture("PNG", in);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 	
 	public static Texture LoadFromTextureSheet(TileType type)
 	{

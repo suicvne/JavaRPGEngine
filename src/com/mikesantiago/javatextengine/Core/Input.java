@@ -93,6 +93,8 @@ public class Input
 		case CREDITS:
 			HandleCreditsInput();
 			break;
+		case EDITOR:
+			break;
 		}
 	}
 	
@@ -140,7 +142,6 @@ public class Input
 		}
 	}
 	
-	@SuppressWarnings("null")
 	private void HandlePlayerInput()
 	{
 		CorePlayer p = StateManager.GetCorePlayer();

@@ -11,7 +11,6 @@ public class Enemy
 	private float speed, x, y;
 	private Texture texture;
 	private Tile startTile;
-	private Tile curTile;
 	private boolean firstCalc = true;
 	private TileGrid grid;
 	
@@ -30,7 +29,6 @@ public class Enemy
 		this.maximumHealth = maximumHealth;
 		this.texture = texture;
 		this.startTile = startTile;
-		this.curTile = startTile;
 		this.grid = grid;
 		
 		this.checkpoints = new ArrayList<Checkpoint>();

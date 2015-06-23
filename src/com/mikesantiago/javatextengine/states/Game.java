@@ -6,7 +6,6 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import com.mikesantiago.javatextengine.Core.CorePlayer;
-import com.mikesantiago.javatextengine.Core.Enemy;
 import com.mikesantiago.javatextengine.Core.EntityGrid;
 import com.mikesantiago.javatextengine.Core.SimpleGLDrawer;
 import com.mikesantiago.javatextengine.Core.TileGrid;
@@ -68,18 +67,6 @@ public class Game
 		loading = false;
 	}
 	
-	Thread t = new Thread("load-thread")
-	{
-		public void run()
-		{
-			
-		}
-	};
-	
-	private void ExampleData()
-	{
-		Enemy test = new Enemy(grid.GetTile(5, 5), 32, 32, 5, 5, 2f, SimpleGLDrawer.QuickLoad("entity-ufo"), grid);
-	}
 	
 	public void Update()
 	{

@@ -4,7 +4,6 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
-import com.mikesantiago.javatextengine.Core.Input;
 import com.mikesantiago.javatextengine.Core.SimpleGLDrawer;
 import com.mikesantiago.javatextengine.Core.SimpleGLDrawer.FONTSIZE;
 import com.mikesantiago.javatextengine.Core.StateManager.GameState;
@@ -38,33 +37,6 @@ public class MainMenu
 				SimpleGLDrawer.DrawRectangleDarkened(bg, tiledX * 32, tiledY * 32, 32, 32);
 			}
 		}
-		/*if(Input.isControllerEnabled())
-		{
-			SimpleGLDrawer.DrawText("Press start to start demo", 
-					0, 
-					WindowManager.SCREEN_HEIGHT - (32 * 2), 
-					FONTSIZE.LARGE, 
-					Color.yellow);
-				SimpleGLDrawer.DrawText("Press Y for Credits", 
-					0, 
-					WindowManager.SCREEN_HEIGHT - SimpleGLDrawer.SMALL_SIZE, 
-					FONTSIZE.SMALL, 
-					Color.white);
-				SimpleGLDrawer.DrawText("WARNING: Controller support is super buggy.", 0, 0, FONTSIZE.SMALL, Color.white);
-		}
-		else
-		{
-			SimpleGLDrawer.DrawText("Press space bar to start demo", 
-				0, 
-				WindowManager.SCREEN_HEIGHT - (32 * 2), 
-				FONTSIZE.LARGE, 
-				Color.yellow);
-			SimpleGLDrawer.DrawText("Press C for Credits", 
-				0, 
-				WindowManager.SCREEN_HEIGHT - SimpleGLDrawer.SMALL_SIZE, 
-				FONTSIZE.SMALL, 
-				Color.white);
-		}*/
 		
 		SimpleGLDrawer.DrawText("Java RPG Engine - v0.0.0.1", 
 				0, 
