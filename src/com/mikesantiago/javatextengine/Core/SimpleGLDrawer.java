@@ -1,11 +1,28 @@
 package com.mikesantiago.javatextengine.Core;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_LINES;
+import static org.lwjgl.opengl.GL11.GL_QUADS;
+import static org.lwjgl.opengl.GL11.GL_REPEAT;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_WRAP_S;
+import static org.lwjgl.opengl.GL11.glBegin;
+import static org.lwjgl.opengl.GL11.glColor4f;
+import static org.lwjgl.opengl.GL11.glDisable;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glEnd;
+import static org.lwjgl.opengl.GL11.glLoadIdentity;
+import static org.lwjgl.opengl.GL11.glTexCoord2f;
+import static org.lwjgl.opengl.GL11.glTexParameterf;
+import static org.lwjgl.opengl.GL11.glTranslatef;
+import static org.lwjgl.opengl.GL11.glVertex2f;
 
-import java.awt.Font;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import org.lwjgl.opengl.Display;
@@ -189,6 +206,7 @@ public class SimpleGLDrawer
 	 */
 	public static void DrawRectangleDarkened(Texture texture, float x, float y, float width, float height)
 	{	
+		
 		texture.bind();
 		glTranslatef(x, y, 0);
 		glColor4f(.5f, .5f, .5f, .5f);
@@ -260,6 +278,46 @@ public class SimpleGLDrawer
 						"The resource '" + path + "' or 'res' folder could not be found!",
 						"Resources (res) Not Found",
 						JOptionPane.ERROR_MESSAGE);
+		}
+		return tex;
+	}
+	
+	/**
+	 * This method is here for internal reference only, it does absolutely nothing of use and should NOT be used.
+	 * @param name
+	 */
+	private static void LoadFromSpriteSheet(String name)
+	{
+		Texture tex = null;
+		InputStream in;
+		try {
+			BufferedImage b = ImageIO.read(ResourceLoader.getResourceAsStream("res/dead-texture.png"));
+			ByteArrayOutputStream os = new ByteArrayOutputStream();
+			ImageIO.write(b, "png", os);
+			in = new ByteArrayInputStream(os.toByteArray());
+			tex = TextureLoader.getTexture("PNG", in);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static Texture LoadFromTextureSheet(TileType type)
+	{
+		Texture tex = null;
+		InputStream in;
+		try {
+			TextureLocation loc = TextureLocation.values()[type.ordinal()];
+			BufferedImage b = ImageIO.read(ResourceLoader.getResourceAsStream("res/default/textures.png")).getSubimage(
+					(int)loc.absLocation.getX(), 
+					(int)loc.absLocation.getY(), 
+					32, 
+					32);
+			ByteArrayOutputStream os = new ByteArrayOutputStream();
+			ImageIO.write(b, "png", os);
+			in = new ByteArrayInputStream(os.toByteArray());
+			tex = TextureLoader.getTexture("PNG", in);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		return tex;
 	}

@@ -3,7 +3,7 @@ package com.mikesantiago.javatextengine.Core;
 public enum TileType {
 	
 	Grass("tile-grass", true), Stone("tile-stone", false),
-	Water("tile-water", true), SpecialTile("placeholder-icon", false),
+	Water("tile-water", true), Dirt("placeholder-icon", false),
 	Air("tile-air", true);
 	
 	

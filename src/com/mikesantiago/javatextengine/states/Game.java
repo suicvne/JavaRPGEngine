@@ -43,8 +43,8 @@ public class Game
 		File tempTilesSave = new File("save/tiles.jte");
 		File tempEntitiesSave = new File("save/entities.jte");
 		
-		this.grid = new TileGrid();
-		this.eGrid = new EntityGrid(grid);
+		grid = new TileGrid();
+		eGrid = new EntityGrid(grid);
 		
 		if(tempTilesSave.exists() == false)
 		{
@@ -65,6 +65,14 @@ public class Game
 		
 		loading = false;
 	}
+	
+	Thread t = new Thread("load-thread")
+	{
+		public void run()
+		{
+			
+		}
+	};
 	
 	private void ExampleData()
 	{

@@ -19,7 +19,8 @@ public class Tile
 		this.width = width;
 		this.height = height;
 		this.type = type;
-		this.texture = SimpleGLDrawer.QuickLoad(type.textureName);
+		this.texture = /*SimpleGLDrawer.QuickLoad(type.textureName);*/
+				SimpleGLDrawer.LoadFromTextureSheet(type);
 		this.isFloorTile = isFloorTile;
 	}
 

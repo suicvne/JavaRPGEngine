@@ -9,6 +9,7 @@ import com.mikesantiago.javatextengine.Core.SimpleGLDrawer;
 import com.mikesantiago.javatextengine.Core.SimpleGLDrawer.FONTSIZE;
 import com.mikesantiago.javatextengine.Core.StateManager.GameState;
 import com.mikesantiago.javatextengine.Core.StateManager;
+import com.mikesantiago.javatextengine.Core.TileType;
 import com.mikesantiago.javatextengine.Core.WindowManager;
 import com.mikesantiago.javatextengine.UI.Button;
 
@@ -19,7 +20,8 @@ public class MainMenu
 	
 	public MainMenu()
 	{
-		bg = SimpleGLDrawer.QuickLoad("tile-stone"); //we'll tile this, like Minecraft does
+		bg = //SimpleGLDrawer.QuickLoad("tile-stone"); //we'll tile this, like Minecraft does
+				SimpleGLDrawer.LoadFromTextureSheet(TileType.Stone);
 		buttons = new Button[3];
 		buttons[0] = new Button("play", "Play", 6*32, 6*32, 8*32, 1*32);
 		buttons[1] = new Button("credits", "Credits", 6*32, 8*32, 8*32, 1*32);
