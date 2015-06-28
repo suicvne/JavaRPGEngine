@@ -52,6 +52,10 @@ public class BasicInputProcessor implements InputProcessor
 			GDX2.maincamera.position.set(newPos);
 			GDX2.maincamera.update();
 		}
+		else if(Gdx.input.isKeyPressed(Keys.SPACE))
+		{
+			GDX2.maincamera.position.set(GDX2.GetBottomLeft()); //reset
+		}
 		return true;
 	}
 
