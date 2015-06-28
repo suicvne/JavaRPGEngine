@@ -26,8 +26,6 @@ public class TileGrid
 				map[x][y] = new Tile(x * 32, y * 32, 32, 32, TileType.Grass, false);
 			}
 		}
-		map[0][0].setType(TileType.Stone);
-		map[0][0].setFloorTile(true);
 		
 		totalWidth = 40 * 32;
 		totalHeight = 40 * 32;
