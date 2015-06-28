@@ -9,11 +9,11 @@ public class TileGrid
 {
 	public Tile[][] map;
 	private ShapeRenderer sr = new ShapeRenderer();
-	
+	private float totalWidth, totalHeight;
 	
 	public TileGrid()
 	{
-		map = new Tile[20][20]; //640x480
+		map = new Tile[40][40]; //640x480
 		for(int x = 0; x < map.length; x++)
 		{
 			for(int y = 0; y < map[x].length; y++)
@@ -23,6 +23,9 @@ public class TileGrid
 		}
 		map[0][0].setType(TileType.Stone);
 		map[0][0].setFloorTile(true);
+		
+		totalWidth = 20 * 32;
+		totalHeight = 20 * 32;
 	}
 	
 	public void Draw(SpriteBatch sb)
@@ -56,9 +59,17 @@ public class TileGrid
 	
 	public void setTile(TileType tile, int tiledX, int tiledY, boolean isFloor)
 	{
-		Tile toSet = map[tiledX][tiledY];
-		toSet.setType(tile);
-		toSet.setFloorTile(isFloor);
+		if(tiledX > map.length - 1 || tiledX < 0 ||
+				tiledY > map[0].length - 1 || tiledY < 0)
+		{
+			System.out.println("tried to place at invalid pos " + tiledX + ", " + tiledY);
+		}
+		else
+		{
+			Tile toSet = map[tiledX][tiledY];
+			toSet.setType(tile);
+			toSet.setFloorTile(isFloor);
+		}
 	}
 	
 	public void setTile(TileType tile, float x, float y, boolean isFloor)
@@ -67,4 +78,7 @@ public class TileGrid
 		toSet.setType(tile);
 		toSet.setFloorTile(isFloor);
 	}
+	
+	public float getTotalWidth() {return totalWidth;}
+	public float getTotalHeight() {return totalHeight;}
 }

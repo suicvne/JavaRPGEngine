@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector3;
 import com.mikesantiago.gdx2.GDX2;
 
 
@@ -50,10 +51,25 @@ public class God
 	
 	public void update()
 	{
-		int tiledX = Gdx.input.getX() / 32;
-		int tiledY = ((GDX2.V_HEIGHT - Gdx.input.getY() - 1) / 32);
-		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.isTouched())
+		mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+		mousePos = GDX2.maincamera.unproject(mousePos);
+		GDX2.maincamera.update();
+		
+		int tiledX = (int)(mousePos.x / 32);
+		int tiledY = (int)(mousePos.y / 32);
+		
+		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT))
 		{
+			/*touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+			
+			float deltaX, deltaY;
+			deltaX = (float)Gdx.input.getDeltaX();
+			deltaY = (float)Gdx.input.getDeltaY();
+			GDX2.maincamera.translate(-deltaX, deltaY, 0);
+			
+			touchPos = GDX2.maincamera.unproject(touchPos);*/ //this code is only useful on android
+			
+			
 			mapCopy.setTile(placeableTiles[TileIndex], tiledX, tiledY, false);
 		}
 		else if(Gdx.input.isButtonPressed(Input.Buttons.RIGHT))
@@ -63,19 +79,30 @@ public class God
 		
 	}
 	
+	Vector3 touchPos = new Vector3(0, 0, 0);
+	Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+	
+	public Vector3 getMousePos() {return mousePos;}
+	
 	public void render(SpriteBatch sb)
 	{
 		update();
+		
+		
 		
 		sb.begin();
 		ShapeRenderer r = new ShapeRenderer();
 		r.setAutoShapeType(true);
 		r.begin();
 		r.setColor(1, 1, 1, 0.5f);
-		r.rect((Gdx.input.getX() / 32) * 32, 
-				((GDX2.V_HEIGHT - Gdx.input.getY() - 1) / 32) * 32, 
-				32f, 
-				32f);
+		/*{
+			r.rect(((Gdx.input.getX() / 32) * 32), 
+					((GDX2.V_HEIGHT - Gdx.input.getY() - 1) / 32) * 32, 
+					32f, 
+					32f);	
+		}*/
+		//r.rect((float)Math.floor((touchPos.x / 32) * 32), (float)Math.floor((touchPos.y / 32) * 32), 32f, 32f);
+		//r.rect((float)(Math.floor(mousePos.x / 32) * 32), (float)(Math.floor((mousePos.y / 32)) * 32), 32f, 32f);
 		r.end();
 		sb.end();
 	}

@@ -1,20 +1,63 @@
 package core;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector3;
 import com.mikesantiago.gdx2.GDX2;
 
 public class BasicInputProcessor implements InputProcessor 
 {
-
 	@Override
-	public boolean keyDown(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean keyDown(int keycode) 
+	{
+		if (Gdx.input.isKeyPressed(Keys.UP)) {
+			Vector3 newPos = GDX2.maincamera.position;
+			if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)
+					|| Gdx.input.isKeyPressed(Keys.SHIFT_RIGHT)) {
+				newPos.y += 16;
+			} else {
+				newPos.y += 8;
+			}
+			GDX2.maincamera.position.set(newPos);
+			GDX2.maincamera.update();
+		} else if (Gdx.input.isKeyPressed(Keys.DOWN)) {
+			Vector3 newPos = GDX2.maincamera.position;
+			if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)
+					|| Gdx.input.isKeyPressed(Keys.SHIFT_RIGHT)) {
+				newPos.y -= 16;
+			} else {
+				newPos.y -= 8;
+			}
+			GDX2.maincamera.position.set(newPos);
+			GDX2.maincamera.update();
+		} else if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+			Vector3 newPos = GDX2.maincamera.position;
+			if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)
+					|| Gdx.input.isKeyPressed(Keys.SHIFT_RIGHT)) {
+				newPos.x -= 16;
+			} else {
+				newPos.x -= 8;
+			}
+			GDX2.maincamera.position.set(newPos);
+			GDX2.maincamera.update();
+		} else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+			Vector3 newPos = GDX2.maincamera.position;
+			if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)
+					|| Gdx.input.isKeyPressed(Keys.SHIFT_RIGHT)) {
+				newPos.x += 16;
+			} else {
+				newPos.x += 8;
+			}
+			GDX2.maincamera.position.set(newPos);
+			GDX2.maincamera.update();
+		}
+		return true;
 	}
 
 	@Override
-	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
+	public boolean keyUp(int keycode) 
+	{
 		return false;
 	}
 
