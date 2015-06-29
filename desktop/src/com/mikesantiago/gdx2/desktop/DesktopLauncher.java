@@ -26,6 +26,11 @@ public class DesktopLauncher
 	
 	public static void main (String[] arg) 
 	{
+		/**
+		 * This should NEVER be kept on. This is simply for debugging purposes
+		 */
+		System.setProperty("org.lwjgl.opengl.Display.allowSoftwareOpenGL", "true");
+		
 		ran.setSeed(System.currentTimeMillis() * ran.nextInt(957823));
 		
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
