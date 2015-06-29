@@ -29,6 +29,8 @@ public class DesktopLauncher
 		GDX2 gameInstance = new GDX2();
 		config.width = 640;
 		config.height = 480;
+		config.foregroundFPS = 60;
+		config.vSyncEnabled = true;
 		config.title = "Java RPG Engine - v0.0.0.1 - " + splash[ran.nextInt(splash.length - 1)];
 		if(config.title.contains("%s"))
 		{

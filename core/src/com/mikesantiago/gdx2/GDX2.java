@@ -149,12 +149,9 @@ public class GDX2 extends ApplicationAdapter
 		
 		Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		
+				
 		sb.setProjectionMatrix(maincamera.combined); //cool
-		
-		
-		
+
 		map.Draw(sb);
 		god.render(sb);
 		

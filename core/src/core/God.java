@@ -85,25 +85,8 @@ public class God
 	public Vector3 getMousePos() {return mousePos;}
 	
 	public void render(SpriteBatch sb)
-	{
-		update();
-		
-		
-		
+	{	
 		sb.begin();
-		ShapeRenderer r = new ShapeRenderer();
-		r.setAutoShapeType(true);
-		r.begin();
-		r.setColor(1, 1, 1, 0.5f);
-		/*{
-			r.rect(((Gdx.input.getX() / 32) * 32), 
-					((GDX2.V_HEIGHT - Gdx.input.getY() - 1) / 32) * 32, 
-					32f, 
-					32f);	
-		}*/
-		//r.rect((float)Math.floor((touchPos.x / 32) * 32), (float)Math.floor((touchPos.y / 32) * 32), 32f, 32f);
-		//r.rect((float)(Math.floor(mousePos.x / 32) * 32), (float)(Math.floor((mousePos.y / 32)) * 32), 32f, 32f);
-		r.end();
 		sb.end();
 	}
 }
