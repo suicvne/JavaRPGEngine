@@ -1,6 +1,8 @@
 package com.mikesantiago.gdx2;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 import org.lwjgl.input.Keyboard;
 
@@ -36,15 +38,28 @@ public class GDX2 extends ApplicationAdapter
 	public static OrthographicCamera maincamera;
 	public static OrthographicCamera hudcam;
 	public static boolean running = true;
-	
+	public static String decodedPath = "";
 	@Override
 	public void create () 
 	{
+		/**
+		 * Get proper paths, mainly for OS X
+		 */
+		String path = GDX2.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+		
+		try {
+			decodedPath = URLDecoder.decode(new File(path).getParentFile().getPath(), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO not that this should fail but u know
+			e.printStackTrace();
+		}
+		
 		System.out.println("spying on user (not really)");
 		if(OSDetection.GetCurrentOSName() == OSType.macosx)
 			System.out.println("game is running on " + OSDetection.GetCurrentOSName() + ", nice choice");
 		else
 			System.out.println("game is running on " + OSDetection.GetCurrentOSName());
+		System.out.println("current directory is " + decodedPath);
 		System.out.println("os is " + System.getProperty("os.arch") + " bit");
 		System.out.println("java version is " + System.getProperty("java.version") + " from " + System.getProperty("java.vendor"));
 		System.out.println("end spy (again, not really)\n\n");
@@ -52,14 +67,14 @@ public class GDX2 extends ApplicationAdapter
 		Keyboard.enableRepeatEvents(true);
 		
 		sb = new SpriteBatch();
-		img = new Texture(new File("res/offscreen.jpg").getAbsolutePath());
+		img = new Texture(new File(decodedPath + "/res/offscreen.jpg").getAbsolutePath());
 		content = new Content();
-		content.loadTexture(new File("res/textures.png").getAbsolutePath(), "global-textures");
+		content.loadTexture(new File(decodedPath + "/res/textures.png").getAbsolutePath(), "global-textures");
 		map = new TileGrid();
 		god = new God(map);
 		bip = new BasicInputProcessor();
 		Gdx.input.setInputProcessor(bip);
-		FileHandle f = new FileHandle(new File("res/ingame-font-small.fnt").getAbsolutePath());
+		FileHandle f = new FileHandle(new File(decodedPath + "/res/ingame-font-small.fnt").getAbsolutePath());
 		bmp = new BitmapFont(f, false);
 		
 		SetupDirs();
@@ -80,7 +95,7 @@ public class GDX2 extends ApplicationAdapter
 	
 	private void TryLoadingSaves()
 	{
-		if(new File("save/test/tiles.jte2").exists() && new File("save/test/tiles.jte2meta").exists())
+		if(new File(decodedPath + "save/test/tiles.jte2").exists() && new File(decodedPath + "save/test/tiles.jte2meta").exists())
 		{
 			map.ReadTileGridInformation();
 		}
@@ -111,8 +126,8 @@ public class GDX2 extends ApplicationAdapter
 	
 	private void SetupDirs()
 	{
-		File saveDir = new File("save");
-		File testSaveDir = new File("save/test");
+		File saveDir = new File(decodedPath + "/save");
+		File testSaveDir = new File(decodedPath + "/save/test");
 		
 		if(!saveDir.exists())
 		{

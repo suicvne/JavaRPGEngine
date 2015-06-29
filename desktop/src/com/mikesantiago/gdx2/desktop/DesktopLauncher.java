@@ -8,6 +8,9 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.mikesantiago.gdx2.GDX2;
 
+import core.OSDetection;
+import core.OSDetection.OSType;
+
 public class DesktopLauncher 
 {
 	private static String[] splash = 
@@ -31,7 +34,7 @@ public class DesktopLauncher
 		config.height = 480;
 		config.foregroundFPS = 60;
 		config.vSyncEnabled = true;
-		config.title = "Java RPG Engine - v0.0.0.1 - " + splash[ran.nextInt(splash.length - 1)];
+		config.title = "Java RPG Engine - v0.0.0.2 - " + splash[ran.nextInt(splash.length - 1)];
 		if(config.title.contains("%s"))
 		{
 			String format = String.format(config.title, splash.length);
@@ -39,8 +42,13 @@ public class DesktopLauncher
 		}
 		try
 		{
-			config.addIcon(new File("res/Icon-128.png").getAbsolutePath(), FileType.Absolute);
-			config.addIcon(new File("res/Icon-32.png").getAbsolutePath(), FileType.Absolute);
+			if(OSDetection.GetCurrentOSName() != OSType.macosx)
+			{
+				config.addIcon(new File("res/Icon-128.png").getAbsolutePath(), FileType.Absolute);
+				config.addIcon(new File("res/Icon-32.png").getAbsolutePath(), FileType.Absolute);
+			}
+			else
+				System.out.println("on os x, not loading icon");
 		}
 		catch(Exception ex)
 		{

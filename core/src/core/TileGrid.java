@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mikesantiago.gdx2.GDX2;
 
 public class TileGrid
 {
@@ -50,7 +51,7 @@ public class TileGrid
 	{
 		try
 		{
-			File tileGridFile = new File("save/test/tiles.jte2");
+			File tileGridFile = new File(GDX2.decodedPath + "/save/test/tiles.jte2");
 			FileWriter writer = new FileWriter(tileGridFile.getAbsolutePath());
 			
 			System.out.println("writing save file to '" + tileGridFile.getAbsolutePath() + "'");
@@ -84,12 +85,13 @@ public class TileGrid
 		catch(Exception ex)
 		{
 			JOptionPane.showMessageDialog(null, ex.getStackTrace().toString(), "An Error Occurred While Trying to Save", JOptionPane.ERROR_MESSAGE);
+			ex.printStackTrace();
 		}
 	}
 	
 	private void WriteMapMetadata()
 	{
-		File metaDataFile = new File("save/test/tiles.jte2meta");
+		File metaDataFile = new File(GDX2.decodedPath + "/save/test/tiles.jte2meta");
 		try
 		{
 			FileWriter writer = new FileWriter(metaDataFile.getAbsolutePath());
@@ -108,7 +110,7 @@ public class TileGrid
 	{
 		System.out.println("reading map metadata..");
 		
-		File tileGridFile = new File("save/test/tiles.jte2meta");
+		File tileGridFile = new File(GDX2.decodedPath + "/save/test/tiles.jte2meta");
 		try 
 		{
 			FileReader reader = new FileReader(tileGridFile.getAbsolutePath());
@@ -149,7 +151,7 @@ public class TileGrid
 		
 		try
 		{
-			File tileGridFile = new File("save/test/tiles.jte2");
+			File tileGridFile = new File(GDX2.decodedPath + "/save/test/tiles.jte2");
 			FileReader reader = new FileReader(tileGridFile.getAbsolutePath());
 			BufferedReader br = new BufferedReader(reader);
 			
