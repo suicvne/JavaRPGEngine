@@ -37,8 +37,15 @@ public class DesktopLauncher
 			String format = String.format(config.title, splash.length);
 			config.title = format;
 		}
-		config.addIcon(new File("res/Icon-128.png").getAbsolutePath(), FileType.Absolute);
-		config.addIcon(new File("res/Icon-32.png").getAbsolutePath(), FileType.Absolute);
+		try
+		{
+			config.addIcon(new File("res/Icon-128.png").getAbsolutePath(), FileType.Absolute);
+			config.addIcon(new File("res/Icon-32.png").getAbsolutePath(), FileType.Absolute);
+		}
+		catch(Exception ex)
+		{
+			System.out.println("icon not found, probably not needed though");
+		}
 		new LwjglApplication(gameInstance, config);
 		
 	}
