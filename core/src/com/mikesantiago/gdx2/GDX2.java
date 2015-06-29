@@ -54,15 +54,7 @@ public class GDX2 extends ApplicationAdapter
 			e.printStackTrace();
 		}
 		
-		System.out.println("spying on user (not really)");
-		if(OSDetection.GetCurrentOSName() == OSType.macosx)
-			System.out.println("game is running on " + OSDetection.GetCurrentOSName() + ", nice choice");
-		else
-			System.out.println("game is running on " + OSDetection.GetCurrentOSName());
 		System.out.println("current directory is " + decodedPath);
-		System.out.println("os is " + System.getProperty("os.arch") + " bit");
-		System.out.println("java version is " + System.getProperty("java.version") + " from " + System.getProperty("java.vendor"));
-		System.out.println("end spy (again, not really)\n\n");
 		
 		Keyboard.enableRepeatEvents(true);
 		
@@ -95,7 +87,7 @@ public class GDX2 extends ApplicationAdapter
 	
 	private void TryLoadingSaves()
 	{
-		if(new File(decodedPath + "save/test/tiles.jte2").exists() && new File(decodedPath + "save/test/tiles.jte2meta").exists())
+		if(new File(decodedPath + "/save/test/tiles.jte2").exists() && new File(decodedPath + "/save/test/tiles.jte2meta").exists())
 		{
 			map.ReadTileGridInformation();
 		}

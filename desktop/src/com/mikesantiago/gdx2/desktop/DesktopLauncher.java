@@ -1,6 +1,7 @@
 package com.mikesantiago.gdx2.desktop;
 
 import java.io.File;
+import java.net.URLDecoder;
 import java.util.Random;
 
 import com.badlogic.gdx.Files.FileType;
@@ -19,7 +20,7 @@ public class DesktopLauncher
 			"There will never be building!", "Joey is fat ;)", "SMBXXX!", "If you've seen these all, you have no life!", "Macs > all",
 			"At least we have splash screens..", "Scott's a hipster but Folsom's a mole rat!", "There's %s of these!", "public Enemy(boolean numberOne){ this.numberOne = true }",
 			"\"What the hell is a footcandle?!\"", "MLG Yearbook", "Not sure if obfuscated", "DADDY!!!!!", Donger.donger, "Tiles by aclyn jen!",
-			"(all they have is just bam nam pado dodi banano nino no)"
+			"(all they have is just bam nam pado dodi banano nino no)", "Tested on Fake Macs!"
 		};
 	
 	private static Random ran = new Random();
@@ -39,7 +40,7 @@ public class DesktopLauncher
 		config.height = 480;
 		config.foregroundFPS = 60;
 		config.vSyncEnabled = true;
-		config.title = "Java RPG Engine - v0.0.0.2 - " + splash[ran.nextInt(splash.length - 1)];
+		config.title = "Java RPG Engine - v0.0.0.4 - " + splash[ran.nextInt(splash.length - 1)];
 		if(config.title.contains("%s"))
 		{
 			String format = String.format(config.title, splash.length);
@@ -47,13 +48,10 @@ public class DesktopLauncher
 		}
 		try
 		{
-			if(OSDetection.GetCurrentOSName() != OSType.macosx)
-			{
-				config.addIcon(new File("res/Icon-128.png").getAbsolutePath(), FileType.Absolute);
-				config.addIcon(new File("res/Icon-32.png").getAbsolutePath(), FileType.Absolute);
-			}
-			else
-				System.out.println("on os x, not loading icon");
+			String path = GDX2.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+			String decodedPath = URLDecoder.decode(new File(path).getParentFile().getPath(), "UTF-8");
+				config.addIcon(new File(decodedPath + "/res/Icon-128.png").getAbsolutePath(), FileType.Absolute);
+				config.addIcon(new File(decodedPath + "/res/Icon-32.png").getAbsolutePath(), FileType.Absolute);
 		}
 		catch(Exception ex)
 		{
