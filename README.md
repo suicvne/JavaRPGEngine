@@ -2,18 +2,7 @@
 A Java based engine using LWJGL for creating RPG games.
 
 # Compiling and running the game (from Eclipse)
-I've created the entire game using the Eclipse IDE, it's probably one of the better Java IDE's and I highly recommend using it. Import the project from this repository or download the zip and import it from there, your choice!
-
-Running the game should be as simple as setting up the configurations, as these aren't synced across repos. 
-
-The following are the current Run Configurations I use.
-
-
-![To run the Editor](http://i.gyazo.com/bc7354af23b7c77d8bb34d5556d0efc2.png)
-
-![To run the Engine in Debug Mode](http://i.gyazo.com/2703f6d20f95552021eb6c4fa2097857.png)
-
-All the required libraries should be included AND the LWJGL natives are linked at runtime, no need to define those in Eclipse.
+Things are a little more complicated since the move to LibGDX, but ultimately it's worth it. The new build instructions are detailed at the Wiki page located [here](https://github.com/Luigifan/JavaRPGEngine/wiki/Importing-the-Project-Into-Eclipse).
 
 #Our "Roadmap"
 
@@ -29,8 +18,8 @@ So this is a largely incomplete list of "what has to be done".
   - [Fixed](https://github.com/Luigifan/JavaRPGEngine/commit/f7f8e19615c2da61f423b9ba15d18cb16a4db9a8)
 - Finding a proper direction :point_right:
 - Editor needs to be...finished to say the least.
-- I need to fix whatever causes LWJGL programs to not run outside of console
-  - This isn't a HUGE concern though, the OS X app will run the jar through a console command the Linux .desktop will do largely the same. Plus, most people will probably run by Jar on command line anyway. Besides, I can make a lazy C# wrapper for the jar anyway.
+- ~~I need to fix whatever causes LWJGL programs to not run outside of console~~
+  - ~~This isn't a HUGE concern though, the OS X app will run the jar through a console command the Linux .desktop will do largely the same. Plus, most people will probably run by Jar on command line anyway. Besides, I can make a lazy C# wrapper for the jar anyway.~~ All fixed since the move to LibGDX master race
 - Proper lighting? Idk 
 - Recreate Legend of Zelda in the engine
 - Sounds need to become a thing
