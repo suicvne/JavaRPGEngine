@@ -64,6 +64,7 @@ public class GDX2 extends ApplicationAdapter
 		img = new Texture(new File(decodedPath + "/res/offscreen.jpg").getAbsolutePath());
 		content = new Content();
 		content.loadTexture(new File(decodedPath + "/res/textures.png").getAbsolutePath(), "global-textures");
+		content.loadTexture(new File(decodedPath + "/res/temp-player.png").getAbsolutePath(), "player");
 		bip = new BasicInputProcessor();
 		Gdx.input.setInputProcessor(bip);
 		FileHandle f = new FileHandle(new File(decodedPath + "/res/ingame-font-small.fnt").getAbsolutePath());

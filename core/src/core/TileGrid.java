@@ -211,6 +211,8 @@ public class TileGrid
 					map[x][y].Draw(sb);
 			}
 		}
+		//render a temp player
+		
 	}
 	
 	public void setTile(TileType tile, int tiledX, int tiledY)
