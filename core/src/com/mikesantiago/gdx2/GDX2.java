@@ -56,6 +56,10 @@ public class GDX2 extends ApplicationAdapter
 		
 		System.out.println("current directory is " + decodedPath);
 		
+		/**
+		 * IMPORTANT: if this line is giving you errors
+		 * Hover over Keyboard->Fix project setup->Add lwjgl.jar to build path of core.
+		 */
 		Keyboard.enableRepeatEvents(true);
 		
 		sb = new SpriteBatch();
