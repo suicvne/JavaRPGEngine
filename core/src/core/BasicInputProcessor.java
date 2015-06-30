@@ -56,6 +56,11 @@ public class BasicInputProcessor implements InputProcessor
 		{
 			GDX2.maincamera.position.set(GDX2.GetBottomLeft()); //reset
 		}
+		else if(Gdx.input.isKeyPressed(Keys.F1))
+		{
+			FullscreenDialog fd = new FullscreenDialog("asdf test", GDX2.sb);
+			fd.render();
+		}
 		return true;
 	}
 
@@ -94,7 +99,7 @@ public class BasicInputProcessor implements InputProcessor
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	
 	@Override
 	public boolean scrolled(int amount) 
 	{

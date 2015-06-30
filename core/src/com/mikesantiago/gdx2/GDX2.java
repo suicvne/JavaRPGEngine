@@ -22,7 +22,7 @@ import core.GameStateManager;
 
 public class GDX2 extends ApplicationAdapter 
 {
-	private SpriteBatch sb;
+	public static SpriteBatch sb;
 	private Texture img;
 	public static Content content;
 	public static final int SCALE = 2;
