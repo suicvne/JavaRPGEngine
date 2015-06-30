@@ -100,12 +100,12 @@ public class BasicInputProcessor implements InputProcessor
 	{
 		if(amount <= -1)
 		{
-			GDX2.god.ChangeTileIndex(1);
+			GDX2.gsm.getEditor().getGod().ChangeTileIndex(1);
 			return true;
 		}
 		else if(amount >= 1)
 		{
-			GDX2.god.ChangeTileIndex(-1);
+			GDX2.gsm.getEditor().getGod().ChangeTileIndex(-1);
 			return true;
 		}
 		else

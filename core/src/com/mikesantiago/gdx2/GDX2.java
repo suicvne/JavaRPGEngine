@@ -18,27 +18,25 @@ import com.badlogic.gdx.math.Vector3;
 
 import core.BasicInputProcessor;
 import core.Content;
-import core.God;
-import core.OSDetection;
-import core.OSDetection.OSType;
-import core.TileGrid;
+import core.GameStateManager;
 
 public class GDX2 extends ApplicationAdapter 
 {
-	SpriteBatch sb;
-	Texture img;
+	private SpriteBatch sb;
+	private Texture img;
 	public static Content content;
 	public static final int SCALE = 2;
 	public static int V_WIDTH = 640;
 	public static int V_HEIGHT = 480;
-	public static God god;
-	private TileGrid map;
+	//
 	private BasicInputProcessor bip;
-	private BitmapFont bmp;
+	public static GameStateManager gsm;
+	public static BitmapFont bmp;
 	public static OrthographicCamera maincamera;
 	public static OrthographicCamera hudcam;
 	public static boolean running = true;
 	public static String decodedPath = "";
+	//
 	@Override
 	public void create () 
 	{
@@ -66,17 +64,13 @@ public class GDX2 extends ApplicationAdapter
 		img = new Texture(new File(decodedPath + "/res/offscreen.jpg").getAbsolutePath());
 		content = new Content();
 		content.loadTexture(new File(decodedPath + "/res/textures.png").getAbsolutePath(), "global-textures");
-		map = new TileGrid();
-		god = new God(map);
 		bip = new BasicInputProcessor();
 		Gdx.input.setInputProcessor(bip);
 		FileHandle f = new FileHandle(new File(decodedPath + "/res/ingame-font-small.fnt").getAbsolutePath());
 		bmp = new BitmapFont(f, false);
+		gsm = new GameStateManager(sb);
 		
 		SetupDirs();
-		
-		TryLoadingSaves();
-		
 		SetupCameras();
 	}
 	
@@ -87,21 +81,6 @@ public class GDX2 extends ApplicationAdapter
 	public static Vector3 GetBottomLeft()
 	{
 		return new Vector3(10 * 32, 7 * 32 + 16, 0);
-	}
-	
-	private void TryLoadingSaves()
-	{
-		if(new File(decodedPath + "/save/test/tiles.jte2").exists() && new File(decodedPath + "/save/test/tiles.jte2meta").exists())
-		{
-			map.ReadTileGridInformation();
-		}
-		else
-			System.out.println("no maps exists and that's alright");
-	}
-	
-	public void TryWritingSaves()
-	{
-		map.WriteTileGridInformation();
 	}
 	
 	private void SetupCameras()
@@ -145,35 +124,16 @@ public class GDX2 extends ApplicationAdapter
 	@Override
 	public void dispose()
 	{
-		TryWritingSaves();
+		gsm.getEditor().TryWritingSaves();
 	}
 	
 	public void update()
 	{
-		god.update();
 	}
 	
 	@Override
 	public void render () 
 	{
-		update();
-		
-		Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-				
-		sb.setProjectionMatrix(maincamera.combined); //cool
-
-		map.Draw(sb);
-		god.render(sb);
-		
-		sb.begin();
-		sb.setProjectionMatrix(hudcam.combined);
-		String debugFormat = String.format("Placing: %s\nTotal World Size: %s x %s\nMouse Position: %s, %s", 
-				god.getCurrentTile(), 
-				map.getTotalWidth(), 
-				map.getTotalHeight(),
-				god.getMousePos().x, god.getMousePos().y);
-		bmp.draw(sb, debugFormat, 0, 480);
-		sb.end();
+		gsm.update();
 	}
 }

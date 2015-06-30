@@ -35,13 +35,13 @@ public class TileGrid
 	public TileGrid(int w, int h)
 	{
 		map = new Tile[w][h];
-		/*for(int x = 0; x < map.length; x++)
+		for(int x = 0; x < map.length; x++)
 		{
 			for(int y = 0; y < map[x].length; y++)
 			{
 				map[x][y] = new Tile(x * 32, y * 32, 32, 32, TileType.Grass, false);
 			}
-		}*/
+		}
 		
 		totalWidth = w * 32;
 		totalHeight = h * 32;
