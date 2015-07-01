@@ -218,7 +218,7 @@ public class TileGrid
 	
 	public Tile getTileAt(float x, float y)
 	{
-		int tx = (int)Math.floor((double)x / 32);
+		int tx = (int)Math.round((double)x / 32);
 		int ty = (int)Math.floor((double)y / 32);
 		
 		if(tx < 0 || ty < 0 || tx > map.length - 1 || ty > map[0].length - 1)
