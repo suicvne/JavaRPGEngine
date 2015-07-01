@@ -29,6 +29,7 @@ public class Player
 	
 	private enum CurDir{UP, DOWN, LEFT, RIGHT}
 	
+	@Deprecated
 	public Player()
 	{
 		Texture totalSheet = GDX2.content.getTexture("player");
@@ -61,33 +62,62 @@ public class Player
 
 	public void update()
 	{
+		boolean checkCollision = false;
 		if(map != null)
 		{
-			//TODO: check you're not off the bounds of the map
+			checkCollision = true;
 		}
 		float dt = Gdx.graphics.getDeltaTime();
 		
 		if(Gdx.input.isKeyPressed(Keys.S))
 		{
 			curDir = CurDir.DOWN;
-			//animation = new Animation(downFrames, 1/4f);
-			y -= 64 * dt;
+			
+			Tile check = map.getTileAt(0, 0);
+			
+			int tx = (int) Math.floor((double)x / 32);
+			int ty = (int) Math.floor((double)y / 32) + 1;
+			
+			check = map.getTileAt(tx, ty - 1);
+			
+			if(check.getType().canPass || check.isFloorTile())
+				y -= 64 * dt;
 		}
 		if(Gdx.input.isKeyPressed(Keys.W))
 		{
 			curDir = CurDir.UP;
-			//animation = new Animation(upFrames, 1/4f);
-			y += 64 * dt;
+			
+			int tx = (int)Math.floor((double)x / 32);
+			int ty = (int)Math.floor((double)y / 32) - 1;
+			
+			Tile check = map.getTileAt(tx, ty + 1);
+			
+			if(check.getType().canPass || check.isFloorTile())
+				y += 64 * dt;
 		}
 		if(Gdx.input.isKeyPressed(Keys.A))
 		{
 			curDir = CurDir.LEFT;
-			x -= 64 * dt;
+			
+			int tx = (int)Math.floor((double)x / 32) - 1;
+			int ty = (int)Math.floor((double)y / 32);
+			
+			Tile check = map.getTileAt(tx - 1, ty);
+			
+			if(check.getType().canPass || check.isFloorTile())
+				x -= 64 * dt;
 		}
 		if(Gdx.input.isKeyPressed(Keys.D))
 		{
 			curDir = CurDir.RIGHT;
-			x += 64 * dt;
+			
+			int tx = (int)Math.floor((double)x / 32) + 1;
+			int ty = (int)Math.floor((double)y / 32);
+			
+			Tile check = map.getTileAt(tx + 1, ty);
+			
+			if(check.getType().canPass || check.isFloorTile())
+				x += 64 * dt;
 		}
 		
 		upAnim.update(dt); //i don't think updating them all hurts that much

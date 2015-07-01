@@ -188,11 +188,33 @@ public class TileGrid
 			}
 			
 			br.close();
+			
+			tempPlayer = new Player(this);
+			this.totalWidth = map.length * 32;
+			this.totalHeight = map[0].length * 32;
 		}
 		catch(Exception ex)
 		{
 			JOptionPane.showMessageDialog(null, ex.getStackTrace().toString(), "An Error Occurred While Trying to Read the Save", JOptionPane.ERROR_MESSAGE);
 		}
+	}
+	
+	public Tile getTileAt(float x, float y)
+	{
+		int tx = (int)Math.floor((double)x / 32);
+		int ty = (int)Math.floor((double)y / 32);
+		
+		return map[tx][ty];
+	}
+	
+	public Tile getTileAt(int tx, int ty)
+	{
+		if(tx < 0 || ty < 0)
+		{
+			Tile t = new Tile(0,0,32,32,TileType.Stone,false);
+			return t;
+		}
+		return map[tx][ty];
 	}
 	
 	public void Draw(SpriteBatch sb)
