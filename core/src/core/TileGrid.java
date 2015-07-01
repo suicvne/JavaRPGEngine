@@ -16,6 +16,7 @@ public class TileGrid
 	public Tile[][] map;
 	private ShapeRenderer sr = new ShapeRenderer();
 	private float totalWidth, totalHeight;
+	private Player tempPlayer = new Player();
 	
 	public TileGrid()
 	{
@@ -212,7 +213,7 @@ public class TileGrid
 			}
 		}
 		//render a temp player
-		
+		tempPlayer.render(sb);
 	}
 	
 	public void setTile(TileType tile, int tiledX, int tiledY)

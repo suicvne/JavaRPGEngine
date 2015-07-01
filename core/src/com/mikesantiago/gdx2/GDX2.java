@@ -130,11 +130,14 @@ public class GDX2 extends ApplicationAdapter
 	
 	public void update()
 	{
+		maincamera.update();
+		//System.out.println("update");
 	}
 	
 	@Override
 	public void render () 
 	{
+		update();
 		gsm.update();
 	}
 }
