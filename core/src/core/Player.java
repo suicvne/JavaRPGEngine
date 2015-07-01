@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.mikesantiago.gdx2.GDX2;
 import com.neet.blockbunny.handlers.Animation;
 
@@ -21,9 +22,12 @@ public class Player
 	private Animation downAnim;
 	private Animation rightAnim;
 	
+	private int movementMod = 8;
+	
 	private TileGrid map;
 	
-	private float x, y = 5 * 32;
+	private float y = 5 * 32;
+	private float x = 5 * 32;
 	
 	private CurDir curDir = CurDir.DOWN;
 	
@@ -62,71 +66,47 @@ public class Player
 
 	public void update()
 	{
-		boolean checkCollision = false;
-		if(map != null)
-		{
-			checkCollision = true;
-		}
 		float dt = Gdx.graphics.getDeltaTime();
+		int targetX = 0;
+		int targetY = 0;
 		
-		if(Gdx.input.isKeyPressed(Keys.S))
-		{
-			curDir = CurDir.DOWN;
-			
-			Tile check = map.getTileAt(0, 0);
-			
-			int tx = (int) Math.floor((double)x / 32);
-			int ty = (int) Math.floor((double)y / 32) + 1;
-			
-			check = map.getTileAt(tx, ty - 1);
-			
-			if(check.getType().canPass || check.isFloorTile())
-				y -= 64 * dt;
-		}
-		if(Gdx.input.isKeyPressed(Keys.W))
-		{
-			curDir = CurDir.UP;
-			
-			int tx = (int)Math.floor((double)x / 32);
-			int ty = (int)Math.floor((double)y / 32) - 1;
-			
-			Tile check = map.getTileAt(tx, ty + 1);
-			
-			if(check.getType().canPass || check.isFloorTile())
-				y += 64 * dt;
-		}
-		if(Gdx.input.isKeyPressed(Keys.A))
-		{
-			curDir = CurDir.LEFT;
-			
-			int tx = (int)Math.floor((double)x / 32) - 1;
-			int ty = (int)Math.floor((double)y / 32);
-			
-			Tile check = map.getTileAt(tx - 1, ty);
-			
-			if(check.getType().canPass || check.isFloorTile())
-				x -= 64 * dt;
-		}
 		if(Gdx.input.isKeyPressed(Keys.D))
 		{
-			curDir = CurDir.RIGHT;
-			
-			int tx = (int)Math.floor((double)x / 32) + 1;
-			int ty = (int)Math.floor((double)y / 32);
-			
-			Tile check = map.getTileAt(tx + 1, ty);
-			
-			if(check.getType().canPass || check.isFloorTile())
+			Tile targetTile = map.getTileAt(x + 32, y);
+			if(targetTile.getType().canPass)
+			{
 				x += 64 * dt;
+				if(x >= targetTile.getX())
+				{
+					x = targetTile.getX();
+				}
+			}
 		}
-		
+		else if(Gdx.input.isKeyPressed(Keys.A))
+		{
+			Tile targetTile = map.getTileAt(x - 32, y);
+			if(targetTile.getType().canPass)
+			{
+				x -= 64 * dt;
+				if(x <= targetTile.getX() - 1)
+					x = targetTile.getX() - 1;
+			}
+		}
+		//
 		upAnim.update(dt); //i don't think updating them all hurts that much
 		downAnim.update(dt);
 		leftAnim.update(dt);
 		rightAnim.update(dt);
-		
+		//last
 		GDX2.maincamera.position.set(x + 16, y, 0);
 		GDX2.maincamera.update();
+	}
+	
+	public Vector2 GetTiledPositions()
+	{
+		int tx = (int)Math.round((double)x/32);
+		int ty = (int)Math.round((double)y/32);
+		return new Vector2(tx, ty);
 	}
 	
 	public void render(SpriteBatch sb)

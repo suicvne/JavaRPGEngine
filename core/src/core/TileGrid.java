@@ -90,6 +90,8 @@ public class TileGrid
 		}
 	}
 	
+	public Player tempPlayer(){return tempPlayer;}
+	
 	private void WriteMapMetadata()
 	{
 		File metaDataFile = new File(GDX2.decodedPath + "/save/test/tiles.jte2meta");
@@ -199,17 +201,38 @@ public class TileGrid
 		}
 	}
 	
+	public Tile getTileAt_offsetLeft(float x, float y)
+	{
+		int tx = (int)Math.floor(x / 32);
+		tx -= 1;
+		int ty = (int)Math.floor(y / 32);
+		
+		if(tx < 0 || ty < 0 || tx > map.length - 1 || ty > map[0].length - 1)
+		{
+			Tile t = new Tile(0,0,32,32,TileType.Stone,false);
+			return t;
+		}
+		
+		return map[tx][ty];
+	}
+	
 	public Tile getTileAt(float x, float y)
 	{
 		int tx = (int)Math.floor((double)x / 32);
 		int ty = (int)Math.floor((double)y / 32);
+		
+		if(tx < 0 || ty < 0 || tx > map.length - 1 || ty > map[0].length - 1)
+		{
+			Tile t = new Tile(0,0,32,32,TileType.Stone,false);
+			return t;
+		}
 		
 		return map[tx][ty];
 	}
 	
 	public Tile getTileAt(int tx, int ty)
 	{
-		if(tx < 0 || ty < 0)
+		if(tx < 0 || ty < 0 || tx > map.length - 1 || ty > map[0].length - 1)
 		{
 			Tile t = new Tile(0,0,32,32,TileType.Stone,false);
 			return t;

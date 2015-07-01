@@ -63,11 +63,11 @@ public class Editor
 		
 		sb.begin();
 		sb.setProjectionMatrix(GDX2.hudcam.combined);
-		String debugFormat = String.format("Placing: %s\nTotal World Size: %s x %s\nMouse Position: %s, %s", 
+		String debugFormat = String.format("Placing: %s\nTotal World Size: %s x %s\nPlayer Position: %s, %s", 
 				god.getCurrentTile(), 
 				map.getTotalWidth(), 
 				map.getTotalHeight(),
-				god.getMousePos().x, god.getMousePos().y);
+				map.tempPlayer().GetTiledPositions().x, map.tempPlayer().GetTiledPositions().y);
 		GDX2.bmp.draw(sb, debugFormat, 0, 480);
 		sb.end();
 	}
