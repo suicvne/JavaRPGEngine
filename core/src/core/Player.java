@@ -67,13 +67,13 @@ public class Player
 	public void update()
 	{
 		float dt = Gdx.graphics.getDeltaTime();
-		int targetX = 0;
-		int targetY = 0;
 		
 		if(Gdx.input.isKeyPressed(Keys.D))
 		{
+			curDir = CurDir.RIGHT;
+			
 			Tile targetTile = map.getTileAt(x + 32, y);
-			if(targetTile.getType().canPass)
+			if(targetTile.getType().canPass || targetTile.isFloorTile())
 			{
 				x += 64 * dt;
 				if(x >= targetTile.getX())
@@ -84,14 +84,41 @@ public class Player
 		}
 		else if(Gdx.input.isKeyPressed(Keys.A))
 		{
-			Tile targetTile = map.getTileAt(x - 32, y);
-			if(targetTile.getType().canPass)
+			curDir = CurDir.LEFT;
+			
+			Tile targetTile = map.getTileAt((int)Math.ceil(x / 32) - 1, (int)Math.floor(y / 32));
+			if(targetTile.getType().canPass || targetTile.isFloorTile())
 			{
 				x -= 64 * dt;
 				if(x <= targetTile.getX() - 1)
-					x = targetTile.getX() - 1;
+					x = targetTile.getX();
 			}
 		}
+		else if(Gdx.input.isKeyPressed(Keys.S))
+		{
+			curDir = CurDir.DOWN;
+			
+			Tile targetTile = map.getTileAt((int)Math.floor(x / 32), (int)Math.ceil(y / 32) - 1);
+			if(targetTile.getType().canPass || targetTile.isFloorTile())
+			{
+				y -= 64 * dt;
+				if(y <= targetTile.getY() - 1)
+					y = targetTile.getY() - 1;
+			}
+		}
+		else if(Gdx.input.isKeyPressed(Keys.W))
+		{
+			curDir = CurDir.UP;
+			
+			Tile targetTile = map.getTileAt(x, y + 32);
+			if(targetTile.getType().canPass || targetTile.isFloorTile())
+			{
+				y += 64 * dt;
+				if(y >= targetTile.getY())
+					y = targetTile.getY();
+			}
+		}
+		
 		//
 		upAnim.update(dt); //i don't think updating them all hurts that much
 		downAnim.update(dt);

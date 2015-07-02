@@ -20,7 +20,7 @@ public class DesktopLauncher
 			"There will never be building!", "Joey is fat ;)", "SMBXXX!", "If you've seen these all, you have no life!", "Macs > all",
 			"At least we have splash screens..", "Scott's a hipster but Folsom's a mole rat!", "There's %s of these!", "public Enemy(boolean numberOne){ this.numberOne = true }",
 			"\"What the hell is a footcandle?!\"", "MLG Yearbook", "Not sure if obfuscated", "DADDY!!!!!", Donger.donger, "Tiles by aclyn jen!",
-			"(all they have is just bam nam pado dodi banano nino no)", "Tested on Fake Macs!"
+			"(all they have is just bam nam pado dodi banano nino no)", "Tested on Fake Macs!", "Now we're thinking with portals!"
 		};
 	
 	private static Random ran = new Random();

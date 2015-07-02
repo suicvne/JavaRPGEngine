@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.mikesantiago.gdx2.GDX2;
 
 public class TileGrid
@@ -218,8 +219,59 @@ public class TileGrid
 	
 	public Tile getTileAt(float x, float y)
 	{
-		int tx = (int)Math.round((double)x / 32);
+		int tx = (int)Math.floor((double)x / 32);
 		int ty = (int)Math.floor((double)y / 32);
+		
+		if(tx < 0 || ty < 0 || tx > map.length - 1 || ty > map[0].length - 1)
+		{
+			Tile t = new Tile(0,0,32,32,TileType.Stone,false);
+			return t;
+		}
+		
+		return map[tx][ty];
+	}
+	
+	public void DrawCollisionRectangles(SpriteBatch sb)
+	{
+		boolean hadToStart = false;
+		ShapeRenderer rend = new ShapeRenderer();
+		
+		if(!sb.isDrawing())
+			{sb.begin(); hadToStart = true;}
+		
+		rend.begin(ShapeType.Filled);
+		rend.setProjectionMatrix(GDX2.maincamera.combined);
+		for(int x = 0; x < map.length; x++)
+		{
+			for(int y = 0; y < map[x].length; y++)
+			{
+				rend.rect(map[x][y].getX() * 32, map[x][y].getY() * 32, 32, 32);	
+			}
+		}
+		
+		rend.end();
+		if(hadToStart)
+			sb.end();
+	}
+	
+	public Tile getTileAt_AutoRoundX(float x, float y)
+	{	
+		int tx = (int)Math.floor((double)x / 32) + 1;
+		int ty = (int)Math.floor((double) y / 32);
+		
+		if(tx < 0 || ty < 0 || tx > map.length - 1 || ty > map[0].length - 1)
+		{
+			Tile t = new Tile(0,0,32,32,TileType.Stone,false);
+			return t;
+		}
+		
+		return map[tx][ty];
+	}
+	
+	public Tile getTileAt_AutoRoundY(float x, float y)
+	{
+		int tx = (int)Math.floor((double)x / 32);
+		int ty = (int)Math.floor((double) y / 32) - 1;
 		
 		if(tx < 0 || ty < 0 || tx > map.length - 1 || ty > map[0].length - 1)
 		{
