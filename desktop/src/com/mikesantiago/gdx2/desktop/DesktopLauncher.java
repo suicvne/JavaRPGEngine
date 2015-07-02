@@ -40,7 +40,7 @@ public class DesktopLauncher
 		config.height = 480;
 		config.foregroundFPS = 60;
 		config.vSyncEnabled = true;
-		config.title = "Java RPG Engine - v0.0.0.4 - " + splash[ran.nextInt(splash.length - 1)];
+		config.title = "Java RPG Engine - v0.0.0.5 - " + splash[ran.nextInt(splash.length - 1)];
 		if(config.title.contains("%s"))
 		{
 			String format = String.format(config.title, splash.length);
