@@ -25,6 +25,16 @@ public class God
 		}
 	}
 	
+	public void setPlacingTile(TileType tile)
+	{
+		for(int i = 0; i < placeableTiles.length; i++)
+		{
+			if(placeableTiles[i] == tile)
+			{
+				TileIndex = i;
+			}
+		}
+	}
 	public TileType getCurrentTile()
 	{
 		return placeableTiles[TileIndex];
