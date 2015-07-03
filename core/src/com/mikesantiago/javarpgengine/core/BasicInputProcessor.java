@@ -1,10 +1,11 @@
-package core;
+package com.mikesantiago.javarpgengine.core;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector3;
-import com.mikesantiago.gdx2.GDX2;
+import com.mikesantiago.javarpgengine.GDX2;
+import com.mikesantiago.javarpgengine.handlers.GlobalVariables;
 
 public class BasicInputProcessor implements InputProcessor 
 {
@@ -12,54 +13,49 @@ public class BasicInputProcessor implements InputProcessor
 	public boolean keyDown(int keycode) 
 	{
 		if (Gdx.input.isKeyPressed(Keys.UP)) {
-			Vector3 newPos = GDX2.maincamera.position;
+			Vector3 newPos = GlobalVariables.maincamera.position;
 			if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)
 					|| Gdx.input.isKeyPressed(Keys.SHIFT_RIGHT)) {
 				newPos.y += 16;
 			} else {
 				newPos.y += 8;
 			}
-			GDX2.maincamera.position.set(newPos);
-			GDX2.maincamera.update();
+			GlobalVariables.maincamera.position.set(newPos);
+			GlobalVariables.maincamera.update();
 		} else if (Gdx.input.isKeyPressed(Keys.DOWN)) {
-			Vector3 newPos = GDX2.maincamera.position;
+			Vector3 newPos = GlobalVariables.maincamera.position;
 			if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)
 					|| Gdx.input.isKeyPressed(Keys.SHIFT_RIGHT)) {
 				newPos.y -= 16;
 			} else {
 				newPos.y -= 8;
 			}
-			GDX2.maincamera.position.set(newPos);
-			GDX2.maincamera.update();
+			GlobalVariables.maincamera.position.set(newPos);
+			GlobalVariables.maincamera.update();
 		} else if (Gdx.input.isKeyPressed(Keys.LEFT)) {
-			Vector3 newPos = GDX2.maincamera.position;
+			Vector3 newPos = GlobalVariables.maincamera.position;
 			if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)
 					|| Gdx.input.isKeyPressed(Keys.SHIFT_RIGHT)) {
 				newPos.x -= 16;
 			} else {
 				newPos.x -= 8;
 			}
-			GDX2.maincamera.position.set(newPos);
-			GDX2.maincamera.update();
+			GlobalVariables.maincamera.position.set(newPos);
+			GlobalVariables.maincamera.update();
 		} else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
-			Vector3 newPos = GDX2.maincamera.position;
+			Vector3 newPos = GlobalVariables.maincamera.position;
 			if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)
 					|| Gdx.input.isKeyPressed(Keys.SHIFT_RIGHT)) {
 				newPos.x += 16;
 			} else {
 				newPos.x += 8;
 			}
-			GDX2.maincamera.position.set(newPos);
-			GDX2.maincamera.update();
+			GlobalVariables.maincamera.position.set(newPos);
+			GlobalVariables.maincamera.update();
 		}
 		else if(Gdx.input.isKeyPressed(Keys.SPACE))
 		{
-			GDX2.maincamera.position.set(GDX2.GetBottomLeft()); //reset
-		}
-		else if(Gdx.input.isKeyPressed(Keys.F1))
-		{
-			FullscreenDialog fd = new FullscreenDialog("asdf test", GDX2.sb);
-			fd.render();
+			GlobalVariables.maincamera.position.set(GDX2.GetBottomLeft()); //reset
 		}
 		return true;
 	}
@@ -105,12 +101,12 @@ public class BasicInputProcessor implements InputProcessor
 	{
 		if(amount <= -1)
 		{
-			GDX2.gsm.getEditor().getGod().ChangeTileIndex(1);
+			GlobalVariables.gsm.getEditor().getGod().ChangeTileIndex(1);
 			return true;
 		}
 		else if(amount >= 1)
 		{
-			GDX2.gsm.getEditor().getGod().ChangeTileIndex(-1);
+			GlobalVariables.gsm.getEditor().getGod().ChangeTileIndex(-1);
 			return true;
 		}
 		else

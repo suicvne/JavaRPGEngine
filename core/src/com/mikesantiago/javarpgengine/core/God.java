@@ -1,12 +1,10 @@
-package core;
+package com.mikesantiago.javarpgengine.core;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
-import com.mikesantiago.gdx2.GDX2;
+import com.mikesantiago.javarpgengine.handlers.GlobalVariables;
 
 
 public class God
@@ -52,8 +50,8 @@ public class God
 	public void update()
 	{
 		mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-		mousePos = GDX2.maincamera.unproject(mousePos);
-		GDX2.maincamera.update();
+		mousePos = GlobalVariables.maincamera.unproject(mousePos);
+		GlobalVariables.maincamera.update();
 		
 		int tiledX = (int)(mousePos.x / 32);
 		int tiledY = (int)(mousePos.y / 32);

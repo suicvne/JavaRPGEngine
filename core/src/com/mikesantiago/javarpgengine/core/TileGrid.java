@@ -1,4 +1,4 @@
-package core;
+package com.mikesantiago.javarpgengine.core;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,7 +10,8 @@ import javax.swing.JOptionPane;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.mikesantiago.gdx2.GDX2;
+import com.mikesantiago.javarpgengine.GDX2;
+import com.mikesantiago.javarpgengine.handlers.GlobalVariables;
 
 public class TileGrid
 {
@@ -53,7 +54,7 @@ public class TileGrid
 	{
 		try
 		{
-			File tileGridFile = new File(GDX2.decodedPath + "/save/test/tiles.jte2");
+			File tileGridFile = new File(GlobalVariables.decodedPath + "/save/test/tiles.jte2");
 			FileWriter writer = new FileWriter(tileGridFile.getAbsolutePath());
 			
 			System.out.println("writing save file to '" + tileGridFile.getAbsolutePath() + "'");
@@ -95,7 +96,7 @@ public class TileGrid
 	
 	private void WriteMapMetadata()
 	{
-		File metaDataFile = new File(GDX2.decodedPath + "/save/test/tiles.jte2meta");
+		File metaDataFile = new File(GlobalVariables.decodedPath + "/save/test/tiles.jte2meta");
 		try
 		{
 			FileWriter writer = new FileWriter(metaDataFile.getAbsolutePath());
@@ -114,7 +115,7 @@ public class TileGrid
 	{
 		System.out.println("reading map metadata..");
 		
-		File tileGridFile = new File(GDX2.decodedPath + "/save/test/tiles.jte2meta");
+		File tileGridFile = new File(GlobalVariables.decodedPath + "/save/test/tiles.jte2meta");
 		try 
 		{
 			FileReader reader = new FileReader(tileGridFile.getAbsolutePath());
@@ -155,7 +156,7 @@ public class TileGrid
 		
 		try
 		{
-			File tileGridFile = new File(GDX2.decodedPath + "/save/test/tiles.jte2");
+			File tileGridFile = new File(GlobalVariables.decodedPath + "/save/test/tiles.jte2");
 			FileReader reader = new FileReader(tileGridFile.getAbsolutePath());
 			BufferedReader br = new BufferedReader(reader);
 			
@@ -240,7 +241,7 @@ public class TileGrid
 			{sb.begin(); hadToStart = true;}
 		
 		rend.begin(ShapeType.Filled);
-		rend.setProjectionMatrix(GDX2.maincamera.combined);
+		rend.setProjectionMatrix(GlobalVariables.maincamera.combined);
 		for(int x = 0; x < map.length; x++)
 		{
 			for(int y = 0; y < map[x].length; y++)

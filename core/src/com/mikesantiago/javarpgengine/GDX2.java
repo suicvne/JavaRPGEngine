@@ -1,6 +1,9 @@
-package com.mikesantiago.gdx2;
+package com.mikesantiago.javarpgengine;
 
 import java.io.File;
+
+import static com.mikesantiago.javarpgengine.handlers.GlobalVariables.*;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
@@ -15,27 +18,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
-
-import core.BasicInputProcessor;
-import core.Content;
-import core.GameStateManager;
+import com.mikesantiago.javarpgengine.core.BasicInputProcessor;
+import com.mikesantiago.javarpgengine.core.Content;
+import com.mikesantiago.javarpgengine.core.GameStateManager;
 
 public class GDX2 extends ApplicationAdapter 
 {
-	public static SpriteBatch sb;
-	private Texture img;
-	public static Content content;
-	public static final int SCALE = 2;
-	public static int V_WIDTH = 640;
-	public static int V_HEIGHT = 480;
+	
 	//
-	private BasicInputProcessor bip;
-	public static GameStateManager gsm;
-	public static BitmapFont bmp;
-	public static OrthographicCamera maincamera;
-	public static OrthographicCamera hudcam;
-	public static boolean running = true;
-	public static String decodedPath = "";
+	
 	//
 	@Override
 	public void create () 
@@ -61,14 +52,13 @@ public class GDX2 extends ApplicationAdapter
 		Keyboard.enableRepeatEvents(true);
 		
 		sb = new SpriteBatch();
-		img = new Texture(new File(decodedPath + "/res/offscreen.jpg").getAbsolutePath());
 		content = new Content();
 		content.loadTexture(new File(decodedPath + "/res/textures.png").getAbsolutePath(), "global-textures");
 		content.loadTexture(new File(decodedPath + "/res/temp-player.png").getAbsolutePath(), "player");
 		bip = new BasicInputProcessor();
 		Gdx.input.setInputProcessor(bip);
 		FileHandle f = new FileHandle(new File(decodedPath + "/res/ingame-font-small.fnt").getAbsolutePath());
-		bmp = new BitmapFont(f, false);
+		bmpFnt = new BitmapFont(f, false);
 		gsm = new GameStateManager(sb);
 		
 		SetupDirs();

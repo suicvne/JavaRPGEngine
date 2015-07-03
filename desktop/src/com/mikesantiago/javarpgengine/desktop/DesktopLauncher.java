@@ -1,4 +1,4 @@
-package com.mikesantiago.gdx2.desktop;
+package com.mikesantiago.javarpgengine.desktop;
 
 import java.io.File;
 import java.net.URLDecoder;
@@ -7,10 +7,9 @@ import java.util.Random;
 import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.mikesantiago.gdx2.GDX2;
-
-import core.OSDetection;
-import core.OSDetection.OSType;
+import com.mikesantiago.javarpgengine.GDX2;
+import com.mikesantiago.javarpgengine.core.OSDetection;
+import com.mikesantiago.javarpgengine.core.OSDetection.OSType;
 
 public class DesktopLauncher 
 {

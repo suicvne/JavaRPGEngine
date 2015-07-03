@@ -1,9 +1,9 @@
-package core;
+package com.mikesantiago.javarpgengine.core;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.mikesantiago.gdx2.GDX2;
+import com.mikesantiago.javarpgengine.handlers.GlobalVariables;
 
 public class Tile
 {
@@ -29,7 +29,7 @@ public class Tile
 	public void Draw(SpriteBatch sb)
 	{
 		TextureRegion[][] reg = 
-				TextureRegion.split(GDX2.content.getTexture("global-textures"), 
+				TextureRegion.split(GlobalVariables.content.getTexture("global-textures"), 
 						32, 
 						32);
 		sb.begin();

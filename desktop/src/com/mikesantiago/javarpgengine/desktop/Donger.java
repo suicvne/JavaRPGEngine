@@ -1,4 +1,4 @@
-package com.mikesantiago.gdx2.desktop;
+package com.mikesantiago.javarpgengine.desktop;
 
 public class Donger 
 {

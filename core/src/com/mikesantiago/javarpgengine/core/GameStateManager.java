@@ -1,8 +1,7 @@
-package core;
+package com.mikesantiago.javarpgengine.core;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
-import states.Editor;
+import com.mikesantiago.javarpgengine.states.Editor;
 
 public class GameStateManager 
 {

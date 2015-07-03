@@ -1,15 +1,15 @@
-package states;
+package com.mikesantiago.javarpgengine.states;
 
 import java.io.File;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mikesantiago.gdx2.GDX2;
-
-import core.BasicInputProcessor;
-import core.God;
-import core.TileGrid;
+import com.mikesantiago.javarpgengine.GDX2;
+import com.mikesantiago.javarpgengine.core.BasicInputProcessor;
+import com.mikesantiago.javarpgengine.core.God;
+import com.mikesantiago.javarpgengine.core.TileGrid;
+import com.mikesantiago.javarpgengine.handlers.GlobalVariables;
 
 public class Editor 
 {
@@ -33,7 +33,7 @@ public class Editor
 	
 	private void TryLoadingSaves()
 	{
-		if(new File(GDX2.decodedPath + "/save/test/tiles.jte2").exists() && new File(GDX2.decodedPath + "/save/test/tiles.jte2meta").exists())
+		if(new File(GlobalVariables.decodedPath + "/save/test/tiles.jte2").exists() && new File(GlobalVariables.decodedPath + "/save/test/tiles.jte2meta").exists())
 		{
 			map.ReadTileGridInformation();
 		}
@@ -56,19 +56,19 @@ public class Editor
 		Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 				
-		sb.setProjectionMatrix(GDX2.maincamera.combined); //cool
+		sb.setProjectionMatrix(GlobalVariables.maincamera.combined); //cool
 
 		map.Draw(sb);
 		god.render(sb);
 		
 		sb.begin();
-		sb.setProjectionMatrix(GDX2.hudcam.combined);
+		sb.setProjectionMatrix(GlobalVariables.hudcam.combined);
 		String debugFormat = String.format("Placing: %s\nTotal World Size: %s x %s\nPlayer Position: %s, %s", 
 				god.getCurrentTile(), 
 				map.getTotalWidth(), 
 				map.getTotalHeight(),
 				map.tempPlayer().GetTiledPositions().x, map.tempPlayer().GetTiledPositions().y);
-		GDX2.bmp.draw(sb, debugFormat, 0, 480);
+		GlobalVariables.bmpFnt.draw(sb, debugFormat, 0, 480);
 		sb.end();
 	}
 

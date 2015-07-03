@@ -1,4 +1,4 @@
-package states;
+package com.mikesantiago.javarpgengine.states;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 

@@ -1,4 +1,4 @@
-package core;
+package com.mikesantiago.javarpgengine.core;
 
 public final class OSDetection
 {

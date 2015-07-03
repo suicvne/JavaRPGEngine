@@ -1,4 +1,4 @@
-package core;
+package com.mikesantiago.javarpgengine.core;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -6,7 +6,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.mikesantiago.gdx2.GDX2;
+import com.mikesantiago.javarpgengine.GDX2;
+import com.mikesantiago.javarpgengine.handlers.GlobalVariables;
 import com.neet.blockbunny.handlers.Animation;
 
 public class Player 
@@ -36,7 +37,7 @@ public class Player
 	@Deprecated
 	public Player()
 	{
-		Texture totalSheet = GDX2.content.getTexture("player");
+		Texture totalSheet = GlobalVariables.content.getTexture("player");
 		
 		this.upFrames = TextureRegion.split(totalSheet, 16, 16)[1];
 		this.downFrames = TextureRegion.split(totalSheet, 16, 16)[0];
@@ -50,7 +51,7 @@ public class Player
 	
 	public Player(TileGrid map)
 	{
-		Texture totalSheet = GDX2.content.getTexture("player");
+		Texture totalSheet = GlobalVariables.content.getTexture("player");
 		
 		this.upFrames = TextureRegion.split(totalSheet, 16, 16)[1];
 		this.downFrames = TextureRegion.split(totalSheet, 16, 16)[0];
@@ -125,8 +126,8 @@ public class Player
 		leftAnim.update(dt);
 		rightAnim.update(dt);
 		//last
-		GDX2.maincamera.position.set(x + 16, y, 0);
-		GDX2.maincamera.update();
+		GlobalVariables.maincamera.position.set(x + 16, y, 0);
+		GlobalVariables.maincamera.update();
 	}
 	
 	public Vector2 GetTiledPositions()
@@ -140,7 +141,7 @@ public class Player
 	{
 		update();
 		
-		sb.setProjectionMatrix(GDX2.maincamera.combined);
+		sb.setProjectionMatrix(GlobalVariables.maincamera.combined);
 		
 		boolean hadToStart = false;
 		if(!sb.isDrawing())
