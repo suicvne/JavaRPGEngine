@@ -92,7 +92,7 @@ public class Player
 			{
 				x -= 64 * dt;
 				if(x <= targetTile.getX() - 1)
-					x = targetTile.getX();
+					x = targetTile.getX() + 1;
 			}
 		}
 		else if(Gdx.input.isKeyPressed(Keys.S))
@@ -104,7 +104,7 @@ public class Player
 			{
 				y -= 64 * dt;
 				if(y <= targetTile.getY() - 1)
-					y = targetTile.getY() - 1;
+					y = targetTile.getY() + 1;
 			}
 		}
 		else if(Gdx.input.isKeyPressed(Keys.W))
