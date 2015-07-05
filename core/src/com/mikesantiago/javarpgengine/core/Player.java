@@ -1,5 +1,7 @@
 package com.mikesantiago.javarpgengine.core;
 
+import java.util.Random;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
@@ -7,12 +9,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.mikesantiago.javarpgengine.GDX2;
+import com.mikesantiago.javarpgengine.core.GameStateManager.GameState;
 import com.mikesantiago.javarpgengine.handlers.GlobalVariables;
 import com.neet.blockbunny.handlers.Animation;
 
 public class Player 
 {
-	private Animation animation;
 	private TextureRegion[] upFrames;
 	private TextureRegion[] downFrames;
 	private TextureRegion[] leftFrames;
@@ -23,8 +25,6 @@ public class Player
 	private Animation downAnim;
 	private Animation rightAnim;
 	
-	private int movementMod = 8;
-	
 	private TileGrid map;
 	
 	private float y = 5 * 32;
@@ -33,6 +33,7 @@ public class Player
 	private CurDir curDir = CurDir.DOWN;
 	
 	private enum CurDir{UP, DOWN, LEFT, RIGHT}
+	private Random random;
 	
 	@Deprecated
 	public Player()
@@ -47,6 +48,8 @@ public class Player
 		downAnim = new Animation(downFrames, 1/4f); //update 4 times a second
 		leftAnim = new Animation(leftFrames, 1/4f); //update 4 times a second
 		rightAnim = new Animation(rightFrames, 1/4f); //update 4 times a second
+		
+		random = new Random(System.nanoTime());
 	}
 	
 	public Player(TileGrid map)
@@ -63,11 +66,14 @@ public class Player
 		rightAnim = new Animation(rightFrames, 1/4f); //update 4 times a second
 		
 		this.map = map;
+		
+		random = new Random(System.nanoTime());
 	}
 
 	public void update()
 	{
 		float dt = Gdx.graphics.getDeltaTime();
+		boolean moved = false;
 		
 		if(Gdx.input.isKeyPressed(Keys.D))
 		{
@@ -81,6 +87,7 @@ public class Player
 				{
 					x = targetTile.getX();
 				}
+				moved = true;
 			}
 		}
 		else if(Gdx.input.isKeyPressed(Keys.A))
@@ -93,6 +100,7 @@ public class Player
 				x -= 64 * dt;
 				if(x <= targetTile.getX() - 1)
 					x = targetTile.getX() + 1;
+				moved = true;
 			}
 		}
 		else if(Gdx.input.isKeyPressed(Keys.S))
@@ -105,6 +113,7 @@ public class Player
 				y -= 64 * dt;
 				if(y <= targetTile.getY() - 1)
 					y = targetTile.getY() + 1;
+				moved = true;
 			}
 		}
 		else if(Gdx.input.isKeyPressed(Keys.W))
@@ -117,9 +126,9 @@ public class Player
 				y += 64 * dt;
 				if(y >= targetTile.getY())
 					y = targetTile.getY();
+				moved = true;
 			}
 		}
-		
 		//
 		upAnim.update(dt); //i don't think updating them all hurts that much
 		downAnim.update(dt);
@@ -128,6 +137,21 @@ public class Player
 		//last
 		GlobalVariables.maincamera.position.set(x + 16, y, 0);
 		GlobalVariables.maincamera.update();
+		
+		//Check to see if an encounter is necessary
+		
+		if(moved)
+		{
+			int one, two;
+			one = random.nextInt(255);
+			two = random.nextInt(255);
+			if(one == two)
+			{
+				GlobalVariables.gsm.ChangeState(GameState.BATTLE);
+				moved = false;
+			}
+		}
+		//
 	}
 	
 	public Vector2 GetTiledPositions()

@@ -52,9 +52,14 @@ public class GDX2 extends ApplicationAdapter
 		Keyboard.enableRepeatEvents(true);
 		
 		sb = new SpriteBatch();
+		//Content loading
 		content = new Content();
 		content.loadTexture(new File(decodedPath + "/res/textures.png").getAbsolutePath(), "global-textures");
 		content.loadTexture(new File(decodedPath + "/res/temp-player.png").getAbsolutePath(), "player");
+		content.loadTexture(new File(decodedPath + "/res/temp-enemy.png").getAbsolutePath(), "enemy");
+		content.loadTexture(new File(decodedPath + "/res/temp-background.png").getAbsolutePath(), "background");
+		content.loadTexture(new File(decodedPath + "/res/temp-player-battle.png").getAbsolutePath(), "player-battle");
+		//
 		bip = new BasicInputProcessor();
 		Gdx.input.setInputProcessor(bip);
 		FileHandle f = new FileHandle(new File(decodedPath + "/res/ingame-font-small.fnt").getAbsolutePath());

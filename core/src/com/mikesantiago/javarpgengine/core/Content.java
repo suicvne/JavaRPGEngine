@@ -14,7 +14,6 @@ public class Content
 		textures = new HashMap<String, Texture>();
 	}
 
-	
 	public void loadTexture(String path, String key)
 	{
 		Texture tex = new Texture(Gdx.files.internal(path));
