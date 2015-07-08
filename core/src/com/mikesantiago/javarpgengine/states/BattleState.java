@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.mikesantiago.javarpgengine.BattleStateEnemies.Enemy;
+import com.mikesantiago.javarpgengine.BattleStateEnemies.EnemyCacodemon;
 import com.mikesantiago.javarpgengine.core.GameStateManager.GameState;
 import com.mikesantiago.javarpgengine.handlers.GlobalVariables;
 
@@ -25,11 +27,12 @@ public class BattleState
 	private int choiceIndex = 0;
 	private int curPlayer = 0; //0-3 value regarding to the current player
 	
+	private Enemy enemy1 = new EnemyCacodemon();
+	
 	public BattleState()
 	{
 		background = GlobalVariables.content.getTexture("background");
 		player = GlobalVariables.content.getTexture("player-battle");
-		enemy = GlobalVariables.content.getTexture("enemy");
 		sr = new ShapeRenderer();
 		sr.setAutoShapeType(true);
 		
@@ -57,13 +60,13 @@ public class BattleState
 			if(Gdx.input.isKeyJustPressed(Keys.UP))
 			{
 				choiceIndex--;
-				if(choiceIndex < battleChoices.size())
+				if(choiceIndex < battleChoices.size() - 1)
 					choiceIndex = 0;
 			}
 			else if(Gdx.input.isKeyJustPressed(Keys.DOWN))
 			{
 				choiceIndex++;
-				if(choiceIndex > battleChoices.size())
+				if(choiceIndex > battleChoices.size() - 1)
 					choiceIndex = 0;
 			}
 		}
@@ -97,7 +100,11 @@ public class BattleState
 	private void RenderCharacters(SpriteBatch sb)
 	{
 		//Enemy on left side
-		sb.draw(enemy, 120, 360, enemy.getWidth() * 2, enemy.getHeight() * 2);
+		sb.draw(enemy1.getEnemyBattleTexture(), 
+				120, 
+				360, 
+				enemy1.getEnemyBattleTexture().getWidth() * 2, 
+				enemy1.getEnemyBattleTexture().getHeight() * 2);
 		//Player on right side
 		sb.draw(player, 480, 360, 16 * 2, 24 * 2);
 	}
@@ -133,7 +140,10 @@ public class BattleState
 		//y - 16 - last member
 		GlobalVariables.bmpFnt.draw(sb, "Kain - 60/60", 640 - (640 * .35f) + 8, 110);
 		//TODO: render enemy status on left
-		GlobalVariables.bmpFnt.draw(sb, "Cachodemon - 125/125", 8, 110);
+		GlobalVariables.bmpFnt.draw(sb, 
+				String.format("%s - %s/%s", enemy1.getName(), enemy1.getCurHealth(), enemy1.getMaxHealth()), 
+				8, 
+				110);
 		
 		if(menuOpen)
 		{

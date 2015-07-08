@@ -35,6 +35,8 @@ public class Player
 	private enum CurDir{UP, DOWN, LEFT, RIGHT}
 	private Random random;
 	
+	private BattlePlayer battlePlayer;
+	
 	@Deprecated
 	public Player()
 	{
@@ -50,7 +52,11 @@ public class Player
 		rightAnim = new Animation(rightFrames, 1/4f); //update 4 times a second
 		
 		random = new Random(System.nanoTime());
+		
+		battlePlayer = new BattlePlayer(60, new String[]{"Sword", "Shoot"}, "Kain", GlobalVariables.content.getTexture("player-battle"));
 	}
+	
+	public BattlePlayer getBattlePlayer(){return this.battlePlayer;}
 	
 	public Player(TileGrid map)
 	{
